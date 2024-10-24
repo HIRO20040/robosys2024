@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-#SPDX-FileCopyrightText: 2024 Ohmatsu Hiroaki
+#SPDX-FileCopyrightText: 2024 Hiroaki Ohmatsu
+# SPDX-License-Identifier: BSD-3-Clause
 import sys
 
 ans = 0.0
