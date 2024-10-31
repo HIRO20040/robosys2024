@@ -1,14 +1,17 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2024 Hiroaki Ohmatsu 　　　　　
+# SPDX-License-Identifier: GPL-3.0-only
 
 ng () {
-	echo うん、なるほどね。${1}行目違う！
+	echo ${1}行目違う！
 	res=1
 }
 
 
 res=0
-a=山田
-[ "$a" = 上田 ] || ng "$LINENO"
-[ "$a" = 山田 ] || ng "$LINENO"
 
+out=$(seq 5 | ./plus)
+[ "${out}" = 15.0 ] || ng "$LINENO"
+
+[ "${res}" = 0 ] && echo OK 
 exit $res
