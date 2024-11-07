@@ -14,7 +14,6 @@
 - Ubuntu 24.04 LTS
 
 
-© 2024 Hiroaki Ohmatsu
 
 
 
