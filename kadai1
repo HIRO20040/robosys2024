@@ -10,10 +10,13 @@ name = ["天才肌", "リーダー気質", "努力家", "チャレンジ精神�
 try:
     number = input("1~5のうち好きな数字を打ち込んでください: ")
     number = int(number)
-    if number >= 6:
+    if number < 1 or number > 5:
         print("1から5のうちにしてください")
+        sys.exit(1)
 except ValueError:
     print("数字にしてください")
+    sys.exit(1)
+
 
 if number == 1:
     print("1を選んだあなたは、{}!".format(random.choice(name)))
