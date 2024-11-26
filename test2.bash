@@ -45,5 +45,5 @@ fi
 
 [ "$res" = 0 ] && echo OK
 exit $res
-
++ exit 0
 
