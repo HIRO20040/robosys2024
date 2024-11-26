@@ -13,19 +13,19 @@
 
 
 ## 使い方
+
 - 実行方法の例
-　
-  python3 hello.py
+
+ `python3 hello.py`
  
 
 
 ## サンプル
 
 - サンプルコード
-
-  print("hello")
-  print(3.14)
-
+   
+  `print("hello")`
+  
 
 
 
