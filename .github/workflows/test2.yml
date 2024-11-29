@@ -1,7 +1,7 @@
 name: test2
 on: push
 jobs:
-  test:
+  test2:
     runs-on: ubuntu-latest
      strategy:
       matrix:
