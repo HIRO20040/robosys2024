@@ -27,30 +27,35 @@
 
 - サンプルコード
    
-   import sys
+    import sys
 
-
-   x = [float(n) for n in sys.stdin.read().split()]
-
-
-   x.sort()
-
-   n = len(x)
-
-   if n == 1:
-       
-       median = x[0]
-
-   elif n % 2 == 1:
-      
-       median = x[n // 2]
    
-   else:
-       
-       median = (x[n // 2 - 1] + x[n // 2]) / 2
+    x = [float(n) for n in sys.stdin.read().split()]
 
-   print(median)
+
+    x.sort()
+   
+
+    n = len(x)
+   
+
+    if n == 1:
+       
+        median = x[0]
+
+    elif n % 2 == 1:
+      
+        median = x[n // 2]
+   
+    else:
+       
+        median = (x[n // 2 - 1] + x[n // 2]) / 2
+
+   
+    print(median)
   
+
+
 - 実行方法
 　
   - 例1：1から5までの数字の中央値を求める場合
@@ -63,11 +68,11 @@
 
 - 出力
 
- - 例1の場合
+  - 例1の場合
 　
 　 3.0
 
- - 例2の場合
+  - 例2の場合
 　
 　 5.0
 
