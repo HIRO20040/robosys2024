@@ -27,7 +27,7 @@
 
 - サンプルコード
    
-    import sys
+ ```import sys```
 
    
     x = [float(n) for n in sys.stdin.read().split()]
@@ -53,6 +53,7 @@
 
    
     print(median)
+    
   
 
 
