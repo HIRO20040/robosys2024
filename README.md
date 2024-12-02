@@ -27,7 +27,7 @@
 
 - サンプルコード
    
-  `import sys
+   import sys
 
 
    x = [float(n) for n in sys.stdin.read().split()]
@@ -45,7 +45,7 @@
    else:
        median = (x[n // 2 - 1] + x[n // 2]) / 2
 
-   print(median)`
+   print(median)
   
 - 実行方法
 　
@@ -55,7 +55,8 @@
   
   - 例1：1 5 4 6 8　のランダムな順番の数字の並びの中央値を求める場合
 　
-　`echo 1 5 4 6 8 | ./median`
+　
+  `echo 1 5 4 6 8 | ./median`
 
 - 出力
 
