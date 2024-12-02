@@ -1,6 +1,6 @@
 #!/bin/bash -xv
 # SPDX-FileCopyrightText: 2024 Hiroaki Ohmatsu
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: BSD-3-Clause
 
 ng () {
 	echo ${1}行目が違う
@@ -9,41 +9,19 @@ ng () {
 
 res=0
 
-out=$(echo "6"  | ./kadai1)
+out=$(seq 1 5 | ./median)
+[ "${out}" = 3.0 ]  || ng "$LINENO"
 
-exit_code=$?
-echo "Python スクリプトの終了コード: $exit_code"
 
-if [ "$exit_code" -eq 1 ]; then
-    echo "エラー発生: 正常にエラーが発生しました"
-else
-    echo "正常終了"
-fi
+out=$(echo あ | ./median)
+[ "$?" = 1 ]      || ng "$LINENO"
+[ "${out}" = "" ] || ng "$LINENO"
 
-    
-out=$(echo "abc" | ./kadai1)
-
-exit_code=$?
-echo "Python スクリプトの終了コード: $exit_code"
-
-if [ "$exit_code" -eq 1 ]; then
-    echo "エラー発生: 正常にエラーが発生しました"
-else
-    echo "正常終了"
-fi
-
-out=$(echo  | ./kadai1)
-
-exit_code=$?
-echo "Python スクリプトの終了コード: $exit_code"
-
-if [ "$exit_code" -eq 1 ]; then
-    echo "エラー発生: 正常にエラーが発生しました"
-else
-    echo "正常終了"
-fi
+out=$(echo | ./median)
+[ "$?" = 1 ]      || ng "$LINENO"
+[ "${out}" = "" ] || ng "$LINENO"
 
 [ "$res" = 0 ] && echo OK
 exit $res
-+ exit 0
+
 
