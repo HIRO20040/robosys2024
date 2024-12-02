@@ -38,11 +38,15 @@
    n = len(x)
 
    if n == 1:
+       
        median = x[0]
 
    elif n % 2 == 1:
+      
        median = x[n // 2]
+   
    else:
+       
        median = (x[n // 2 - 1] + x[n // 2]) / 2
 
    print(median)
