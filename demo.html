@@ -787,14 +787,19 @@ function regenSchedule(){
   const btn = document.querySelector('.btn-gold');
   if(btn){ btn.textContent='⏳ 生成中...'; btn.disabled=true; btn.style.opacity='0.6'; }
   setTimeout(()=>{
-    xp=0; combo=0;
-    restoreLifeForm();
-    buildScheduleLocal();
-    saveSchedule();
-    renderAll();
-    if(btn){ btn.textContent='🔄 今日のスケジュールを再生成'; btn.disabled=false; btn.style.opacity=''; }
-    pushN('🔄','<b class="g">REGENERATED</b>スケジュールを再生成しました');
-    switchTab('sch', document.getElementById('tabSch'));
+    try{
+      xp=0; combo=0;
+      buildScheduleLocal();
+      saveSchedule();
+      renderAll();
+      pushN('🔄','<b class="g">REGENERATED</b>スケジュールを再生成しました');
+      switchTab('sch', document.getElementById('tabSch'));
+    }catch(e){
+      console.error(e);
+      pushN('⚠️','<b class="y">ERROR</b>再生成に失敗しました');
+    }finally{
+      if(btn){ btn.textContent='🔄 今日のスケジュールを再生成'; btn.disabled=false; btn.style.opacity=''; }
+    }
   }, 400);
 }
 
@@ -1017,7 +1022,7 @@ function switchTab(t,el){
   document.getElementById('misPanel').classList.toggle('visible',t==='mis');
   document.getElementById('tmPanel').classList.toggle('visible3',t==='tm');
   document.getElementById('histPanel').classList.toggle('visible4',t==='hist');
-  document.getElementById('pomoPanel').classList.toggle('open', t==='sch' && document.getElementById('pomoPanel').classList.contains('open'));
+  // ポモドーロはタブ移動で閉じない（タイマー継続のため）
   if(t==='tm') renderTmList();
   if(t==='hist') renderHistoryTab();
 }
