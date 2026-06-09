@@ -784,13 +784,18 @@ function openApiModal(){
 function regenSchedule(){
   const hasDone = schedule.some(b=>b.done);
   if(hasDone && !confirm('完了済みセッションがリセットされます。再生成しますか？')) return;
-  xp=0; combo=0;
-  restoreLifeForm();
-  buildScheduleLocal();
-  saveSchedule();
-  renderAll();
-  pushN('🔄','<b class="g">REGENERATED</b>スケジュールを再生成しました');
-  switchTab('sch', document.getElementById('tabSch'));
+  const btn = document.querySelector('.btn-gold');
+  if(btn){ btn.textContent='⏳ 生成中...'; btn.disabled=true; btn.style.opacity='0.6'; }
+  setTimeout(()=>{
+    xp=0; combo=0;
+    restoreLifeForm();
+    buildScheduleLocal();
+    saveSchedule();
+    renderAll();
+    if(btn){ btn.textContent='🔄 今日のスケジュールを再生成'; btn.disabled=false; btn.style.opacity=''; }
+    pushN('🔄','<b class="g">REGENERATED</b>スケジュールを再生成しました');
+    switchTab('sch', document.getElementById('tabSch'));
+  }, 400);
 }
 
 function startGenerate(useApi){
@@ -862,8 +867,12 @@ function buildScheduleLocal(){
     const base=[];
     const sorted=[...tasks.filter(t=>t.name.trim())].sort((a,b)=>({S:0,A:1,B:2}[a.priority]-{S:0,A:1,B:2}[b.priority]));
     sorted.forEach(t=>{
-      const n=Math.ceil(t.duration/60);
-      for(let i=0;i<n;i++) base.push({name:n>1?`${t.name} — Part ${i+1}`:t.name,priority:t.priority,taskName:t.name,isRepeat:forFill});
+      const sessionDur = Math.min(t.duration, 60); // 60分以下はその時間、60分超は60分で分割
+      const n = Math.ceil(t.duration / sessionDur);
+      for(let i=0;i<n;i++){
+        const dur = (i===n-1 && t.duration%sessionDur!==0) ? t.duration%sessionDur : sessionDur;
+        base.push({name:n>1?`${t.name} — Part ${i+1}`:t.name,priority:t.priority,taskName:t.name,isRepeat:forFill,dur});
+      }
     });
     return base;
   }
@@ -886,21 +895,25 @@ function buildScheduleLocal(){
 
   // place initial sessions
   while(cur<cutoff&&si<initialSessions.length){
-    const conflict=all.find(b=>b.start<cur+60&&b.end>cur);
+    const s=initialSessions[si];
+    const dur=s.dur||60;
+    const conflict=all.find(b=>b.start<cur+dur&&b.end>cur);
     if(conflict){cur=conflict.end+(buf>0?buf:0);continue;}
-    const s=initialSessions[si++];
-    all.push({time:toS(cur),dur:60,type:'task',name:s.name,priority:s.priority,taskName:s.taskName,isRepeat:false,start:cur,end:cur+60,done:false,amount:'',note:''});
-    cur+=60+(buf>0?buf:0);
+    si++;
+    all.push({time:toS(cur),dur,type:'task',name:s.name,priority:s.priority,taskName:s.taskName,isRepeat:false,start:cur,end:cur+dur,done:false,amount:'',note:''});
+    cur+=dur+(buf>0?buf:0);
   }
 
   // fill remaining slots with repeat sessions (priority order S>A>B, interleaved)
   const repeatPool=interleave(makeSessions(true));
   let ri=0;
   while(cur<cutoff&&repeatPool.length>0){
-    const conflict=all.find(b=>b.start<cur+60&&b.end>cur);
+    const s=repeatPool[ri%repeatPool.length];
+    const dur=s.dur||60;
+    const conflict=all.find(b=>b.start<cur+dur&&b.end>cur);
     if(conflict){cur=conflict.end+(buf>0?buf:0);continue;}
-    const s=repeatPool[ri%repeatPool.length]; ri++;
-    all.push({time:toS(cur),dur:60,type:'task',name:s.name+' (追加)',priority:s.priority,taskName:s.taskName,isRepeat:true,start:cur,end:cur+60,done:false,amount:'',note:''});
+    ri++;
+    all.push({time:toS(cur),dur,type:'task',name:s.name+' (追加)',priority:s.priority,taskName:s.taskName,isRepeat:true,start:cur,end:cur+dur,done:false,amount:'',note:''});
     cur+=60+(buf>0?buf:0);
     if(ri>100) break; // safety
   }
