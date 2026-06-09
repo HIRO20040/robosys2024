@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DayQuest - Demo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #0f1626;
+    --panel: #131d35;
+    --panel2: #1a2540;
+    --accent: #00d4ff;
+    --accent2: #7b5ea7;
+    --gold: #f5c518;
+    --green: #00ff9d;
+    --red: #ff4757;
+    --text: #e0e8ff;
+    --text2: #8899bb;
+    --border: #1e3060;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 28px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(0,212,255,0.5);
+  }
+  .logo span { color: var(--gold); }
+
+  .date-badge {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    color: var(--text2);
+    letter-spacing: 2px;
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    padding: 16px 28px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+  .tab {
+    padding: 10px 28px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text2);
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .tab.active {
+    background: var(--panel);
+    color: var(--accent);
+    border-color: var(--border);
+    border-bottom: 2px solid var(--accent);
+  }
+
+  /* ── LAYOUT ── */
+  .main { display: flex; height: calc(100vh - 103px); }
+
+  /* ── SCHEDULE PANEL ── */
+  .schedule-panel {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 28px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text2);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 52px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border) 10%, var(--border) 90%, transparent);
+  }
+
+  .time-block {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 6px;
+    align-items: stretch;
+  }
+
+  .time-label {
+    width: 44px;
+    text-align: right;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    color: var(--text2);
+    letter-spacing: 1px;
+    padding-top: 14px;
+    flex-shrink: 0;
+  }
+
+  .time-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    margin-top: 18px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .time-dot.active { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+  .time-dot.done { background: var(--green); }
+
+  .block-card {
+    flex: 1;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .block-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+  .block-card.task::before { background: var(--accent); }
+  .block-card.meal::before { background: var(--gold); }
+  .block-card.rest::before { background: var(--accent2); }
+  .block-card.exercise::before { background: var(--green); }
+  .block-card.free::before { background: var(--text2); }
+  .block-card.active-now {
+    border-color: var(--accent);
+    background: var(--panel2);
+    box-shadow: 0 0 20px rgba(0,212,255,0.1);
+  }
+  .block-card.done { opacity: 0.45; }
+
+  .block-header { display: flex; align-items: center; justify-content: space-between; }
+  .block-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .block-tag {
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+  }
+  .tag-task { background: rgba(0,212,255,0.15); color: var(--accent); }
+  .tag-meal { background: rgba(245,197,24,0.15); color: var(--gold); }
+  .tag-rest { background: rgba(123,94,167,0.15); color: var(--accent2); }
+  .tag-exercise { background: rgba(0,255,157,0.15); color: var(--green); }
+  .tag-free { background: rgba(136,153,187,0.15); color: var(--text2); }
+
+  .block-duration {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 4px;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 1px;
+  }
+
+  .start-btn {
+    margin-top: 10px;
+    padding: 7px 20px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .start-btn:hover { background: var(--accent); color: var(--bg); }
+
+  /* ── POMODORO WIDGET ── */
+  .pomodoro-widget {
+    width: 300px;
+    background: var(--bg2);
+    border-left: 1px solid var(--border);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pomo-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text2);
+    text-transform: uppercase;
+  }
+
+  .pomo-task-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  .pomo-ring {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+  }
+  .pomo-ring svg { transform: rotate(-90deg); }
+  .pomo-ring circle.bg {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 6;
+  }
+  .pomo-ring circle.progress {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 440;
+    stroke-dashoffset: 110;
+    filter: drop-shadow(0 0 8px var(--accent));
+    transition: stroke-dashoffset 1s linear;
+  }
+  .pomo-time {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .pomo-sub {
+    position: absolute;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .pomo-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  .pomo-btn {
+    padding: 8px 20px;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pomo-btn.primary { background: var(--accent); color: var(--bg); }
+  .pomo-btn:hover { opacity: 0.8; }
+
+  .pomo-sets {
+    text-align: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    color: var(--text2);
+    letter-spacing: 2px;
+  }
+  .pomo-sets span { color: var(--accent); font-weight: 700; }
+
+  .xp-bar-wrap {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+  }
+  .xp-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    color: var(--text2);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .xp-label span { color: var(--gold); font-weight: 700; }
+  .xp-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .xp-fill {
+    height: 100%;
+    width: 62%;
+    background: linear-gradient(to right, var(--gold), #ffaa00);
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(245,197,24,0.4);
+  }
+
+  /* ── NOTIFICATION ── */
+  .notification {
+    position: fixed;
+    top: 80px; right: 24px;
+    background: var(--panel2);
+    border: 1px solid var(--green);
+    border-radius: 8px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 0 30px rgba(0,255,157,0.2);
+    z-index: 200;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .notif-icon { font-size: 22px; }
+  .notif-text { font-family: 'Rajdhani', sans-serif; font-size: 14px; letter-spacing: 1px; }
+  .notif-text strong { color: var(--green); display: block; font-size: 16px; }
+
+  /* ── MISSION TAB ── */
+  .mission-panel {
+    display: none;
+    flex: 1;
+    padding: 24px 28px;
+    overflow-y: auto;
+  }
+  .mission-panel.visible { display: block; }
+  .schedule-panel.hidden { display: none; }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .mission-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .mission-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .mission-card.done { opacity: 0.4; }
+
+  .mission-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top right, rgba(0,212,255,0.08), transparent 70%);
+  }
+
+  .mission-priority {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .priority-s { background: rgba(255,71,87,0.2); color: var(--red); border: 1px solid var(--red); }
+  .priority-a { background: rgba(245,197,24,0.15); color: var(--gold); border: 1px solid var(--gold); }
+  .priority-b { background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid var(--accent); }
+
+  .mission-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .mission-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .mission-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    color: var(--text2);
+    letter-spacing: 1px;
+  }
+  .mission-progress {
+    margin-top: 12px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+  .mission-progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(to right, var(--accent), var(--accent2));
+  }
+
+  .complete-badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    font-size: 20px;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- NOTIFICATION -->
+<div class="notification">
+  <div class="notif-icon">⚔️</div>
+  <div class="notif-text">
+    <strong>MISSION COMPLETE</strong>
+    数学レポート — Chapter 1 完了
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">DAY<span>QUEST</span></div>
+  <div class="date-badge">2026.06.08 &nbsp;|&nbsp; MON &nbsp;|&nbsp; DAY 47</div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--gold);letter-spacing:1px;">LV.12 &nbsp;⬡ 1,240 XP</div>
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px;">⚡</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('schedule',this)">📅 スケジュール</div>
+  <div class="tab" onclick="switchTab('mission',this)">⚔️ ミッション</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SCHEDULE -->
+  <div class="schedule-panel" id="schedulePanel">
+    <div class="section-title">— TODAY'S TIMELINE —</div>
+    <div class="timeline">
+
+      <div class="time-block">
+        <div class="time-label">07:00</div>
+        <div class="time-dot done"></div>
+        <div class="block-card rest done">
+          <div class="block-header">
+            <div class="block-name">起床 / 朝の準備</div>
+            <div class="block-tag tag-rest">REST</div>
+          </div>
+          <div class="block-duration">07:00 – 07:30 &nbsp;·&nbsp; 30 min</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-label">07:30</div>
+        <div class="time-dot done"></div>
+        <div class="block-card exercise done">
+          <div class="block-header">
+            <div class="block-name">朝の運動</div>
+            <div class="block-tag tag-exercise">EXERCISE</div>
+          </div>
+          <div class="block-duration">07:30 – 08:00 &nbsp;·&nbsp; 30 min</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-label">08:00</div>
+        <div class="time-dot done"></div>
+        <div class="block-card meal done">
+          <div class="block-header">
+            <div class="block-name">朝食</div>
+            <div class="block-tag tag-meal">MEAL</div>
+          </div>
+          <div class="block-duration">08:00 – 08:30 &nbsp;·&nbsp; 30 min</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-label">09:00</div>
+        <div class="time-dot active"></div>
+        <div class="block-card task active-now">
+          <div class="block-header">
+            <div class="block-name">数学レポート — Chapter 1</div>
+            <div class="block-tag tag-task">TASK</div>
+          </div>
+          <div class="block-duration">09:00 – 10:00 &nbsp;·&nbsp; 1h &nbsp;🔥 優先度 S</div>
+          <button class="start-btn">▶ START SESSION</button>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-label">10:00</div>
+        <div class="time-dot"></div>
+        <div class="block-card free">
+          <div class="block-header">
+            <div class="block-name">バッファ / 休憩</div>
+            <div class="block-tag tag-free">FREE</div>
+          </div>
+          <div class="block-duration">10:00 – 10:30 &nbsp;·&nbsp; 30 min</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-label">10:30</div>
+        <div class="time-dot"></div>
+        <div class="block-card task">
+          <div class="block-header">
+            <div class="block-name">英語プレゼン準備 — スライド作成</div>
+            <div class="block-tag tag-task">TASK</div>
+          </div>
+          <div class="block-duration">10:30 – 11:30 &nbsp;·&nbsp; 1h &nbsp;⚡ 優先度 A</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-label">12:00</div>
+        <div class="time-dot"></div>
+        <div class="block-card meal">
+          <div class="block-header">
+            <div class="block-name">昼食</div>
+            <div class="block-tag tag-meal">MEAL</div>
+          </div>
+          <div class="block-duration">12:00 – 13:00 &nbsp;·&nbsp; 1h</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-label">13:00</div>
+        <div class="time-dot"></div>
+        <div class="block-card task">
+          <div class="block-header">
+            <div class="block-name">数学レポート — Chapter 2</div>
+            <div class="block-tag tag-task">TASK</div>
+          </div>
+          <div class="block-duration">13:00 – 14:00 &nbsp;·&nbsp; 1h &nbsp;🔥 優先度 S</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-label">22:30</div>
+        <div class="time-dot"></div>
+        <div class="block-card rest">
+          <div class="block-header">
+            <div class="block-name">入浴 / 就寝準備</div>
+            <div class="block-tag tag-rest">REST</div>
+          </div>
+          <div class="block-duration">22:30 – 23:30 &nbsp;·&nbsp; 1h</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-label">23:30</div>
+        <div class="time-dot"></div>
+        <div class="block-card rest">
+          <div class="block-header">
+            <div class="block-name">睡眠</div>
+            <div class="block-tag tag-rest">SLEEP</div>
+          </div>
+          <div class="block-duration">23:30 – 07:00 &nbsp;·&nbsp; 7h 30min</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MISSION PANEL -->
+  <div class="mission-panel" id="missionPanel">
+    <div class="section-title">— ACTIVE MISSIONS —</div>
+    <div class="mission-grid">
+
+      <div class="mission-card">
+        <div class="mission-priority priority-s">S RANK</div>
+        <div class="mission-name">数学レポート</div>
+        <div class="mission-desc">微積分の章末問題をまとめてレポートにする。Chapter 1〜3 全て完了が目標。</div>
+        <div class="mission-meta">
+          <span>⏱ 3h 予定</span>
+          <span>📅 締切: 06/10</span>
+        </div>
+        <div class="mission-progress"><div class="mission-progress-fill" style="width:33%"></div></div>
+        <div style="font-size:11px;color:var(--text2);font-family:'Rajdhani',sans-serif;margin-top:6px;letter-spacing:1px;">1 / 3 セッション完了</div>
+      </div>
+
+      <div class="mission-card">
+        <div class="mission-priority priority-a">A RANK</div>
+        <div class="mission-name">英語プレゼン準備</div>
+        <div class="mission-desc">来週の授業発表に向けてスライドと原稿を完成させる。</div>
+        <div class="mission-meta">
+          <span>⏱ 2h 予定</span>
+          <span>📅 締切: 06/12</span>
+        </div>
+        <div class="mission-progress"><div class="mission-progress-fill" style="width:0%"></div></div>
+        <div style="font-size:11px;color:var(--text2);font-family:'Rajdhani',sans-serif;margin-top:6px;letter-spacing:1px;">0 / 2 セッション完了</div>
+      </div>
+
+      <div class="mission-card">
+        <div class="mission-priority priority-b">B RANK</div>
+        <div class="mission-name">プログラミング課題</div>
+        <div class="mission-desc">Pythonでソートアルゴリズムを実装して提出。</div>
+        <div class="mission-meta">
+          <span>⏱ 1h 予定</span>
+          <span>📅 締切: 06/15</span>
+        </div>
+        <div class="mission-progress"><div class="mission-progress-fill" style="width:0%"></div></div>
+        <div style="font-size:11px;color:var(--text2);font-family:'Rajdhani',sans-serif;margin-top:6px;letter-spacing:1px;">0 / 1 セッション完了</div>
+      </div>
+
+      <div class="mission-card done">
+        <div class="complete-badge">✅</div>
+        <div class="mission-priority priority-b">B RANK</div>
+        <div class="mission-name">読書 — 習慣の力</div>
+        <div class="mission-desc">第1章〜第3章を読了してメモをとる。</div>
+        <div class="mission-meta">
+          <span>⏱ 1h</span>
+          <span>🏆 完了済み</span>
+        </div>
+        <div class="mission-progress"><div class="mission-progress-fill" style="width:100%;background:var(--green)"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POMODORO WIDGET -->
+  <div class="pomodoro-widget">
+    <div>
+      <div class="pomo-title">— CURRENT SESSION —</div>
+      <div class="pomo-task-name" style="margin-top:8px;">数学レポート Ch.1</div>
+    </div>
+
+    <div class="pomo-ring">
+      <svg width="160" height="160" viewBox="0 0 160 160">
+        <circle class="bg" cx="80" cy="80" r="70"/>
+        <circle class="progress" cx="80" cy="80" r="70"/>
+      </svg>
+      <div class="pomo-time">18:42</div>
+      <div class="pomo-sub">FOCUS</div>
+    </div>
+
+    <div class="pomo-sets">SET &nbsp;<span>1</span> / 2 &nbsp;·&nbsp; 残り <span>2</span> SET</div>
+
+    <div class="pomo-controls">
+      <button class="pomo-btn primary">⏸ PAUSE</button>
+      <button class="pomo-btn">⏭ SKIP</button>
+    </div>
+
+    <div class="xp-bar-wrap">
+      <div class="xp-label">
+        <span>TODAY'S XP</span>
+        <span>620 / 1000</span>
+      </div>
+      <div class="xp-bar"><div class="xp-fill"></div></div>
+    </div>
+
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px;">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:2px;color:var(--text2);margin-bottom:8px;">COMPLETED TODAY</div>
+      <div style="font-size:12px;color:var(--green);font-family:'Rajdhani',sans-serif;letter-spacing:1px;">✓ 朝の運動</div>
+      <div style="font-size:12px;color:var(--green);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-top:4px;">✓ 読書 — 習慣の力</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function switchTab(tab, el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    if (tab === 'schedule') {
+      document.getElementById('schedulePanel').classList.remove('hidden');
+      document.getElementById('missionPanel').classList.remove('visible');
+    } else {
+      document.getElementById('schedulePanel').classList.add('hidden');
+      document.getElementById('missionPanel').classList.add('visible');
+    }
+  }
+
+  // タイマーアニメーション
+  let seconds = 18 * 60 + 42;
+  const total = 25 * 60;
+  const circle = document.querySelector('.pomo-ring circle.progress');
+  const timeEl = document.querySelector('.pomo-time');
+  const circumference = 440;
+
+  setInterval(() => {
+    if (seconds > 0) seconds--;
+    const ratio = seconds / total;
+    circle.style.strokeDashoffset = circumference * (1 - ratio);
+    const m = Math.floor(seconds / 60).toString().padStart(2,'0');
+    const s = (seconds % 60).toString().padStart(2,'0');
+    timeEl.textContent = `${m}:${s}`;
+  }, 1000);
+</script>
+</body>
+</html>
