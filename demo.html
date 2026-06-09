@@ -235,8 +235,8 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 
 /* pomodoro */
 .pomo-panel{width:0;overflow:hidden;background:var(--bg2);border-left:1px solid var(--border);transition:width .35s cubic-bezier(.4,0,.2,1);flex-shrink:0;}
-.pomo-panel.open{width:282px;overflow:visible;}
-.pomo-inner{width:282px;padding:18px 16px;display:flex;flex-direction:column;gap:14px;}
+.pomo-panel.open{width:282px;overflow-y:auto;overflow-x:hidden;}
+.pomo-inner{width:282px;padding:18px 16px;display:flex;flex-direction:column;gap:14px;min-height:min-content;}
 .pomo-hdr{display:flex;align-items:center;justify-content:space-between;}
 .pomo-title{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--text2);}
 .pomo-close{background:none;border:none;color:var(--text2);cursor:pointer;font-size:16px;opacity:.6;transition:opacity .2s;}
