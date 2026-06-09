@@ -58,6 +58,19 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .add-btn{width:100%;padding:10px;background:transparent;border:1px dashed var(--border);border-radius:8px;color:var(--text2);font-family:'Rajdhani',sans-serif;font-size:14px;letter-spacing:2px;cursor:pointer;transition:all .2s;}
 .add-btn:hover{border-color:var(--accent);color:var(--accent);}
 
+/* fixed events step 2 */
+.fe-list{display:flex;flex-direction:column;gap:9px;margin-bottom:13px;}
+.fe-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:13px 15px;display:flex;gap:10px;align-items:flex-start;}
+.fe-left{flex:1;display:flex;flex-direction:column;gap:8px;}
+.fe-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.fe-name{flex:1;min-width:160px;background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:7px 11px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px;outline:none;transition:border-color .2s;}
+.fe-name:focus{border-color:var(--accent);}
+.fe-sel{background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:6px 9px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;}
+.fe-sel option{background:var(--panel2);}
+.fe-time{background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:6px 9px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;width:106px;}
+.fe-del{background:none;border:none;color:var(--text2);cursor:pointer;font-size:17px;opacity:.5;transition:opacity .2s;flex-shrink:0;}
+.fe-del:hover{opacity:1;color:var(--red);}
+
 .ffooter{padding:16px 28px;background:var(--bg2);border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:12px;}
 .btn{padding:10px 24px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;cursor:pointer;transition:all .2s;text-transform:uppercase;border:1px solid;}
 .btn-ghost{background:transparent;border-color:var(--border);color:var(--text2);}
@@ -67,7 +80,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .btn-gold{background:var(--gold);border-color:var(--gold);color:var(--bg);font-weight:700;}
 .btn-gold:hover{opacity:.85;}
 
-/* api modal */
+/* modals */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
 .modal-bg.hidden{display:none;}
 .modal{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:26px;width:460px;max-width:92vw;}
@@ -91,7 +104,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .gs.run .dot{background:var(--accent);animation:pulse 1s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* main */
+/* main app header */
 .app-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;flex-shrink:0;}
 .app-logo{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;color:var(--accent);letter-spacing:3px;text-shadow:0 0 18px rgba(0,212,255,.5);}
 .app-logo span{color:var(--gold);}
@@ -111,40 +124,46 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .tab.active{background:var(--panel);color:var(--accent);border-color:var(--border);border-bottom:2px solid var(--accent);}
 .app-main{display:flex;flex:1;overflow:hidden;}
 
-/* schedule */
+/* ── 24h proportional grid ── */
 .sch-panel{flex:1;overflow-y:auto;padding:18px 24px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
 .sec-title{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;margin-bottom:12px;}
-.timeline{position:relative;}
-.timeline::before{content:'';position:absolute;left:50px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--border) 10%,var(--border) 90%,transparent);}
-.tblock{display:flex;gap:12px;margin-bottom:5px;align-items:stretch;}
-.tlbl{width:42px;text-align:right;font-family:'Rajdhani',sans-serif;font-size:12px;color:var(--text2);letter-spacing:1px;padding-top:12px;flex-shrink:0;}
-.tdot{width:10px;height:10px;border-radius:50%;background:var(--border);margin-top:15px;flex-shrink:0;position:relative;z-index:1;}
-.tdot.active{background:var(--accent);box-shadow:0 0 10px var(--accent);}
-.tdot.done{background:var(--green);}
-.bcard{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 14px;transition:all .2s;cursor:grab;position:relative;overflow:hidden;user-select:none;}
-.bcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
-.bcard.task::before{background:var(--accent);}
-.bcard.meal::before{background:var(--gold);}
-.bcard.rest::before{background:var(--accent2);}
-.bcard.exercise::before{background:var(--green);}
-.bcard.free::before{background:var(--text2);}
-.bcard.repeat::before{background:#ff9500;}
-.bcard.done{opacity:.38;}
-.bcard.drag-over{border-color:var(--gold);background:rgba(245,197,24,.05);}
-.bcard.dragging{opacity:.25;cursor:grabbing;}
-.bhdr{display:flex;align-items:center;justify-content:space-between;gap:8px;}
-.bname{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;}
-.btag{font-size:9px;letter-spacing:2px;padding:2px 7px;border-radius:3px;text-transform:uppercase;font-family:'Rajdhani',sans-serif;font-weight:600;white-space:nowrap;}
-.tt{background:rgba(0,212,255,.15);color:var(--accent);}
-.tm{background:rgba(245,197,24,.15);color:var(--gold);}
-.tr{background:rgba(123,94,167,.15);color:var(--accent2);}
-.te{background:rgba(0,255,157,.15);color:var(--green);}
-.tf{background:rgba(136,153,187,.15);color:var(--text2);}
-.trp{background:rgba(255,149,0,.15);color:#ff9500;}
-.bdur{font-size:11px;color:var(--text2);margin-top:3px;font-family:'Rajdhani',sans-serif;letter-spacing:1px;}
-.drag-hint{font-size:10px;color:var(--text2);opacity:.35;margin-top:2px;font-family:'Rajdhani',sans-serif;letter-spacing:1px;}
-.start-btn{margin-top:7px;padding:5px 15px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:4px;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;cursor:pointer;transition:all .2s;}
-.start-btn:hover{background:var(--accent);color:var(--bg);}
+
+.grid-wrap{display:flex;gap:0;position:relative;}
+.grid-labels{width:46px;flex-shrink:0;position:relative;}
+.grid-lbl{position:absolute;right:8px;font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;transform:translateY(-50%);white-space:nowrap;}
+.grid-area{flex:1;position:relative;background:var(--panel);border:1px solid var(--border);border-radius:6px;overflow:visible;}
+.grid-line{position:absolute;left:0;right:0;pointer-events:none;}
+.grid-line.solid{border-top:1px solid var(--border);}
+.grid-line.dashed{border-top:1px dashed rgba(30,48,96,.5);}
+.grid-now{position:absolute;left:-6px;right:0;display:flex;align-items:center;pointer-events:none;z-index:40;}
+.grid-now-dot{width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);flex-shrink:0;}
+.grid-now-line{flex:1;border-top:2px solid var(--red);opacity:.8;}
+
+/* grid blocks */
+.gblock{position:absolute;left:6px;right:6px;border-radius:5px;overflow:hidden;cursor:default;user-select:none;transition:box-shadow .15s;min-height:28px;}
+.gblock.task-block{cursor:grab;border:1.5px solid var(--accent);background:rgba(0,212,255,.09);}
+.gblock.task-block:hover{box-shadow:0 0 12px rgba(0,212,255,.25);}
+.gblock.task-block.dragging-block{opacity:.3;cursor:grabbing;}
+.gblock.meal-block{background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.28);}
+.gblock.rest-block{background:rgba(123,94,167,.12);border:1px solid rgba(123,94,167,.28);}
+.gblock.exercise-block{background:rgba(0,255,157,.12);border:1px solid rgba(0,255,157,.28);}
+.gblock.free-block{background:rgba(136,153,187,.06);border:1px solid rgba(136,153,187,.18);}
+.gblock.repeat-block{border:1.5px solid #ff9500;background:rgba(255,149,0,.09);}
+.gblock.fixed-school{background:rgba(74,158,255,.88);border:1px solid #4a9eff;color:#fff;}
+.gblock.fixed-work{background:rgba(255,107,53,.88);border:1px solid #ff6b35;color:#fff;}
+.gblock.fixed-other{background:rgba(168,85,247,.88);border:1px solid #a855f7;color:#fff;}
+.gblock.done-block{opacity:.38;}
+.gblock-inner{padding:4px 8px;height:100%;display:flex;flex-direction:column;gap:2px;overflow:hidden;}
+.gblock-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.gblock-time{font-family:'Rajdhani',sans-serif;font-size:10px;color:var(--text2);letter-spacing:1px;white-space:nowrap;}
+.gblock.fixed-school .gblock-time,.gblock.fixed-work .gblock-time,.gblock.fixed-other .gblock-time{color:rgba(255,255,255,.75);}
+.gblock.fixed-school .gblock-name,.gblock.fixed-work .gblock-name,.gblock.fixed-other .gblock-name{color:#fff;}
+.gblock-btn{margin-top:3px;padding:3px 10px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:3px;font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;cursor:pointer;transition:all .2s;width:fit-content;}
+.gblock-btn:hover{background:var(--accent);color:var(--bg);}
+.gblock-btn.running{color:var(--green);border-color:var(--green);cursor:default;}
+
+/* ghost drag block */
+.grid-ghost{position:absolute;left:6px;right:6px;border:2px dashed var(--gold);border-radius:5px;background:rgba(245,197,24,.07);pointer-events:none;z-index:50;}
 
 /* missions */
 .mis-panel{display:none;flex:1;padding:20px 24px;overflow-y:auto;}
@@ -165,7 +184,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .mprog-fill{height:100%;border-radius:2px;background:linear-gradient(to right,var(--accent),var(--accent2));}
 .mbadge{position:absolute;top:11px;right:11px;font-size:17px;}
 
-/* task manager tab */
+/* task manager */
 .task-mgr{display:none;flex:1;padding:20px 24px;overflow-y:auto;}
 .task-mgr.visible3{display:block;}
 .tm-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
@@ -188,31 +207,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 /* history */
 .hist-panel{display:none;flex:1;padding:20px 24px;overflow-y:auto;}
 .hist-panel.visible4{display:block;}
-.hist-toggle{display:flex;gap:8px;margin-bottom:16px;}
-.hist-tog-btn{padding:7px 18px;border-radius:5px;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);transition:all .2s;}
-.hist-tog-btn.active{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:700;}
-
-/* calendar */
-.cal-wrap{max-width:480px;}
-.cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.cal-month{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--accent);letter-spacing:2px;}
-.cal-nav{background:transparent;border:1px solid var(--border);color:var(--text2);border-radius:4px;padding:5px 12px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:11px;transition:all .2s;}
-.cal-nav:hover{border-color:var(--accent);color:var(--accent);}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
-.cal-dow{text-align:center;font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;padding-bottom:6px;}
-.cal-day{aspect-ratio:1;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;border:1px solid transparent;transition:all .2s;position:relative;}
-.cal-day:hover{border-color:var(--accent);}
-.cal-day.today{border-color:var(--accent);background:rgba(0,212,255,.08);}
-.cal-day.has-data{cursor:pointer;}
-.cal-day-num{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--text);}
-.cal-day-dot{width:6px;height:6px;border-radius:50%;margin-top:2px;}
-.dot-s{background:var(--green);}
-.dot-m{background:var(--gold);}
-.dot-l{background:var(--red);}
-.dot-none{background:var(--border);}
-.cal-day.empty{opacity:0;}
-
-/* list history */
 .hist-list{display:flex;flex-direction:column;gap:10px;}
 .hist-item{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;}
 .hist-item:hover{border-color:var(--accent);}
@@ -334,7 +328,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
     <div class="fsec">
       <div class="fsec-lbl">運動</div>
       <div class="tog-row">
-        <div class="tog on" id="exTog" onclick="this.classList.toggle('on');document.getElementById('exSet').style.display=this.classList.contains('on')?'':' none'"></div>
+        <div class="tog on" id="exTog" onclick="this.classList.toggle('on');document.getElementById('exSet').style.display=this.classList.contains('on')?'':'none'"></div>
         <span class="tog-lbl">今日は運動する</span>
       </div>
       <div id="exSet">
@@ -360,10 +354,10 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
       </div>
     </div>
   </div>
-  <div class="ffooter"><button class="btn btn-primary" onclick="saveLife();goS2()">NEXT →</button></div>
+  <div class="ffooter"><button class="btn btn-primary" onclick="saveLife();goS2fixed()">NEXT →</button></div>
 </div>
 
-<!-- SCREEN 2: タスク入力 -->
+<!-- SCREEN 2: 固定イベント (NEW) -->
 <div id="s2" class="screen">
   <div class="step-hd">
     <div class="logo">DAY<span>QUEST</span></div>
@@ -374,13 +368,37 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
     </div>
   </div>
   <div class="fbody">
-    <div class="ftitle">— STEP 2 : 今日のミッションを登録 —</div>
+    <div class="ftitle">— STEP 2 : 固定イベントを登録 —</div>
+    <div style="font-size:12px;color:var(--text2);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-bottom:18px;line-height:1.7;">
+      学校・仕事・その他の固定イベントを登録してください。タスクはこれらの時間帯を避けて配置されます。登録は任意です。
+    </div>
+    <div class="fe-list" id="feList"></div>
+    <button class="add-btn" onclick="addFixedEvent()">＋ 固定イベントを追加</button>
+  </div>
+  <div class="ffooter">
+    <button class="btn btn-ghost" onclick="goS1()">← BACK</button>
+    <button class="btn btn-primary" onclick="saveFixedEvents();goS3()">NEXT →</button>
+  </div>
+</div>
+
+<!-- SCREEN 3: タスク入力 (was s2) -->
+<div id="s3" class="screen">
+  <div class="step-hd">
+    <div class="logo">DAY<span>QUEST</span></div>
+    <div class="steps">
+      <div class="sdot done">✓</div><div class="sline"></div>
+      <div class="sdot done">✓</div><div class="sline"></div>
+      <div class="sdot active">3</div>
+    </div>
+  </div>
+  <div class="fbody">
+    <div class="ftitle">— STEP 3 : 今日のミッションを登録 —</div>
     <div style="font-size:12px;color:var(--text2);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-bottom:18px;line-height:1.7;">「目安時間」はスケジュール上のセッション数に変換されます。<br>例: 2h → 「タスク名 Part 1」「タスク名 Part 2」の2コマ（各1h）として配置されます。</div>
     <div class="task-list" id="taskList"></div>
     <button class="add-btn" onclick="addTask()">＋ ミッションを追加</button>
   </div>
   <div class="ffooter">
-    <button class="btn btn-ghost" onclick="goS1()">← BACK</button>
+    <button class="btn btn-ghost" onclick="goS2fixed()">← BACK</button>
     <button class="btn btn-primary" onclick="openApiModal()">GENERATE SCHEDULE →</button>
   </div>
 </div>
@@ -452,9 +470,9 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
   <div class="gen-txt" id="genTxt">GENERATING YOUR SCHEDULE...</div>
   <div class="gen-steps">
     <div class="gs" id="gs1"><div class="dot"></div>生活リズムを解析中</div>
-    <div class="gs" id="gs2"><div class="dot"></div>タスクの優先度を評価中</div>
-    <div class="gs" id="gs3"><div class="dot"></div>飽き性対策でタスクをローテーション</div>
-    <div class="gs" id="gs4"><div class="dot"></div>空き時間に優先度順でタスクを充填中</div>
+    <div class="gs" id="gs2"><div class="dot"></div>固定イベントを配置中</div>
+    <div class="gs" id="gs3"><div class="dot"></div>タスクの優先度を評価中</div>
+    <div class="gs" id="gs4"><div class="dot"></div>空き時間にタスクを充填中</div>
     <div class="gs" id="gs5"><div class="dot"></div>ポモドーロセットを割り当て中</div>
   </div>
 </div>
@@ -485,8 +503,8 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
   </div>
   <div class="app-main">
     <div class="sch-panel" id="schPanel">
-      <div class="sec-title">— TODAY'S TIMELINE — <span style="font-size:10px;color:var(--text2);letter-spacing:1px;">タスクはドラッグで並び替え可能</span></div>
-      <div class="timeline" id="timeline"></div>
+      <div class="sec-title">— TODAY'S SCHEDULE — <span style="font-size:10px;color:var(--text2);letter-spacing:1px;">タスクブロックはドラッグで移動可能</span></div>
+      <div id="gridContainer"></div>
     </div>
     <div class="mis-panel" id="misPanel">
       <div class="sec-title">— ACTIVE MISSIONS —</div>
@@ -558,37 +576,53 @@ const SK = {
   todaySchedule: 'dq_schedule',
   todayXp: 'dq_xp',
   totalXp: 'dq_total_xp',
+  fixedEvents: 'dq_fixed_events',
 };
+
+// ══════════════════════════════════════
+//  CONSTANTS
+// ══════════════════════════════════════
+const PPM = 1.5; // pixels per minute (1h = 90px)
 
 // ══════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════
 let tasks = load(SK.tasks, []);
+let fixedEvents = load(SK.fixedEvents, []); // [{id, name, type, start, end}]
 let schedule = [];
-let history = load(SK.history, {});  // { "2026-06-08": { tasks:[...], xp, pct, streak } }
+let history = load(SK.history, {});
 let combo = 0, xp = 0, progress = 0;
 let totalXp = load(SK.totalXp, 0);
 function calcLevel(txp){ return Math.floor(txp / 500) + 1; }
-function xpToNextLevel(txp){ return 500 - (txp % 500); }
 let apiKey = '';
-let activeDate = today();
 
 // pomodoro
 let pomoRunning=false,pomoTimer=null,pomoSec=1500,pomoMode='focus',pomoSet=1,pomoDone=0,activeIdx=null;
-let SETS=2; // タスク時間に応じて動的に変化
+let SETS=2;
 const FOCUS=1500,BREAK=300,C=408;
-let pendingCompletion = null; // block being completed
+let pendingCompletion = null;
 
-// drag
-let dragIdx = null;
+// grid drag
+let gridDrag = {
+  active: false,
+  schedIdx: null,
+  startY: 0,
+  startBlockTop: 0,
+  blockDur: 0,
+  ghostEl: null,
+  gridAreaEl: null,
+  gridMin: 0,
+};
+
+// now-line timer
+let nowLineTimer = null;
 
 // ══════════════════════════════════════
-//  INIT — check date change
+//  INIT
 // ══════════════════════════════════════
 (function init(){
   const saved = load(SK.todayDate, null);
   if (saved && saved !== today()) {
-    // Day changed — save yesterday and reset
     const ySchedule = load(SK.todaySchedule, []);
     if (ySchedule.length) saveDay(saved, ySchedule, load(SK.todayXp, 0));
     localStorage.removeItem(SK.todaySchedule);
@@ -597,7 +631,6 @@ let dragIdx = null;
   } else if (!saved) {
     localStorage.setItem(SK.todayDate, today());
   }
-  // Load saved schedule for today if exists
   const ts = load(SK.todaySchedule, []);
   if (ts.length) {
     schedule = ts;
@@ -606,9 +639,10 @@ let dragIdx = null;
     renderAll();
     restoreLifeForm();
   } else if (tasks.length) {
-    goS2();
+    goS2fixed();
   }
   renderHistoryTab();
+  renderFeList();
 })();
 
 // ══════════════════════════════════════
@@ -616,12 +650,13 @@ let dragIdx = null;
 // ══════════════════════════════════════
 function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 function goS1(){ show('s1'); }
-function goS2(){ show('s2'); renderTasks(); }
+function goS2fixed(){ show('s2'); renderFeList(); }
+function goS3(){ show('s3'); renderTasks(); }
 
 function restoreLifeForm(){
   const l = load(SK.life, null);
   if (!l) return;
-  const set = (id,v) => { const el=document.getElementById(id); if(el&&v!=null) el.value=v; };
+  const set = (id,val) => { const el=document.getElementById(id); if(el&&val!=null) el.value=val; };
   set('wakeTime',l.wake); set('sleepTime',l.sleep);
   set('bfTime',l.bfTime); set('bfDur',l.bfDur);
   set('luTime',l.luTime); set('luDur',l.luDur);
@@ -633,10 +668,63 @@ function restoreLifeForm(){
 }
 
 // ══════════════════════════════════════
-//  TASK INPUT
+//  FIXED EVENTS (STEP 2)
 // ══════════════════════════════════════
+function addFixedEvent(){
+  fixedEvents.push({id: Date.now(), name: '', type: 'school', start: '09:00', end: '17:00'});
+  renderFeList();
+  setTimeout(()=>{ const ins=document.querySelectorAll('.fe-name'); if(ins.length) ins[ins.length-1].focus(); },50);
+}
 
-// re-renderの前に現在のDOM上のinput値をtasks配列に同期する
+function delFixedEvent(id){
+  fixedEvents = fixedEvents.filter(e=>e.id!==id);
+  renderFeList();
+}
+
+function feFieldInput(id, field, value){
+  const e = fixedEvents.find(x=>x.id===id); if(!e) return;
+  e[field] = value;
+}
+
+function renderFeList(){
+  const el = document.getElementById('feList');
+  if(!el) return;
+  if(!fixedEvents.length){
+    el.innerHTML = '<div style="color:var(--text2);font-family:\'Rajdhani\',sans-serif;letter-spacing:1px;padding:10px 0;font-size:13px;">固定イベントはまだありません</div>';
+    return;
+  }
+  el.innerHTML = fixedEvents.map(e=>`
+    <div class="fe-card" data-id="${e.id}">
+      <div class="fe-left">
+        <div class="fe-row">
+          <input class="fe-name" placeholder="イベント名（例: 学校、バイト）"
+            value="${esc(e.name)}"
+            oninput="feFieldInput(${e.id},'name',this.value)">
+          <select class="fe-sel" onchange="feFieldInput(${e.id},'type',this.value)">
+            <option value="school"${e.type==='school'?' selected':''}>🏫 学校</option>
+            <option value="work"${e.type==='work'?' selected':''}>💼 仕事</option>
+            <option value="other"${e.type==='other'?' selected':''}>📌 その他</option>
+          </select>
+        </div>
+        <div class="fe-row">
+          <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;">開始</span>
+          <input class="fe-time" type="time" value="${e.start}" onchange="feFieldInput(${e.id},'start',this.value)">
+          <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;">終了</span>
+          <input class="fe-time" type="time" value="${e.end}" onchange="feFieldInput(${e.id},'end',this.value)">
+        </div>
+      </div>
+      <button class="fe-del" onclick="delFixedEvent(${e.id})">✕</button>
+    </div>
+  `).join('');
+}
+
+function saveFixedEvents(){
+  localStorage.setItem(SK.fixedEvents, JSON.stringify(fixedEvents));
+}
+
+// ══════════════════════════════════════
+//  TASK INPUT (STEP 3)
+// ══════════════════════════════════════
 function syncTasksFromDOM(){
   document.querySelectorAll('#taskList .task-card').forEach(card=>{
     const id = parseInt(card.dataset.id);
@@ -669,6 +757,7 @@ function setPri(id,p){
 
 function renderTasks(){
   const el=document.getElementById('taskList');
+  if(!el) return;
   el.innerHTML=tasks.map(t=>`
     <div class="task-card" data-id="${t.id}">
       <div class="tc-left">
@@ -831,15 +920,14 @@ async function genWithClaude(){
   const life=getLife();
   const filledTasks=tasks.filter(t=>t.name.trim());
   const sys=`You are a daily schedule optimizer. Return ONLY a valid JSON array, no other text.
-Each element: {"time":"HH:MM","dur":N,"type":"task|meal|rest|exercise|free","name":"...","priority":"S|A|B|null","taskName":"...or null","isRepeat":false}
+Each element: {"time":"HH:MM","dur":N,"type":"task|meal|rest|exercise|free|fixed","name":"...","priority":"S|A|B|null","taskName":"...or null","isRepeat":false,"isFixed":false,"subtype":"school|work|other|null"}
 Rules:
 1. Split tasks longer than 60min into 60min sessions with name "TaskName — Part N"
-2. Never schedule the same task in consecutive time slots (anti-boredom rotation)
+2. Never schedule task blocks during fixed event or life-rhythm slots
 3. S priority tasks get morning slots, fill remaining time with repeat sessions in priority order S>A>B
 4. Include buffer/free time blocks between tasks
-5. No task blocks within 60min before sleep time
-6. Respect all fixed life-rhythm blocks`;
-  const user=`Life: ${JSON.stringify(life)}\nTasks: ${JSON.stringify(filledTasks.map(t=>({name:t.name,priority:t.priority,duration:t.duration})))}`;
+5. No task blocks within 60min before sleep time`;
+  const user=`Life: ${JSON.stringify(life)}\nFixedEvents: ${JSON.stringify(fixedEvents)}\nTasks: ${JSON.stringify(filledTasks.map(t=>({name:t.name,priority:t.priority,duration:t.duration})))}`;
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'x-api-key':apiKey,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:2048,system:sys,messages:[{role:'user',content:user}]})});
     const data=await res.json();
@@ -852,28 +940,45 @@ Rules:
   }catch(e){console.error(e);pushN('⚠️','<b class="y">API ERROR</b>内蔵アルゴリズムで代替生成します');buildScheduleLocal();}
 }
 
+// ══════════════════════════════════════
+//  BUILD SCHEDULE (LOCAL)
+// ══════════════════════════════════════
 function buildScheduleLocal(){
   const life=getLife();
   const wake=life.wake, sleepT=life.sleep, buf=life.buffer;
   const sleepM=toM(sleepT), bufferBeforeSleep=60;
 
-  // fixed blocks
+  // life rhythm fixed blocks
   const fb=[];
-  fb.push({time:wake,dur:15,type:'rest',name:'起床 / 準備',priority:null,taskName:null});
-  if(life.hasEx) fb.push({time:life.exTime,dur:life.exDur,type:'exercise',name:'運動',priority:null,taskName:null});
-  fb.push({time:life.bfTime,dur:life.bfDur,type:'meal',name:'朝食',priority:null,taskName:null});
-  fb.push({time:life.luTime,dur:life.luDur,type:'meal',name:'昼食',priority:null,taskName:null});
-  fb.push({time:life.diTime,dur:life.diDur,type:'meal',name:'夕食',priority:null,taskName:null});
-  fb.push({time:life.baTime,dur:life.baDur,type:'rest',name:'入浴',priority:null,taskName:null});
+  fb.push({time:wake,dur:15,type:'rest',name:'起床 / 準備',priority:null,taskName:null,isFixed:false,isRepeat:false});
+  if(life.hasEx) fb.push({time:life.exTime,dur:life.exDur,type:'exercise',name:'運動',priority:null,taskName:null,isFixed:false,isRepeat:false});
+  fb.push({time:life.bfTime,dur:life.bfDur,type:'meal',name:'朝食',priority:null,taskName:null,isFixed:false,isRepeat:false});
+  fb.push({time:life.luTime,dur:life.luDur,type:'meal',name:'昼食',priority:null,taskName:null,isFixed:false,isRepeat:false});
+  fb.push({time:life.diTime,dur:life.diDur,type:'meal',name:'夕食',priority:null,taskName:null,isFixed:false,isRepeat:false});
+  fb.push({time:life.baTime,dur:life.baDur,type:'rest',name:'入浴',priority:null,taskName:null,isFixed:false,isRepeat:false});
   fb.forEach(b=>{b.start=toM(b.time);b.end=b.start+b.dur;b.done=false;b.amount='';b.note='';});
-  fb.sort((a,b)=>a.start-b.start);
 
-  // build session queue: initial sessions + repeat fill (priority order)
-  function makeSessions(forFill=false){
+  // fixed events from step 2
+  const feBlocks = fixedEvents
+    .filter(e=>e.name.trim())
+    .map(e=>{
+      const s=toM(e.start), en=toM(e.end);
+      return {time:e.start,dur:Math.max(1,en-s),type:'fixed',subtype:e.type,name:e.name,priority:null,taskName:null,isFixed:true,isRepeat:false,start:s,end:en,done:false,amount:'',note:''};
+    });
+
+  const all=[...fb, ...feBlocks];
+  all.sort((a,b)=>a.start-b.start);
+
+  function overlaps(start, dur){
+    return all.some(b=>b.start < start+dur && b.end > start);
+  }
+
+  // build session queue
+  function makeSessions(forFill){
     const base=[];
     const sorted=[...tasks.filter(t=>t.name.trim())].sort((a,b)=>({S:0,A:1,B:2}[a.priority]-{S:0,A:1,B:2}[b.priority]));
     sorted.forEach(t=>{
-      const sessionDur = Math.min(t.duration, 60); // 60分以下はその時間、60分超は60分で分割
+      const sessionDur = Math.min(t.duration, 60);
       const n = Math.ceil(t.duration / sessionDur);
       for(let i=0;i<n;i++){
         const dur = (i===n-1 && t.duration%sessionDur!==0) ? t.duration%sessionDur : sessionDur;
@@ -883,7 +988,6 @@ function buildScheduleLocal(){
     return base;
   }
 
-  // interleave to avoid consecutive same task
   function interleave(sessions){
     const result=[],q=[...sessions]; let last=null;
     while(q.length){
@@ -895,47 +999,59 @@ function buildScheduleLocal(){
   }
 
   const initialSessions=interleave(makeSessions(false));
-  const all=[...fb];
   let si=0, cur=toM(wake)+15;
   const cutoff=sleepM-bufferBeforeSleep;
 
-  // place initial sessions
-  while(cur<cutoff&&si<initialSessions.length){
+  while(si<initialSessions.length && cur<cutoff){
     const s=initialSessions[si];
     const dur=s.dur||60;
-    const conflict=all.find(b=>b.start<cur+dur&&b.end>cur);
-    if(conflict){cur=conflict.end+(buf>0?buf:0);continue;}
+    // advance past conflicts
+    let tries=0;
+    while(overlaps(cur,dur) && tries<300){
+      const c=all.find(b=>b.start<cur+dur&&b.end>cur);
+      if(c){ cur=c.end+(buf>0?buf:0); } else { cur+=5; }
+      tries++;
+    }
+    if(cur>=cutoff || cur+dur>cutoff) break;
     si++;
-    all.push({time:toS(cur),dur,type:'task',name:s.name,priority:s.priority,taskName:s.taskName,isRepeat:false,start:cur,end:cur+dur,done:false,amount:'',note:''});
+    all.push({time:toS(cur),dur,type:'task',name:s.name,priority:s.priority,taskName:s.taskName,isRepeat:false,isFixed:false,start:cur,end:cur+dur,done:false,amount:'',note:''});
     cur+=dur+(buf>0?buf:0);
   }
 
-  // fill remaining slots with repeat sessions (priority order S>A>B, interleaved)
+  // fill remaining with repeat sessions
   const repeatPool=interleave(makeSessions(true));
-  let ri=0;
-  while(cur<cutoff&&repeatPool.length>0){
+  let ri=0, safety=0;
+  while(cur<cutoff && repeatPool.length>0 && safety<200){
+    safety++;
     const s=repeatPool[ri%repeatPool.length];
     const dur=s.dur||60;
-    const conflict=all.find(b=>b.start<cur+dur&&b.end>cur);
-    if(conflict){cur=conflict.end+(buf>0?buf:0);continue;}
+    let tries=0;
+    while(overlaps(cur,dur) && tries<300){
+      const c=all.find(b=>b.start<cur+dur&&b.end>cur);
+      if(c){ cur=c.end+(buf>0?buf:0); } else { cur+=5; }
+      tries++;
+    }
+    if(cur>=cutoff || cur+dur>cutoff) break;
     ri++;
-    all.push({time:toS(cur),dur,type:'task',name:s.name+' (追加)',priority:s.priority,taskName:s.taskName,isRepeat:true,start:cur,end:cur+dur,done:false,amount:'',note:''});
+    all.push({time:toS(cur),dur,type:'task',name:s.name+' (追加)',priority:s.priority,taskName:s.taskName,isRepeat:true,isFixed:false,start:cur,end:cur+dur,done:false,amount:'',note:''});
     cur+=60+(buf>0?buf:0);
-    if(ri>100) break; // safety
   }
 
   // buffer blocks for visible gaps
   if(buf>0){
-    const sorted=[...all].sort((a,b)=>a.start-b.start);
-    for(let i=0;i<sorted.length-1;i++){
-      const gap=sorted[i+1].start-sorted[i].end;
+    const sorted2=[...all].sort((a,b)=>a.start-b.start);
+    const gaps=[];
+    for(let i=0;i<sorted2.length-1;i++){
+      const gap=sorted2[i+1].start-sorted2[i].end;
       if(gap>=10){
-        const s=sorted[i].end,d=Math.min(gap,buf);
-        all.push({time:toS(s),dur:d,type:'free',name:'バッファ / 休憩',priority:null,taskName:null,isRepeat:false,start:s,end:s+d,done:false,amount:'',note:''});
+        const gs=sorted2[i].end, gd=Math.min(gap,buf);
+        if(!all.some(b=>b.start<gs+gd&&b.end>gs))
+          gaps.push({time:toS(gs),dur:gd,type:'free',name:'バッファ / 休憩',priority:null,taskName:null,isRepeat:false,isFixed:false,start:gs,end:gs+gd,done:false,amount:'',note:''});
       }
     }
+    all.push(...gaps);
   }
-  all.push({time:sleepT,dur:450,type:'rest',name:'睡眠',priority:null,taskName:null,isRepeat:false,start:sleepM,end:sleepM+450,done:false,amount:'',note:''});
+  all.push({time:sleepT,dur:450,type:'rest',name:'睡眠',priority:null,taskName:null,isRepeat:false,isFixed:false,start:sleepM,end:sleepM+450,done:false,amount:'',note:''});
   schedule=all.sort((a,b)=>a.start-b.start);
 }
 
@@ -944,36 +1060,216 @@ function buildScheduleLocal(){
 // ══════════════════════════════════════
 function renderAll(){
   document.getElementById('todayDateHd').textContent=fmtDate(today());
-  renderSchedule(); renderMissions(); renderTmList(); updateStats();
+  renderScheduleGrid(); renderMissions(); renderTmList(); updateStats();
+  startNowLineTimer();
 }
 
-function renderSchedule(){
-  const tl=document.getElementById('timeline');
-  const pLabel=p=>p?{S:'🔥S',A:'⚡A',B:'B'}[p]+' RANK':'';
-  tl.innerHTML=schedule.map((b,i)=>{
-    const tagCls=b.type==='task'||b.isRepeat?'tt':b.type==='meal'?'tm':b.type==='exercise'?'te':b.type==='free'?'tf':'tr';
-    const tagTxt=b.isRepeat?'REPEAT':b.type.toUpperCase();
-    return `
-    <div class="tblock" id="tb${i}">
-      <div class="tlbl">${b.time}</div>
-      <div class="tdot ${b.done?'done':''}"></div>
-      <div class="bcard ${b.type}${b.isRepeat?' repeat':''}${b.done?' done':''}"
-        draggable="${b.type==='task'?'true':'false'}"
-        ondragstart="onDS(event,${i})" ondragover="onDO(event,${i})"
-        ondragleave="onDL(event)" ondrop="onDP(event,${i})" ondragend="onDE()">
-        <div class="bhdr">
-          <div class="bname">${b.name}</div>
-          <div class="btag ${tagCls}">${tagTxt}</div>
-        </div>
-        <div class="bdur">${b.time} – ${toS(b.end)} · ${durStr(b.dur)}${b.priority?' · '+pLabel(b.priority):''}</div>
-        ${b.type==='task'&&!b.done?'<div class="drag-hint">↕ ドラッグで移動</div>':''}
-        ${b.type==='task'&&!b.done?(i===activeIdx?`<button class="start-btn" style="color:var(--green);border-color:var(--green);cursor:default;" disabled>⏱ 実行中...</button>`:`<button class="start-btn" onclick="startSession(${i})">▶ START SESSION</button>`):''}
-        ${b.done&&b.amount?`<div style="font-size:11px;color:var(--green);margin-top:4px;font-family:'Rajdhani',sans-serif;letter-spacing:1px;">✓ ${esc(b.amount)}</div>`:''}
+// ══════════════════════════════════════
+//  24H PROPORTIONAL GRID
+// ══════════════════════════════════════
+function computeGridMin(){
+  if(!schedule.length) return 360;
+  const mn = Math.min(...schedule.map(b=>b.start));
+  return Math.max(0, Math.floor((mn - 30) / 60) * 60);
+}
+function computeGridMax(){
+  if(!schedule.length) return 1440;
+  const mx = Math.max(...schedule.map(b=>b.end));
+  return Math.min(1440, Math.ceil((mx + 30) / 60) * 60);
+}
+
+function renderScheduleGrid(){
+  const container = document.getElementById('gridContainer');
+  if(!container) return;
+
+  const gridMin = computeGridMin();
+  const gridMax = computeGridMax();
+  const totalMin = gridMax - gridMin;
+  const totalH = totalMin * PPM;
+
+  // hour labels
+  let labelsHTML = '';
+  for(let m = gridMin; m <= gridMax; m += 60){
+    const y = (m - gridMin) * PPM;
+    labelsHTML += `<div class="grid-lbl" style="top:${y}px">${toS(m)}</div>`;
+  }
+
+  // grid lines (solid every 60, dashed every 30)
+  let linesHTML = '';
+  for(let m = gridMin; m <= gridMax; m += 30){
+    const y = (m - gridMin) * PPM;
+    linesHTML += `<div class="grid-line ${m%60===0?'solid':'dashed'}" style="top:${y}px"></div>`;
+  }
+
+  // schedule blocks
+  let blocksHTML = '';
+  schedule.forEach((b, i) => {
+    const top = (b.start - gridMin) * PPM;
+    const h = Math.max(28, b.dur * PPM);
+    const cls = getBlockClass(b);
+    const showTime = h >= 36;
+    const isRunning = i === activeIdx;
+    const isTask = b.type === 'task' && !b.isFixed;
+    const showBtn = isTask && !b.done && h >= 44;
+
+    let inner = `<div class="gblock-name">${esc(b.name)}</div>`;
+    if(showTime) inner += `<div class="gblock-time">${b.time} – ${toS(b.end)}</div>`;
+    if(showBtn){
+      if(isRunning) inner += `<button class="gblock-btn running" disabled>⏱ 実行中</button>`;
+      else inner += `<button class="gblock-btn" onclick="startSession(${i})">▶ START</button>`;
+    }
+    if(b.done && b.amount && h>=44){
+      inner += `<div style="font-size:10px;color:var(--green);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-top:2px;">✓ ${esc(b.amount)}</div>`;
+    }
+
+    const drag = isTask ? `data-idx="${i}" onmousedown="gridDragStart(event,${i})"` : '';
+    blocksHTML += `<div class="gblock ${cls}${b.done?' done-block':''}" id="gb${i}"
+      style="top:${top}px;height:${h}px;" ${drag}>
+      <div class="gblock-inner">${inner}</div>
+    </div>`;
+  });
+
+  // now line
+  const nowM = nowMinutes();
+  let nowHTML = '';
+  if(nowM >= gridMin && nowM <= gridMax){
+    const ny = (nowM - gridMin) * PPM;
+    nowHTML = `<div class="grid-now" style="top:${ny}px"><div class="grid-now-dot"></div><div class="grid-now-line"></div></div>`;
+  }
+
+  container.innerHTML = `
+    <div class="grid-wrap" id="gridWrap">
+      <div class="grid-labels" style="height:${totalH}px;position:relative;">${labelsHTML}</div>
+      <div class="grid-area" id="gridArea" style="height:${totalH}px;position:relative;">
+        ${linesHTML}
+        ${blocksHTML}
+        ${nowHTML}
       </div>
     </div>`;
-  }).join('');
+
+  // store gridMin for drag calculations
+  gridDrag.gridMin = gridMin;
 }
 
+function getBlockClass(b){
+  if(b.isFixed) return 'fixed-'+(b.subtype||'other');
+  if(b.isRepeat) return 'repeat-block';
+  switch(b.type){
+    case 'task': return 'task-block';
+    case 'meal': return 'meal-block';
+    case 'exercise': return 'exercise-block';
+    case 'rest': return 'rest-block';
+    default: return 'free-block';
+  }
+}
+
+function nowMinutes(){
+  const n=new Date(); return n.getHours()*60+n.getMinutes();
+}
+
+function startNowLineTimer(){
+  if(nowLineTimer) clearInterval(nowLineTimer);
+  nowLineTimer = setInterval(renderScheduleGrid, 60000);
+}
+
+// ══════════════════════════════════════
+//  GRID DRAG & DROP
+// ══════════════════════════════════════
+function gridDragStart(e, idx){
+  if(e.button !== 0) return;
+  const block = schedule[idx];
+  if(!block || block.type !== 'task' || block.isFixed) return;
+
+  const gridArea = document.getElementById('gridArea');
+  if(!gridArea) return;
+  e.preventDefault();
+
+  const rect = gridArea.getBoundingClientRect();
+  const blockEl = document.getElementById('gb'+idx);
+  const bRect = blockEl ? blockEl.getBoundingClientRect() : null;
+  const blockTop = bRect ? bRect.top - rect.top : (block.start - gridDrag.gridMin) * PPM;
+
+  gridDrag.active = true;
+  gridDrag.schedIdx = idx;
+  gridDrag.startY = e.clientY;
+  gridDrag.blockDur = block.dur;
+  gridDrag.gridAreaEl = gridArea;
+  gridDrag.startBlockTop = blockTop;
+
+  // create ghost
+  const ghost = document.createElement('div');
+  ghost.className = 'grid-ghost';
+  ghost.style.height = Math.max(28, block.dur * PPM) + 'px';
+  ghost.style.top = blockTop + 'px';
+  gridArea.appendChild(ghost);
+  gridDrag.ghostEl = ghost;
+
+  if(blockEl) blockEl.classList.add('dragging-block');
+
+  document.addEventListener('mousemove', gridDragMoveDoc);
+  document.addEventListener('mouseup', gridDragEndDoc);
+}
+
+function gridDragMoveDoc(e){
+  if(!gridDrag.active) return;
+  const dy = e.clientY - gridDrag.startY;
+  const rawTop = gridDrag.startBlockTop + dy;
+  const rawMin = rawTop / PPM + gridDrag.gridMin;
+  const snapped = Math.round(rawMin / 30) * 30;
+  const snappedTop = (snapped - gridDrag.gridMin) * PPM;
+  if(gridDrag.ghostEl) gridDrag.ghostEl.style.top = Math.max(0, snappedTop) + 'px';
+}
+
+function gridDragEndDoc(e){
+  if(!gridDrag.active) return;
+  document.removeEventListener('mousemove', gridDragMoveDoc);
+  document.removeEventListener('mouseup', gridDragEndDoc);
+
+  const dy = e.clientY - gridDrag.startY;
+  const rawTop = gridDrag.startBlockTop + dy;
+  const rawMin = rawTop / PPM + gridDrag.gridMin;
+  const snappedStart = Math.round(rawMin / 30) * 30;
+  const snappedEnd = snappedStart + gridDrag.blockDur;
+  const idx = gridDrag.schedIdx;
+  const block = schedule[idx];
+
+  // cleanup
+  if(gridDrag.ghostEl){ gridDrag.ghostEl.remove(); gridDrag.ghostEl=null; }
+  const blockEl = document.getElementById('gb'+idx);
+  if(blockEl) blockEl.classList.remove('dragging-block');
+  gridDrag.active = false;
+
+  if(!block || snappedStart === block.start){ renderScheduleGrid(); return; }
+
+  // conflict check
+  const hasConflict = schedule.some((b,i)=>{
+    if(i===idx) return false;
+    return b.start < snappedEnd && b.end > snappedStart;
+  });
+
+  if(hasConflict){
+    pushN('⚠️','<b class="y">CONFLICT</b>その時間帯は他のブロックと重なります');
+    renderScheduleGrid();
+    return;
+  }
+
+  // apply
+  block.start = snappedStart;
+  block.end = snappedEnd;
+  block.time = toS(snappedStart);
+  schedule.sort((a,b)=>a.start-b.start);
+  // update activeIdx if moved block was active
+  if(activeIdx !== null){
+    activeIdx = schedule.findIndex(b=>b===block);
+  }
+  saveSchedule();
+  renderScheduleGrid();
+  pushN('↕️','<b class="g">MOVED</b>'+esc(block.name));
+}
+
+// ══════════════════════════════════════
+//  MISSIONS
+// ══════════════════════════════════════
 function renderMissions(){
   const g=document.getElementById('misGrid');
   const uniq=[...new Map(tasks.filter(t=>t.name.trim()).map(t=>[t.name,t])).values()];
@@ -1004,11 +1300,9 @@ function updateStats(){
   progress=tot?Math.round(dn/tot*100):0;
   document.getElementById('progBar').style.width=progress+'%';
   document.getElementById('progTxt').textContent=progress+'%';
-  document.getElementById('xpH').textContent=xp;
   document.getElementById('xpD').textContent=xp;
   document.getElementById('xpFill').style.width=(xp/10)+'%';
   if(combo>=2){document.getElementById('comboEl').style.display='block';document.getElementById('comboN').textContent=combo;}
-  // level display
   const lv=calcLevel(totalXp);
   document.getElementById('lvDisp').textContent=`LV.${lv}`;
   document.getElementById('totalXpDisp').textContent=totalXp;
@@ -1023,7 +1317,6 @@ function switchTab(t,el){
   document.getElementById('misPanel').classList.toggle('visible',t==='mis');
   document.getElementById('tmPanel').classList.toggle('visible3',t==='tm');
   document.getElementById('histPanel').classList.toggle('visible4',t==='hist');
-  // ポモドーロはタブ移動で閉じない（タイマー継続のため）
   if(t==='tm') renderTmList();
   if(t==='hist') renderHistoryTab();
 }
@@ -1034,14 +1327,13 @@ function switchTab(t,el){
 function startSession(idx){
   activeIdx=idx;
   const block=schedule[idx];
-  // タスク時間に応じてセット数を計算（30分=1セット、60分=2セット）
   SETS=Math.max(1, Math.ceil((block.dur||60)/30));
   document.getElementById('pomoTask').textContent=block.name;
   resetPomo();
   document.getElementById('pomoPanel').classList.add('open');
-  renderSchedule(); // ボタン表示を「実行中」に更新
+  renderScheduleGrid();
 }
-function closePomo(){ document.getElementById('pomoPanel').classList.remove('open'); if(pomoTimer){clearInterval(pomoTimer);pomoTimer=null;} pomoRunning=false; document.getElementById('pomoPlay').textContent='▶ START'; activeIdx=null; renderSchedule(); }
+function closePomo(){ document.getElementById('pomoPanel').classList.remove('open'); if(pomoTimer){clearInterval(pomoTimer);pomoTimer=null;} pomoRunning=false; document.getElementById('pomoPlay').textContent='▶ START'; activeIdx=null; renderScheduleGrid(); }
 function togglePomo(){ if(pomoRunning){clearInterval(pomoTimer);pomoTimer=null;pomoRunning=false;document.getElementById('pomoPlay').textContent='▶ RESUME';}else{pomoRunning=true;document.getElementById('pomoPlay').textContent='⏸ PAUSE';pomoTimer=setInterval(tickPomo,1000);} }
 function resetPomo(){ clearInterval(pomoTimer);pomoTimer=null;pomoRunning=false;pomoSec=FOCUS;pomoMode='focus';pomoSet=1;pomoDone=0; document.getElementById('pomoPlay').textContent='▶ START'; for(let i=0;i<4;i++) dot(i,false); updatePomoUI(); }
 function tickPomo(){
@@ -1088,7 +1380,7 @@ function saveCompletion(save){
   const prevLv=calcLevel(totalXp);
   totalXp+=gained; localStorage.setItem(SK.totalXp, totalXp);
   if(calcLevel(totalXp)>prevLv) setTimeout(()=>pushN('⬆️',`<b class="y">LEVEL UP!</b>LV.${calcLevel(totalXp)} に上がった！`,true),800);
-  saveSchedule(); renderSchedule(); renderMissions(); updateStats();
+  saveSchedule(); renderScheduleGrid(); renderMissions(); updateStats();
   document.getElementById('doneList').innerHTML=schedule.filter(b=>b.done).slice(-5).map(b=>`<div class="done-item">✓ ${esc(b.name)}</div>`).join('');
   pushN('⚔️',`<b class="g">MISSION COMPLETE</b>${esc(schedule[idx].name)}`);
   if(combo>=2) setTimeout(()=>pushN('🔥',`<b class="y">COMBO ×${combo}</b>XP ボーナス獲得！`,true),500);
@@ -1098,63 +1390,37 @@ function saveCompletion(save){
 }
 
 // ══════════════════════════════════════
-//  DRAG AND DROP
-// ══════════════════════════════════════
-function onDS(e,idx){ dragIdx=idx; e.dataTransfer.effectAllowed='move'; setTimeout(()=>e.target.classList.add('dragging'),0); }
-function onDO(e,idx){ e.preventDefault(); if(dragIdx===null||dragIdx===idx) return; if(schedule[idx].type!=='task') return; e.currentTarget.classList.add('drag-over'); }
-function onDL(e){ e.currentTarget.classList.remove('drag-over'); }
-function onDP(e,idx){
-  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
-  if(dragIdx===null||dragIdx===idx||schedule[idx].type!=='task') return;
-  const a=schedule[dragIdx],b=schedule[idx];
-  [a.name,b.name]=[b.name,a.name]; [a.taskName,b.taskName]=[b.taskName,a.taskName];
-  [a.priority,b.priority]=[b.priority,a.priority]; [a.isRepeat,b.isRepeat]=[b.isRepeat,a.isRepeat];
-  dragIdx=null; saveSchedule(); renderSchedule();
-  pushN('↕️','<b class="g">RESCHEDULED</b>スケジュールを入れ替えました');
-}
-function onDE(){ dragIdx=null; document.querySelectorAll('.bcard').forEach(c=>c.classList.remove('dragging','drag-over')); }
-
-// ══════════════════════════════════════
 //  HISTORY
 // ══════════════════════════════════════
-
 function saveDay(dateStr, sch, dayXp){
   const done=sch.filter(b=>b.type==='task'&&!b.isRepeat&&b.done);
   const tot=sch.filter(b=>b.type==='task'&&!b.isRepeat).length;
   history[dateStr]={
-    date:dateStr,
-    xp:dayXp,
+    date:dateStr, xp:dayXp,
     pct:tot?Math.round(done.length/tot*100):0,
-    total:tot,
-    done:done.length,
+    total:tot, done:done.length,
     tasks:done.map(b=>({name:b.name,amount:b.amount||'',note:b.note||'',taskName:b.taskName}))
   };
   localStorage.setItem(SK.history,JSON.stringify(history));
 }
 
-function renderHistoryTab(){
-  renderStreak();
-  renderHistList();
-}
+function renderHistoryTab(){ renderStreak(); renderHistList(); }
 
 function renderStreak(){
-  const keys=Object.keys(history).sort().reverse();
-  let streak=0;
-  let d=new Date();
+  let streak=0; let d=new Date();
   for(let i=0;i<365;i++){
     const k=fmtDateKey(d);
     if(history[k]&&history[k].pct>=50) streak++;
     else if(i>0) break;
     d.setDate(d.getDate()-1);
   }
-  const el=document.getElementById('streakBanner');
+  const el=document.getElementById('streakBanner'); if(!el) return;
   if(streak<2){el.innerHTML='';return;}
   el.innerHTML=`<div class="streak-banner"><div class="streak-num">${streak}</div><div><div class="streak-lbl">🔥 DAY STREAK</div><div style="font-size:12px;color:var(--text2);font-family:'Rajdhani',sans-serif;">${streak}日連続50%以上達成！</div></div></div>`;
 }
 
-
 function renderHistList(){
-  const el=document.getElementById('histListView');
+  const el=document.getElementById('histListView'); if(!el) return;
   const keys=Object.keys(history).sort().reverse();
   if(!keys.length){el.innerHTML='<div style="color:var(--text2);font-family:\'Rajdhani\',sans-serif;letter-spacing:1px;padding:20px 0;">まだ履歴がありません</div>';return;}
   el.innerHTML=`<div class="hist-list">${keys.map(k=>{
@@ -1182,12 +1448,6 @@ function renderHistList(){
 
 function toggleHistItem(k){ document.getElementById('hi_'+k)?.classList.toggle('expanded'); }
 
-function showDayDetail(k){
-  switchTab('hist',document.getElementById('tabHist'));
-  setHistView('list');
-  setTimeout(()=>{ const el=document.getElementById('hi_'+k); if(el){el.scrollIntoView({behavior:'smooth'});el.classList.add('expanded');} },100);
-}
-
 // ══════════════════════════════════════
 //  NOTIFICATIONS
 // ══════════════════════════════════════
@@ -1212,7 +1472,7 @@ function today(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getM
 function fmtDateKey(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function fmtDate(k){ const[y,m,d]=k.split('-'); const dow=['日','月','火','水','木','金','土'][new Date(k).getDay()]; return `${y}.${m}.${d} (${dow})`; }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function load(key,def){ try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch{return def;} }
+function load(key,def){ try{const val=localStorage.getItem(key);return val?JSON.parse(val):def;}catch{return def;} }
 function saveTasks(){ localStorage.setItem(SK.tasks,JSON.stringify(tasks)); }
 function saveSchedule(){ localStorage.setItem(SK.todaySchedule,JSON.stringify(schedule)); localStorage.setItem(SK.todayXp,xp); }
 function saveLife(){
@@ -1220,14 +1480,12 @@ function saveLife(){
   localStorage.setItem(SK.life,JSON.stringify(life));
 }
 function getLife(){
-  // localStorage から読む（スクリーン切り替え後もフォーム値に依存しない）
   const saved = load(SK.life, null);
   if(saved) return saved;
-  // fallback: フォームから読む
   return{wake:v('wakeTime'),sleep:v('sleepTime'),bfTime:v('bfTime'),bfDur:parseInt(v('bfDur')),luTime:v('luTime'),luDur:parseInt(v('luDur')),diTime:v('diTime'),diDur:parseInt(v('diDur')),exTime:v('exTime'),exDur:parseInt(v('exDur')),baTime:v('baTime'),baDur:parseInt(v('baDur')),buffer:parseInt(v('bufTime')),hasEx:document.getElementById('exTog').classList.contains('on')};
 }
 
-// demo: seed history
+// seed demo history
 (function seedHistory(){
   if(Object.keys(history).length) return;
   const now=new Date();
@@ -1238,8 +1496,7 @@ function getLife(){
   ];
   sample.forEach((s,i)=>{
     const d=new Date(now); d.setDate(d.getDate()-i-1);
-    const k=fmtDateKey(d);
-    history[k]=s;
+    const k=fmtDateKey(d); history[k]=s;
   });
   localStorage.setItem(SK.history,JSON.stringify(history));
 })();
