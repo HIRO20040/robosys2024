@@ -3,761 +3,951 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DayQuest - Demo</title>
+<title>DayQuest</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
 
-  :root {
-    --bg: #0a0e1a;
-    --bg2: #0f1626;
-    --panel: #131d35;
-    --panel2: #1a2540;
-    --accent: #00d4ff;
-    --accent2: #7b5ea7;
-    --gold: #f5c518;
-    --green: #00ff9d;
-    --red: #ff4757;
-    --text: #e0e8ff;
-    --text2: #8899bb;
-    --border: #1e3060;
-  }
+:root {
+  --bg: #0a0e1a; --bg2: #0f1626; --panel: #131d35; --panel2: #1a2540;
+  --accent: #00d4ff; --accent2: #7b5ea7; --gold: #f5c518;
+  --green: #00ff9d; --red: #ff4757; --text: #e0e8ff; --text2: #8899bb; --border: #1e3060;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans JP',sans-serif; min-height:100vh; overflow-x:hidden; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ── SCREENS ── */
+.screen { display:none; min-height:100vh; }
+.screen.active { display:flex; flex-direction:column; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Noto Sans JP', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+/* ── STEP HEADER ── */
+.step-header {
+  padding:20px 32px; background:var(--bg2); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.logo { font-family:'Orbitron',sans-serif; font-size:20px; font-weight:900; color:var(--accent); letter-spacing:3px; text-shadow:0 0 20px rgba(0,212,255,.5); }
+.logo span { color:var(--gold); }
+.steps { display:flex; gap:8px; align-items:center; }
+.step-dot { width:28px; height:28px; border-radius:50%; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:'Orbitron',sans-serif; font-size:10px; color:var(--text2); transition:all .3s; }
+.step-dot.done { background:var(--green); border-color:var(--green); color:var(--bg); }
+.step-dot.active { border-color:var(--accent); color:var(--accent); box-shadow:0 0 12px rgba(0,212,255,.4); }
+.step-line { width:24px; height:1px; background:var(--border); }
 
-  /* ── HEADER ── */
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 28px;
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 100;
-  }
+/* ── FORM COMMON ── */
+.form-body { flex:1; overflow-y:auto; padding:32px; max-width:700px; margin:0 auto; width:100%; }
+.form-title { font-family:'Orbitron',sans-serif; font-size:13px; letter-spacing:3px; color:var(--text2); text-transform:uppercase; margin-bottom:24px; }
+.form-section { margin-bottom:28px; }
+.form-section-label { font-family:'Rajdhani',sans-serif; font-size:13px; letter-spacing:2px; color:var(--accent); text-transform:uppercase; margin-bottom:12px; }
+.form-row { display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap; }
+.form-group { flex:1; min-width:140px; }
+.form-group label { display:block; font-family:'Rajdhani',sans-serif; font-size:12px; letter-spacing:1px; color:var(--text2); margin-bottom:6px; text-transform:uppercase; }
+.form-input {
+  width:100%; background:var(--panel); border:1px solid var(--border); border-radius:6px;
+  padding:10px 14px; color:var(--text); font-family:'Rajdhani',sans-serif; font-size:15px; letter-spacing:1px;
+  transition:border-color .2s; outline:none;
+}
+.form-input:focus { border-color:var(--accent); box-shadow:0 0 0 2px rgba(0,212,255,.1); }
+.form-input option { background:var(--panel2); }
+.toggle-row { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.toggle { width:44px; height:24px; background:var(--border); border-radius:12px; cursor:pointer; position:relative; transition:background .2s; flex-shrink:0; }
+.toggle.on { background:var(--accent); }
+.toggle::after { content:''; position:absolute; left:3px; top:3px; width:18px; height:18px; border-radius:50%; background:#fff; transition:transform .2s; }
+.toggle.on::after { transform:translateX(20px); }
+.toggle-label { font-family:'Rajdhani',sans-serif; font-size:14px; letter-spacing:1px; color:var(--text); }
 
-  .logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--accent);
-    letter-spacing: 3px;
-    text-shadow: 0 0 20px rgba(0,212,255,0.5);
-  }
-  .logo span { color: var(--gold); }
+/* ── TASK INPUT ── */
+.task-list { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+.task-item {
+  background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:14px 16px;
+  display:flex; gap:10px; align-items:flex-start; position:relative;
+}
+.task-item-left { flex:1; display:flex; flex-direction:column; gap:8px; }
+.task-item-row { display:flex; gap:8px; flex-wrap:wrap; }
+.task-item-input { background:var(--panel2); border:1px solid var(--border); border-radius:5px; padding:7px 12px; color:var(--text); font-family:'Rajdhani',sans-serif; font-size:14px; letter-spacing:1px; outline:none; transition:border-color .2s; }
+.task-item-input:focus { border-color:var(--accent); }
+.task-item-input.name { flex:1; min-width:180px; }
+.task-item-input.small { width:90px; }
+.task-remove { background:none; border:none; color:var(--text2); cursor:pointer; font-size:18px; padding:4px; opacity:.6; transition:opacity .2s; flex-shrink:0; margin-top:2px; }
+.task-remove:hover { opacity:1; color:var(--red); }
+.add-task-btn {
+  width:100%; padding:11px; background:transparent; border:1px dashed var(--border); border-radius:8px;
+  color:var(--text2); font-family:'Rajdhani',sans-serif; font-size:14px; letter-spacing:2px; cursor:pointer; transition:all .2s;
+}
+.add-task-btn:hover { border-color:var(--accent); color:var(--accent); }
+.priority-badge { padding:4px 10px; border-radius:4px; font-family:'Orbitron',sans-serif; font-size:9px; letter-spacing:2px; border:1px solid; cursor:pointer; transition:all .2s; }
+.priority-badge.s { color:var(--red); border-color:var(--red); }
+.priority-badge.a { color:var(--gold); border-color:var(--gold); }
+.priority-badge.b { color:var(--accent); border-color:var(--accent); }
+.priority-badge.active-s { background:rgba(255,71,87,.2); }
+.priority-badge.active-a { background:rgba(245,197,24,.15); }
+.priority-badge.active-b { background:rgba(0,212,255,.1); }
 
-  .date-badge {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 14px;
-    color: var(--text2);
-    letter-spacing: 2px;
-  }
+/* ── BOTTOM BAR ── */
+.form-footer { padding:20px 32px; background:var(--bg2); border-top:1px solid var(--border); display:flex; justify-content:flex-end; gap:12px; }
+.btn { padding:11px 28px; border-radius:6px; font-family:'Orbitron',sans-serif; font-size:11px; letter-spacing:2px; cursor:pointer; transition:all .2s; text-transform:uppercase; }
+.btn-ghost { background:transparent; border:1px solid var(--border); color:var(--text2); }
+.btn-ghost:hover { border-color:var(--text2); color:var(--text); }
+.btn-primary { background:var(--accent); border:1px solid var(--accent); color:var(--bg); font-weight:700; }
+.btn-primary:hover { opacity:.85; }
+.btn-gold { background:var(--gold); border:1px solid var(--gold); color:var(--bg); font-weight:700; }
+.btn-gold:hover { opacity:.85; }
 
-  /* ── TABS ── */
-  .tabs {
-    display: flex;
-    gap: 4px;
-    padding: 16px 28px 0;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg2);
-  }
-  .tab {
-    padding: 10px 28px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--text2);
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-bottom: none;
-    border-radius: 6px 6px 0 0;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-  .tab.active {
-    background: var(--panel);
-    color: var(--accent);
-    border-color: var(--border);
-    border-bottom: 2px solid var(--accent);
-  }
+/* ── GENERATING ── */
+#screenGenerate { justify-content:center; align-items:center; gap:24px; }
+.gen-logo { font-family:'Orbitron',sans-serif; font-size:28px; font-weight:900; color:var(--accent); letter-spacing:4px; text-shadow:0 0 30px rgba(0,212,255,.6); }
+.gen-logo span { color:var(--gold); }
+.gen-spinner { width:60px; height:60px; border:3px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 1s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.gen-text { font-family:'Rajdhani',sans-serif; font-size:14px; letter-spacing:3px; color:var(--text2); text-transform:uppercase; }
+.gen-steps { display:flex; flex-direction:column; gap:8px; width:300px; }
+.gen-step { display:flex; align-items:center; gap:12px; font-family:'Rajdhani',sans-serif; font-size:13px; letter-spacing:1px; color:var(--text2); }
+.gen-step.done { color:var(--green); }
+.gen-step .dot { width:8px; height:8px; border-radius:50%; background:var(--border); flex-shrink:0; }
+.gen-step.done .dot { background:var(--green); box-shadow:0 0 8px var(--green); }
+.gen-step.running .dot { background:var(--accent); animation:pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-  /* ── LAYOUT ── */
-  .main { display: flex; height: calc(100vh - 103px); }
+/* ── MAIN APP HEADER ── */
+.app-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 28px; background:var(--bg2); border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:100; flex-shrink:0;
+}
+.app-logo { font-family:'Orbitron',sans-serif; font-size:20px; font-weight:900; color:var(--accent); letter-spacing:3px; text-shadow:0 0 20px rgba(0,212,255,.5); }
+.app-logo span { color:var(--gold); }
+.header-center { display:flex; align-items:center; gap:20px; }
+.progress-wrap { display:flex; align-items:center; gap:10px; }
+.progress-label { font-family:'Rajdhani',sans-serif; font-size:12px; color:var(--text2); letter-spacing:1px; }
+.progress-bar-outer { width:120px; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+.progress-bar-inner { height:100%; background:linear-gradient(to right,var(--accent),var(--accent2)); border-radius:3px; transition:width .5s; }
+.combo-badge { font-family:'Orbitron',sans-serif; font-size:11px; color:var(--gold); letter-spacing:1px; padding:4px 10px; border:1px solid rgba(245,197,24,.3); border-radius:4px; background:rgba(245,197,24,.05); }
+.header-right { display:flex; align-items:center; gap:14px; }
+.xp-info { font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--gold); letter-spacing:1px; }
+.avatar { width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-size:15px; }
 
-  /* ── SCHEDULE PANEL ── */
-  .schedule-panel {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px 28px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-  }
+/* ── TABS ── */
+.app-tabs { display:flex; gap:4px; padding:14px 28px 0; border-bottom:1px solid var(--border); background:var(--bg2); flex-shrink:0; }
+.tab { padding:9px 26px; font-family:'Rajdhani',sans-serif; font-size:14px; font-weight:700; letter-spacing:2px; color:var(--text2); cursor:pointer; border:1px solid transparent; border-bottom:none; border-radius:6px 6px 0 0; transition:all .2s; text-transform:uppercase; }
+.tab.active { background:var(--panel); color:var(--accent); border-color:var(--border); border-bottom:2px solid var(--accent); }
 
-  .section-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--text2);
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
+/* ── MAIN LAYOUT ── */
+.app-main { display:flex; flex:1; overflow:hidden; }
 
-  .timeline { position: relative; }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 52px;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, var(--border) 10%, var(--border) 90%, transparent);
-  }
+/* ── SCHEDULE PANEL ── */
+.schedule-panel { flex:1; overflow-y:auto; padding:20px 28px; scrollbar-width:thin; scrollbar-color:var(--border) transparent; }
+.section-title { font-family:'Orbitron',sans-serif; font-size:10px; letter-spacing:3px; color:var(--text2); text-transform:uppercase; margin-bottom:14px; }
+.timeline { position:relative; }
+.timeline::before { content:''; position:absolute; left:52px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,var(--border) 10%,var(--border) 90%,transparent); }
+.time-block { display:flex; gap:14px; margin-bottom:6px; align-items:stretch; }
+.time-label { width:44px; text-align:right; font-family:'Rajdhani',sans-serif; font-size:12px; color:var(--text2); letter-spacing:1px; padding-top:13px; flex-shrink:0; }
+.time-dot { width:10px; height:10px; border-radius:50%; background:var(--border); margin-top:17px; flex-shrink:0; position:relative; z-index:1; }
+.time-dot.active { background:var(--accent); box-shadow:0 0 10px var(--accent); }
+.time-dot.done { background:var(--green); }
+.block-card { flex:1; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:11px 15px; transition:all .2s; cursor:pointer; position:relative; overflow:hidden; }
+.block-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; border-radius:3px 0 0 3px; }
+.block-card.task::before { background:var(--accent); }
+.block-card.meal::before { background:var(--gold); }
+.block-card.rest::before { background:var(--accent2); }
+.block-card.exercise::before { background:var(--green); }
+.block-card.free::before { background:var(--text2); }
+.block-card.active-now { border-color:var(--accent); background:var(--panel2); box-shadow:0 0 20px rgba(0,212,255,.1); }
+.block-card.done { opacity:.4; }
+.block-header { display:flex; align-items:center; justify-content:space-between; }
+.block-name { font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:700; letter-spacing:1px; }
+.block-tag { font-size:9px; letter-spacing:2px; padding:2px 8px; border-radius:3px; text-transform:uppercase; font-family:'Rajdhani',sans-serif; font-weight:600; }
+.tag-task { background:rgba(0,212,255,.15); color:var(--accent); }
+.tag-meal { background:rgba(245,197,24,.15); color:var(--gold); }
+.tag-rest { background:rgba(123,94,167,.15); color:var(--accent2); }
+.tag-exercise { background:rgba(0,255,157,.15); color:var(--green); }
+.tag-free { background:rgba(136,153,187,.15); color:var(--text2); }
+.block-duration { font-size:11px; color:var(--text2); margin-top:3px; font-family:'Rajdhani',sans-serif; letter-spacing:1px; }
+.start-btn { margin-top:9px; padding:6px 18px; background:transparent; border:1px solid var(--accent); color:var(--accent); border-radius:4px; font-family:'Orbitron',sans-serif; font-size:10px; letter-spacing:2px; cursor:pointer; transition:all .2s; text-transform:uppercase; }
+.start-btn:hover { background:var(--accent); color:var(--bg); }
 
-  .time-block {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 6px;
-    align-items: stretch;
-  }
+/* ── MISSION PANEL ── */
+.mission-panel { display:none; flex:1; padding:24px 28px; overflow-y:auto; }
+.mission-panel.visible { display:block; }
+.schedule-panel.hidden { display:none; }
+.mission-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-top:8px; }
+.mission-card { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px; position:relative; overflow:hidden; transition:all .2s; cursor:pointer; }
+.mission-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+.mission-card.done { opacity:.4; }
+.mission-card::after { content:''; position:absolute; top:0; right:0; width:80px; height:80px; background:radial-gradient(circle at top right,rgba(0,212,255,.07),transparent 70%); }
+.mission-priority { display:inline-block; font-family:'Orbitron',sans-serif; font-size:9px; letter-spacing:2px; padding:3px 10px; border-radius:3px; margin-bottom:9px; text-transform:uppercase; }
+.priority-s { background:rgba(255,71,87,.2); color:var(--red); border:1px solid var(--red); }
+.priority-a { background:rgba(245,197,24,.15); color:var(--gold); border:1px solid var(--gold); }
+.priority-b { background:rgba(0,212,255,.1); color:var(--accent); border:1px solid var(--accent); }
+.mission-name { font-family:'Rajdhani',sans-serif; font-size:17px; font-weight:700; letter-spacing:1px; margin-bottom:5px; }
+.mission-desc { font-size:12px; color:var(--text2); line-height:1.6; margin-bottom:12px; }
+.mission-meta { display:flex; justify-content:space-between; font-family:'Rajdhani',sans-serif; font-size:12px; color:var(--text2); letter-spacing:1px; }
+.mission-progress { margin-top:10px; height:4px; background:var(--border); border-radius:2px; }
+.mission-progress-fill { height:100%; border-radius:2px; background:linear-gradient(to right,var(--accent),var(--accent2)); }
+.complete-badge { position:absolute; top:12px; right:12px; font-size:18px; }
 
-  .time-label {
-    width: 44px;
-    text-align: right;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 13px;
-    color: var(--text2);
-    letter-spacing: 1px;
-    padding-top: 14px;
-    flex-shrink: 0;
-  }
+/* ── POMODORO PANEL ── */
+.pomo-panel {
+  width:0; overflow:hidden; background:var(--bg2); border-left:1px solid var(--border);
+  transition:width .35s cubic-bezier(.4,0,.2,1); flex-shrink:0;
+}
+.pomo-panel.open { width:290px; overflow:visible; }
+.pomo-inner { width:290px; padding:22px 18px; display:flex; flex-direction:column; gap:18px; }
+.pomo-header { display:flex; align-items:center; justify-content:space-between; }
+.pomo-title { font-family:'Orbitron',sans-serif; font-size:10px; letter-spacing:3px; color:var(--text2); text-transform:uppercase; }
+.pomo-close { background:none; border:none; color:var(--text2); cursor:pointer; font-size:18px; opacity:.6; transition:opacity .2s; }
+.pomo-close:hover { opacity:1; }
+.pomo-task-name { font-family:'Rajdhani',sans-serif; font-size:16px; font-weight:700; color:var(--accent); letter-spacing:1px; }
+.pomo-ring { position:relative; width:150px; height:150px; margin:0 auto; }
+.pomo-ring svg { transform:rotate(-90deg); }
+.pomo-ring circle.bg { fill:none; stroke:var(--border); stroke-width:6; }
+.pomo-ring circle.prog { fill:none; stroke:var(--accent); stroke-width:6; stroke-linecap:round; stroke-dasharray:408; stroke-dashoffset:0; filter:drop-shadow(0 0 6px var(--accent)); transition:stroke-dashoffset 1s linear, stroke .3s; }
+.pomo-ring circle.prog.break { stroke:var(--accent2); filter:drop-shadow(0 0 6px var(--accent2)); }
+.pomo-time { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Orbitron',sans-serif; font-size:28px; font-weight:700; color:var(--text); }
+.pomo-mode { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); font-size:9px; letter-spacing:3px; font-family:'Rajdhani',sans-serif; text-transform:uppercase; }
+.pomo-mode.focus { color:var(--accent); }
+.pomo-mode.brk { color:var(--accent2); }
+.pomo-sets { text-align:center; font-family:'Rajdhani',sans-serif; font-size:12px; color:var(--text2); letter-spacing:2px; }
+.pomo-sets span { color:var(--accent); font-weight:700; }
+.pomo-dots { display:flex; justify-content:center; gap:8px; }
+.pomo-dot { width:10px; height:10px; border-radius:50%; border:1px solid var(--border); transition:all .3s; }
+.pomo-dot.filled { background:var(--accent); border-color:var(--accent); box-shadow:0 0 6px var(--accent); }
+.pomo-controls { display:flex; gap:8px; justify-content:center; }
+.pomo-btn { padding:8px 18px; border:1px solid var(--accent); background:transparent; color:var(--accent); border-radius:4px; font-family:'Orbitron',sans-serif; font-size:9px; letter-spacing:2px; cursor:pointer; transition:all .2s; }
+.pomo-btn.primary { background:var(--accent); color:var(--bg); }
+.pomo-btn:hover { opacity:.8; }
+.xp-wrap { background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:10px 12px; }
+.xp-lbl { display:flex; justify-content:space-between; font-family:'Rajdhani',sans-serif; font-size:11px; color:var(--text2); letter-spacing:1px; margin-bottom:7px; }
+.xp-lbl span { color:var(--gold); font-weight:700; }
+.xp-bar { height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
+.xp-fill { height:100%; background:linear-gradient(to right,var(--gold),#ffaa00); border-radius:3px; box-shadow:0 0 8px rgba(245,197,24,.4); transition:width .5s; }
+.done-list { background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:10px 12px; }
+.done-list-title { font-family:'Rajdhani',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text2); margin-bottom:7px; text-transform:uppercase; }
+.done-item { font-size:11px; color:var(--green); font-family:'Rajdhani',sans-serif; letter-spacing:1px; margin-top:4px; }
 
-  .time-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--border);
-    margin-top: 18px;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-  }
-  .time-dot.active { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
-  .time-dot.done { background: var(--green); }
+/* ── NOTIFICATION ── */
+.notif-stack { position:fixed; top:76px; right:20px; display:flex; flex-direction:column; gap:8px; z-index:300; }
+.notif {
+  background:var(--panel2); border:1px solid var(--green); border-radius:8px; padding:12px 18px;
+  display:flex; align-items:center; gap:10px; box-shadow:0 0 24px rgba(0,255,157,.15);
+  animation:slideIn .3s ease; min-width:240px;
+}
+.notif.combo { border-color:var(--gold); box-shadow:0 0 24px rgba(245,197,24,.2); }
+@keyframes slideIn { from{transform:translateX(110%);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes slideOut { from{transform:translateX(0);opacity:1} to{transform:translateX(110%);opacity:0} }
+.notif.out { animation:slideOut .3s ease forwards; }
+.notif-icon { font-size:20px; }
+.notif-text { font-family:'Rajdhani',sans-serif; font-size:13px; letter-spacing:1px; }
+.notif-text strong { display:block; font-size:14px; }
+.notif-text strong.g { color:var(--green); }
+.notif-text strong.y { color:var(--gold); }
 
-  .block-card {
-    flex: 1;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 16px;
-    transition: all 0.2s;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .block-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    border-radius: 3px 0 0 3px;
-  }
-  .block-card.task::before { background: var(--accent); }
-  .block-card.meal::before { background: var(--gold); }
-  .block-card.rest::before { background: var(--accent2); }
-  .block-card.exercise::before { background: var(--green); }
-  .block-card.free::before { background: var(--text2); }
-  .block-card.active-now {
-    border-color: var(--accent);
-    background: var(--panel2);
-    box-shadow: 0 0 20px rgba(0,212,255,0.1);
-  }
-  .block-card.done { opacity: 0.45; }
-
-  .block-header { display: flex; align-items: center; justify-content: space-between; }
-  .block-name {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-  .block-tag {
-    font-size: 10px;
-    letter-spacing: 2px;
-    padding: 2px 8px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-  }
-  .tag-task { background: rgba(0,212,255,0.15); color: var(--accent); }
-  .tag-meal { background: rgba(245,197,24,0.15); color: var(--gold); }
-  .tag-rest { background: rgba(123,94,167,0.15); color: var(--accent2); }
-  .tag-exercise { background: rgba(0,255,157,0.15); color: var(--green); }
-  .tag-free { background: rgba(136,153,187,0.15); color: var(--text2); }
-
-  .block-duration {
-    font-size: 11px;
-    color: var(--text2);
-    margin-top: 4px;
-    font-family: 'Rajdhani', sans-serif;
-    letter-spacing: 1px;
-  }
-
-  .start-btn {
-    margin-top: 10px;
-    padding: 7px 20px;
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    border-radius: 4px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-  .start-btn:hover { background: var(--accent); color: var(--bg); }
-
-  /* ── POMODORO WIDGET ── */
-  .pomodoro-widget {
-    width: 300px;
-    background: var(--bg2);
-    border-left: 1px solid var(--border);
-    padding: 24px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .pomo-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--text2);
-    text-transform: uppercase;
-  }
-
-  .pomo-task-name {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 1px;
-  }
-
-  .pomo-ring {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    margin: 0 auto;
-  }
-  .pomo-ring svg { transform: rotate(-90deg); }
-  .pomo-ring circle.bg {
-    fill: none;
-    stroke: var(--border);
-    stroke-width: 6;
-  }
-  .pomo-ring circle.progress {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 6;
-    stroke-linecap: round;
-    stroke-dasharray: 440;
-    stroke-dashoffset: 110;
-    filter: drop-shadow(0 0 8px var(--accent));
-    transition: stroke-dashoffset 1s linear;
-  }
-  .pomo-time {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--text);
-  }
-  .pomo-sub {
-    position: absolute;
-    bottom: 20px; left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--accent);
-    font-family: 'Rajdhani', sans-serif;
-    text-transform: uppercase;
-  }
-
-  .pomo-controls {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-  }
-  .pomo-btn {
-    padding: 8px 20px;
-    border: 1px solid var(--accent);
-    background: transparent;
-    color: var(--accent);
-    border-radius: 4px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .pomo-btn.primary { background: var(--accent); color: var(--bg); }
-  .pomo-btn:hover { opacity: 0.8; }
-
-  .pomo-sets {
-    text-align: center;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 12px;
-    color: var(--text2);
-    letter-spacing: 2px;
-  }
-  .pomo-sets span { color: var(--accent); font-weight: 700; }
-
-  .xp-bar-wrap {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 12px;
-  }
-  .xp-label {
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 12px;
-    color: var(--text2);
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-  }
-  .xp-label span { color: var(--gold); font-weight: 700; }
-  .xp-bar {
-    height: 6px;
-    background: var(--border);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .xp-fill {
-    height: 100%;
-    width: 62%;
-    background: linear-gradient(to right, var(--gold), #ffaa00);
-    border-radius: 3px;
-    box-shadow: 0 0 10px rgba(245,197,24,0.4);
-  }
-
-  /* ── NOTIFICATION ── */
-  .notification {
-    position: fixed;
-    top: 80px; right: 24px;
-    background: var(--panel2);
-    border: 1px solid var(--green);
-    border-radius: 8px;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 0 30px rgba(0,255,157,0.2);
-    z-index: 200;
-    animation: slideIn 0.3s ease;
-  }
-  @keyframes slideIn {
-    from { transform: translateX(120%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-  }
-  .notif-icon { font-size: 22px; }
-  .notif-text { font-family: 'Rajdhani', sans-serif; font-size: 14px; letter-spacing: 1px; }
-  .notif-text strong { color: var(--green); display: block; font-size: 16px; }
-
-  /* ── MISSION TAB ── */
-  .mission-panel {
-    display: none;
-    flex: 1;
-    padding: 24px 28px;
-    overflow-y: auto;
-  }
-  .mission-panel.visible { display: block; }
-  .schedule-panel.hidden { display: none; }
-
-  .mission-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-    margin-top: 8px;
-  }
-
-  .mission-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  .mission-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .mission-card.done { opacity: 0.4; }
-
-  .mission-card::after {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 80px; height: 80px;
-    background: radial-gradient(circle at top right, rgba(0,212,255,0.08), transparent 70%);
-  }
-
-  .mission-priority {
-    display: inline-block;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 9px;
-    letter-spacing: 2px;
-    padding: 3px 10px;
-    border-radius: 3px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-  }
-  .priority-s { background: rgba(255,71,87,0.2); color: var(--red); border: 1px solid var(--red); }
-  .priority-a { background: rgba(245,197,24,0.15); color: var(--gold); border: 1px solid var(--gold); }
-  .priority-b { background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid var(--accent); }
-
-  .mission-name {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
-  .mission-desc {
-    font-size: 12px;
-    color: var(--text2);
-    line-height: 1.6;
-    margin-bottom: 14px;
-  }
-  .mission-meta {
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 12px;
-    color: var(--text2);
-    letter-spacing: 1px;
-  }
-  .mission-progress {
-    margin-top: 12px;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-  }
-  .mission-progress-fill {
-    height: 100%;
-    border-radius: 2px;
-    background: linear-gradient(to right, var(--accent), var(--accent2));
-  }
-
-  .complete-badge {
-    position: absolute;
-    top: 14px; right: 14px;
-    font-size: 20px;
-  }
-
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
 </style>
 </head>
 <body>
 
-<!-- NOTIFICATION -->
-<div class="notification">
-  <div class="notif-icon">⚔️</div>
-  <div class="notif-text">
-    <strong>MISSION COMPLETE</strong>
-    数学レポート — Chapter 1 完了
+<!-- ═══════════════════════════════════════════
+     SCREEN 1: 生活リズム設定
+══════════════════════════════════════════════ -->
+<div id="screen1" class="screen active">
+  <div class="step-header">
+    <div class="logo">DAY<span>QUEST</span></div>
+    <div class="steps">
+      <div class="step-dot active">1</div>
+      <div class="step-line"></div>
+      <div class="step-dot">2</div>
+      <div class="step-line"></div>
+      <div class="step-dot">3</div>
+    </div>
+  </div>
+  <div class="form-body">
+    <div class="form-title">— STEP 1 : 生活リズムを設定 —</div>
+
+    <div class="form-section">
+      <div class="form-section-label">睡眠</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>起床時間</label>
+          <input class="form-input" type="time" id="wakeTime" value="07:00">
+        </div>
+        <div class="form-group">
+          <label>就寝時間</label>
+          <input class="form-input" type="time" id="sleepTime" value="23:30">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-label">食事</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>朝食 開始</label>
+          <input class="form-input" type="time" id="breakfastTime" value="07:30">
+        </div>
+        <div class="form-group">
+          <label>所要時間</label>
+          <select class="form-input" id="breakfastDur">
+            <option value="20">20分</option>
+            <option value="30" selected>30分</option>
+            <option value="45">45分</option>
+            <option value="60">1時間</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>昼食 開始</label>
+          <input class="form-input" type="time" id="lunchTime" value="12:00">
+        </div>
+        <div class="form-group">
+          <label>所要時間</label>
+          <select class="form-input" id="lunchDur">
+            <option value="30">30分</option>
+            <option value="45">45分</option>
+            <option value="60" selected>1時間</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>夕食 開始</label>
+          <input class="form-input" type="time" id="dinnerTime" value="19:00">
+        </div>
+        <div class="form-group">
+          <label>所要時間</label>
+          <select class="form-input" id="dinnerDur">
+            <option value="30">30分</option>
+            <option value="45">45分</option>
+            <option value="60" selected>1時間</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-label">運動</div>
+      <div class="toggle-row">
+        <div class="toggle on" id="exerciseToggle" onclick="this.classList.toggle('on'); document.getElementById('exerciseSettings').style.display=this.classList.contains('on')?'':'none'"></div>
+        <span class="toggle-label">今日は運動する</span>
+      </div>
+      <div id="exerciseSettings">
+        <div class="form-row">
+          <div class="form-group">
+            <label>開始時間</label>
+            <input class="form-input" type="time" id="exerciseTime" value="07:00">
+          </div>
+          <div class="form-group">
+            <label>時間</label>
+            <select class="form-input" id="exerciseDur">
+              <option value="20">20分</option>
+              <option value="30" selected>30分</option>
+              <option value="45">45分</option>
+              <option value="60">1時間</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-label">入浴</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>開始時間</label>
+          <input class="form-input" type="time" id="bathTime" value="22:00">
+        </div>
+        <div class="form-group">
+          <label>時間</label>
+          <select class="form-input" id="bathDur">
+            <option value="20">20分</option>
+            <option value="30" selected>30分</option>
+            <option value="45">45分</option>
+            <option value="60">1時間</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-label">バッファ（余白）</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>各タスク間の余白</label>
+          <select class="form-input" id="bufferTime">
+            <option value="0">なし</option>
+            <option value="15">15分</option>
+            <option value="30" selected>30分（推奨）</option>
+            <option value="60">1時間</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-footer">
+    <button class="btn btn-primary" onclick="goStep2()">NEXT →</button>
   </div>
 </div>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="logo">DAY<span>QUEST</span></div>
-  <div class="date-badge">2026.06.08 &nbsp;|&nbsp; MON &nbsp;|&nbsp; DAY 47</div>
-  <div style="display:flex;align-items:center;gap:16px;">
-    <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--gold);letter-spacing:1px;">LV.12 &nbsp;⬡ 1,240 XP</div>
-    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px;">⚡</div>
+<!-- ═══════════════════════════════════════════
+     SCREEN 2: タスク入力
+══════════════════════════════════════════════ -->
+<div id="screen2" class="screen">
+  <div class="step-header">
+    <div class="logo">DAY<span>QUEST</span></div>
+    <div class="steps">
+      <div class="step-dot done">✓</div>
+      <div class="step-line"></div>
+      <div class="step-dot active">2</div>
+      <div class="step-line"></div>
+      <div class="step-dot">3</div>
+    </div>
+  </div>
+  <div class="form-body">
+    <div class="form-title">— STEP 2 : 今日のミッションを登録 —</div>
+    <div class="task-list" id="taskList"></div>
+    <button class="add-task-btn" onclick="addTask()">＋ ミッションを追加</button>
+  </div>
+  <div class="form-footer">
+    <button class="btn btn-ghost" onclick="goStep1()">← BACK</button>
+    <button class="btn btn-primary" onclick="goGenerate()">GENERATE SCHEDULE →</button>
   </div>
 </div>
 
-<!-- TABS -->
-<div class="tabs">
-  <div class="tab active" onclick="switchTab('schedule',this)">📅 スケジュール</div>
-  <div class="tab" onclick="switchTab('mission',this)">⚔️ ミッション</div>
+<!-- ═══════════════════════════════════════════
+     SCREEN 3: AI生成中
+══════════════════════════════════════════════ -->
+<div id="screenGenerate" class="screen">
+  <div class="gen-logo">DAY<span>QUEST</span></div>
+  <div class="gen-spinner"></div>
+  <div class="gen-text">GENERATING YOUR SCHEDULE...</div>
+  <div class="gen-steps" id="genSteps">
+    <div class="gen-step" id="gs1"><div class="dot"></div>生活リズムを解析中</div>
+    <div class="gen-step" id="gs2"><div class="dot"></div>タスクの優先度を評価中</div>
+    <div class="gen-step" id="gs3"><div class="dot"></div>飽き性対策でタスクをシャッフル中</div>
+    <div class="gen-step" id="gs4"><div class="dot"></div>24時間スケジュールを構築中</div>
+    <div class="gen-step" id="gs5"><div class="dot"></div>ポモドーロセットを割り当て中</div>
+  </div>
 </div>
 
-<!-- MAIN -->
-<div class="main">
-
-  <!-- SCHEDULE -->
-  <div class="schedule-panel" id="schedulePanel">
-    <div class="section-title">— TODAY'S TIMELINE —</div>
-    <div class="timeline">
-
-      <div class="time-block">
-        <div class="time-label">07:00</div>
-        <div class="time-dot done"></div>
-        <div class="block-card rest done">
-          <div class="block-header">
-            <div class="block-name">起床 / 朝の準備</div>
-            <div class="block-tag tag-rest">REST</div>
-          </div>
-          <div class="block-duration">07:00 – 07:30 &nbsp;·&nbsp; 30 min</div>
+<!-- ═══════════════════════════════════════════
+     SCREEN 4: メインアプリ
+══════════════════════════════════════════════ -->
+<div id="screenMain" class="screen">
+  <div class="app-header">
+    <div class="app-logo">DAY<span>QUEST</span></div>
+    <div class="header-center">
+      <div class="progress-wrap">
+        <div class="progress-label">TODAY</div>
+        <div class="progress-bar-outer">
+          <div class="progress-bar-inner" id="progressBar" style="width:30%"></div>
         </div>
+        <div class="progress-label" id="progressText" style="color:var(--accent)">30%</div>
       </div>
-
-      <div class="time-block">
-        <div class="time-label">07:30</div>
-        <div class="time-dot done"></div>
-        <div class="block-card exercise done">
-          <div class="block-header">
-            <div class="block-name">朝の運動</div>
-            <div class="block-tag tag-exercise">EXERCISE</div>
-          </div>
-          <div class="block-duration">07:30 – 08:00 &nbsp;·&nbsp; 30 min</div>
-        </div>
-      </div>
-
-      <div class="time-block">
-        <div class="time-label">08:00</div>
-        <div class="time-dot done"></div>
-        <div class="block-card meal done">
-          <div class="block-header">
-            <div class="block-name">朝食</div>
-            <div class="block-tag tag-meal">MEAL</div>
-          </div>
-          <div class="block-duration">08:00 – 08:30 &nbsp;·&nbsp; 30 min</div>
-        </div>
-      </div>
-
-      <div class="time-block">
-        <div class="time-label">09:00</div>
-        <div class="time-dot active"></div>
-        <div class="block-card task active-now">
-          <div class="block-header">
-            <div class="block-name">数学レポート — Chapter 1</div>
-            <div class="block-tag tag-task">TASK</div>
-          </div>
-          <div class="block-duration">09:00 – 10:00 &nbsp;·&nbsp; 1h &nbsp;🔥 優先度 S</div>
-          <button class="start-btn">▶ START SESSION</button>
-        </div>
-      </div>
-
-      <div class="time-block">
-        <div class="time-label">10:00</div>
-        <div class="time-dot"></div>
-        <div class="block-card free">
-          <div class="block-header">
-            <div class="block-name">バッファ / 休憩</div>
-            <div class="block-tag tag-free">FREE</div>
-          </div>
-          <div class="block-duration">10:00 – 10:30 &nbsp;·&nbsp; 30 min</div>
-        </div>
-      </div>
-
-      <div class="time-block">
-        <div class="time-label">10:30</div>
-        <div class="time-dot"></div>
-        <div class="block-card task">
-          <div class="block-header">
-            <div class="block-name">英語プレゼン準備 — スライド作成</div>
-            <div class="block-tag tag-task">TASK</div>
-          </div>
-          <div class="block-duration">10:30 – 11:30 &nbsp;·&nbsp; 1h &nbsp;⚡ 優先度 A</div>
-        </div>
-      </div>
-
-      <div class="time-block">
-        <div class="time-label">12:00</div>
-        <div class="time-dot"></div>
-        <div class="block-card meal">
-          <div class="block-header">
-            <div class="block-name">昼食</div>
-            <div class="block-tag tag-meal">MEAL</div>
-          </div>
-          <div class="block-duration">12:00 – 13:00 &nbsp;·&nbsp; 1h</div>
-        </div>
-      </div>
-
-      <div class="time-block">
-        <div class="time-label">13:00</div>
-        <div class="time-dot"></div>
-        <div class="block-card task">
-          <div class="block-header">
-            <div class="block-name">数学レポート — Chapter 2</div>
-            <div class="block-tag tag-task">TASK</div>
-          </div>
-          <div class="block-duration">13:00 – 14:00 &nbsp;·&nbsp; 1h &nbsp;🔥 優先度 S</div>
-        </div>
-      </div>
-
-      <div class="time-block">
-        <div class="time-label">22:30</div>
-        <div class="time-dot"></div>
-        <div class="block-card rest">
-          <div class="block-header">
-            <div class="block-name">入浴 / 就寝準備</div>
-            <div class="block-tag tag-rest">REST</div>
-          </div>
-          <div class="block-duration">22:30 – 23:30 &nbsp;·&nbsp; 1h</div>
-        </div>
-      </div>
-
-      <div class="time-block">
-        <div class="time-label">23:30</div>
-        <div class="time-dot"></div>
-        <div class="block-card rest">
-          <div class="block-header">
-            <div class="block-name">睡眠</div>
-            <div class="block-tag tag-rest">SLEEP</div>
-          </div>
-          <div class="block-duration">23:30 – 07:00 &nbsp;·&nbsp; 7h 30min</div>
-        </div>
-      </div>
-
+      <div class="combo-badge" id="comboBadge" style="display:none">🔥 COMBO ×<span id="comboCount">0</span></div>
+    </div>
+    <div class="header-right">
+      <div class="xp-info">LV.12 &nbsp;⬡ <span id="xpVal">620</span> XP</div>
+      <div class="avatar">⚡</div>
     </div>
   </div>
-
-  <!-- MISSION PANEL -->
-  <div class="mission-panel" id="missionPanel">
-    <div class="section-title">— ACTIVE MISSIONS —</div>
-    <div class="mission-grid">
-
-      <div class="mission-card">
-        <div class="mission-priority priority-s">S RANK</div>
-        <div class="mission-name">数学レポート</div>
-        <div class="mission-desc">微積分の章末問題をまとめてレポートにする。Chapter 1〜3 全て完了が目標。</div>
-        <div class="mission-meta">
-          <span>⏱ 3h 予定</span>
-          <span>📅 締切: 06/10</span>
-        </div>
-        <div class="mission-progress"><div class="mission-progress-fill" style="width:33%"></div></div>
-        <div style="font-size:11px;color:var(--text2);font-family:'Rajdhani',sans-serif;margin-top:6px;letter-spacing:1px;">1 / 3 セッション完了</div>
-      </div>
-
-      <div class="mission-card">
-        <div class="mission-priority priority-a">A RANK</div>
-        <div class="mission-name">英語プレゼン準備</div>
-        <div class="mission-desc">来週の授業発表に向けてスライドと原稿を完成させる。</div>
-        <div class="mission-meta">
-          <span>⏱ 2h 予定</span>
-          <span>📅 締切: 06/12</span>
-        </div>
-        <div class="mission-progress"><div class="mission-progress-fill" style="width:0%"></div></div>
-        <div style="font-size:11px;color:var(--text2);font-family:'Rajdhani',sans-serif;margin-top:6px;letter-spacing:1px;">0 / 2 セッション完了</div>
-      </div>
-
-      <div class="mission-card">
-        <div class="mission-priority priority-b">B RANK</div>
-        <div class="mission-name">プログラミング課題</div>
-        <div class="mission-desc">Pythonでソートアルゴリズムを実装して提出。</div>
-        <div class="mission-meta">
-          <span>⏱ 1h 予定</span>
-          <span>📅 締切: 06/15</span>
-        </div>
-        <div class="mission-progress"><div class="mission-progress-fill" style="width:0%"></div></div>
-        <div style="font-size:11px;color:var(--text2);font-family:'Rajdhani',sans-serif;margin-top:6px;letter-spacing:1px;">0 / 1 セッション完了</div>
-      </div>
-
-      <div class="mission-card done">
-        <div class="complete-badge">✅</div>
-        <div class="mission-priority priority-b">B RANK</div>
-        <div class="mission-name">読書 — 習慣の力</div>
-        <div class="mission-desc">第1章〜第3章を読了してメモをとる。</div>
-        <div class="mission-meta">
-          <span>⏱ 1h</span>
-          <span>🏆 完了済み</span>
-        </div>
-        <div class="mission-progress"><div class="mission-progress-fill" style="width:100%;background:var(--green)"></div></div>
-      </div>
-
-    </div>
+  <div class="app-tabs">
+    <div class="tab active" onclick="switchTab('schedule',this)">📅 スケジュール</div>
+    <div class="tab" onclick="switchTab('mission',this)">⚔️ ミッション</div>
   </div>
+  <div class="app-main">
 
-  <!-- POMODORO WIDGET -->
-  <div class="pomodoro-widget">
-    <div>
-      <div class="pomo-title">— CURRENT SESSION —</div>
-      <div class="pomo-task-name" style="margin-top:8px;">数学レポート Ch.1</div>
+    <!-- Schedule -->
+    <div class="schedule-panel" id="schedulePanel">
+      <div class="section-title">— TODAY'S TIMELINE —</div>
+      <div class="timeline" id="timeline"></div>
     </div>
 
-    <div class="pomo-ring">
-      <svg width="160" height="160" viewBox="0 0 160 160">
-        <circle class="bg" cx="80" cy="80" r="70"/>
-        <circle class="progress" cx="80" cy="80" r="70"/>
-      </svg>
-      <div class="pomo-time">18:42</div>
-      <div class="pomo-sub">FOCUS</div>
+    <!-- Mission -->
+    <div class="mission-panel" id="missionPanel">
+      <div class="section-title">— ACTIVE MISSIONS —</div>
+      <div class="mission-grid" id="missionGrid"></div>
     </div>
 
-    <div class="pomo-sets">SET &nbsp;<span>1</span> / 2 &nbsp;·&nbsp; 残り <span>2</span> SET</div>
-
-    <div class="pomo-controls">
-      <button class="pomo-btn primary">⏸ PAUSE</button>
-      <button class="pomo-btn">⏭ SKIP</button>
-    </div>
-
-    <div class="xp-bar-wrap">
-      <div class="xp-label">
-        <span>TODAY'S XP</span>
-        <span>620 / 1000</span>
+    <!-- Pomodoro -->
+    <div class="pomo-panel" id="pomoPanel">
+      <div class="pomo-inner">
+        <div class="pomo-header">
+          <div class="pomo-title">— SESSION —</div>
+          <button class="pomo-close" onclick="closePomo()">✕</button>
+        </div>
+        <div class="pomo-task-name" id="pomoTaskName">—</div>
+        <div class="pomo-ring">
+          <svg width="150" height="150" viewBox="0 0 150 150">
+            <circle class="bg" cx="75" cy="75" r="65"/>
+            <circle class="prog" id="pomoCircle" cx="75" cy="75" r="65"/>
+          </svg>
+          <div class="pomo-time" id="pomoTime">25:00</div>
+          <div class="pomo-mode focus" id="pomoMode">FOCUS</div>
+        </div>
+        <div class="pomo-sets">SET &nbsp;<span id="pomoSet">1</span> / 2</div>
+        <div class="pomo-dots">
+          <div class="pomo-dot" id="pdot0"></div>
+          <div class="pomo-dot" id="pdot1"></div>
+          <div class="pomo-dot" id="pdot2"></div>
+          <div class="pomo-dot" id="pdot3"></div>
+        </div>
+        <div class="pomo-controls">
+          <button class="pomo-btn primary" id="pomoPlayBtn" onclick="togglePomo()">▶ START</button>
+          <button class="pomo-btn" onclick="resetPomo()">↺ RESET</button>
+        </div>
+        <div class="xp-wrap">
+          <div class="xp-lbl"><span>TODAY'S XP</span><span><span id="xpDisp">620</span> / 1000</span></div>
+          <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:62%"></div></div>
+        </div>
+        <div class="done-list">
+          <div class="done-list-title">Completed Today</div>
+          <div id="doneList"></div>
+        </div>
       </div>
-      <div class="xp-bar"><div class="xp-fill"></div></div>
     </div>
 
-    <div style="background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px;">
-      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:2px;color:var(--text2);margin-bottom:8px;">COMPLETED TODAY</div>
-      <div style="font-size:12px;color:var(--green);font-family:'Rajdhani',sans-serif;letter-spacing:1px;">✓ 朝の運動</div>
-      <div style="font-size:12px;color:var(--green);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-top:4px;">✓ 読書 — 習慣の力</div>
-    </div>
   </div>
-
 </div>
+
+<!-- Notifications -->
+<div class="notif-stack" id="notifStack"></div>
 
 <script>
-  function switchTab(tab, el) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    if (tab === 'schedule') {
-      document.getElementById('schedulePanel').classList.remove('hidden');
-      document.getElementById('missionPanel').classList.remove('visible');
+// ════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════
+let tasks = [];
+let schedule = [];
+let completedTasks = [];
+let combo = 0;
+let xp = 620;
+let progress = 30;
+
+let pomoRunning = false;
+let pomoInterval = null;
+let pomoSeconds = 25 * 60;
+let pomoMode = 'focus'; // 'focus' | 'break'
+let pomoSet = 1;
+let pomoSetsDone = 0; // completed focus sessions
+let pomoCurrentTask = null;
+const FOCUS_SECS = 25 * 60;
+const BREAK_SECS = 5 * 60;
+const TOTAL_SETS = 2;
+const CIRCUMFERENCE = 408; // 2πr, r=65
+
+// ════════════════════════════════════════
+//  NAVIGATION
+// ════════════════════════════════════════
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goStep1() { show('screen1'); }
+
+function goStep2() {
+  show('screen2');
+  if (tasks.length === 0) addTask();
+}
+
+function goGenerate() {
+  if (tasks.filter(t => t.name.trim()).length === 0) {
+    pushNotif('⚠️', '<strong class="y">WAIT</strong>タスクを1つ以上入力してください');
+    return;
+  }
+  show('screenGenerate');
+  runGenAnimation();
+}
+
+// ════════════════════════════════════════
+//  TASK INPUT
+// ════════════════════════════════════════
+function addTask() {
+  const id = Date.now();
+  tasks.push({ id, name:'', priority:'A', duration:60, deadline:'' });
+  renderTaskList();
+}
+
+function removeTask(id) {
+  tasks = tasks.filter(t => t.id !== id);
+  renderTaskList();
+}
+
+function setPriority(id, p) {
+  const t = tasks.find(x => x.id === id);
+  if (t) { t.priority = p; renderTaskList(); }
+}
+
+function renderTaskList() {
+  const el = document.getElementById('taskList');
+  el.innerHTML = tasks.map(t => `
+    <div class="task-item">
+      <div class="task-item-left">
+        <div class="task-item-row">
+          <input class="task-item-input name" placeholder="タスク名を入力..." value="${t.name}"
+            oninput="tasks.find(x=>x.id===${t.id}).name=this.value">
+        </div>
+        <div class="task-item-row" style="align-items:center;gap:10px;">
+          <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;">優先度:</span>
+          ${['S','A','B'].map(p => `
+            <button class="priority-badge ${p.toLowerCase()} ${t.priority===p?'active-'+p.toLowerCase():''}"
+              onclick="setPriority(${t.id},'${p}')">${p} RANK</button>
+          `).join('')}
+          <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;margin-left:8px;">目安時間:</span>
+          <select class="task-item-input small" onchange="tasks.find(x=>x.id===${t.id}).duration=parseInt(this.value)">
+            ${[30,60,90,120,180].map(v=>`<option value="${v}" ${t.duration===v?'selected':''}>${v<60?v+'分':v/60+'時間'}</option>`).join('')}
+          </select>
+          <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;margin-left:8px;">締切:</span>
+          <input class="task-item-input small" type="date" value="${t.deadline}"
+            oninput="tasks.find(x=>x.id===${t.id}).deadline=this.value" style="width:130px;">
+        </div>
+      </div>
+      <button class="task-remove" onclick="removeTask(${t.id})">✕</button>
+    </div>
+  `).join('');
+}
+
+// ════════════════════════════════════════
+//  GENERATE ANIMATION → MAIN
+// ════════════════════════════════════════
+function runGenAnimation() {
+  const steps = ['gs1','gs2','gs3','gs4','gs5'];
+  let i = 0;
+  const tick = () => {
+    if (i > 0) { const prev = document.getElementById(steps[i-1]); if(prev){prev.classList.remove('running');prev.classList.add('done');} }
+    if (i < steps.length) {
+      const cur = document.getElementById(steps[i]); if(cur) cur.classList.add('running');
+      i++;
+      setTimeout(tick, 700);
     } else {
-      document.getElementById('schedulePanel').classList.add('hidden');
-      document.getElementById('missionPanel').classList.add('visible');
+      setTimeout(() => { buildSchedule(); show('screenMain'); }, 500);
+    }
+  };
+  tick();
+}
+
+// ════════════════════════════════════════
+//  SCHEDULE BUILDER (mock AI)
+// ════════════════════════════════════════
+function buildSchedule() {
+  const wake = document.getElementById('wakeTime').value || '07:00';
+  const sleep = document.getElementById('sleepTime').value || '23:30';
+  const buffer = parseInt(document.getElementById('bufferTime').value || '30');
+  const hasExercise = document.getElementById('exerciseToggle').classList.contains('on');
+
+  const fixed = [];
+
+  if (hasExercise) {
+    fixed.push({ time: document.getElementById('exerciseTime').value, dur: parseInt(document.getElementById('exerciseDur').value), type:'exercise', name:'運動' });
+  }
+  fixed.push({ time: document.getElementById('breakfastTime').value, dur: parseInt(document.getElementById('breakfastDur').value), type:'meal', name:'朝食' });
+  fixed.push({ time: document.getElementById('lunchTime').value, dur: parseInt(document.getElementById('lunchDur').value), type:'meal', name:'昼食' });
+  fixed.push({ time: document.getElementById('dinnerTime').value, dur: parseInt(document.getElementById('dinnerDur').value), type:'meal', name:'夕食' });
+  fixed.push({ time: document.getElementById('bathTime').value, dur: parseInt(document.getElementById('bathDur').value), type:'rest', name:'入浴' });
+
+  // Build blocks
+  let blocks = [];
+  blocks.push({ time: wake, dur: 15, type:'rest', name:'起床 / 準備', priority:null });
+  fixed.forEach(f => blocks.push({ time: f.time, dur: f.dur, type: f.type, name: f.name, priority:null }));
+
+  // Expand tasks to 1h sessions (interleaved - boredom prevention)
+  const sessions = [];
+  tasks.forEach(t => {
+    const sets = Math.ceil(t.duration / 60);
+    for (let i = 0; i < sets; i++) {
+      const label = sets > 1 ? `${t.name} — Part ${i+1}` : t.name;
+      sessions.push({ name: label, priority: t.priority, taskName: t.name });
+    }
+  });
+  // Interleave: sort by priority then shuffle same-name apart
+  sessions.sort((a, b) => ({ S:0, A:1, B:2 }[a.priority] - { S:0, A:1, B:2 }[b.priority]));
+  const interleaved = [];
+  const q = [...sessions];
+  let last = null;
+  while (q.length) {
+    const idx = q.findIndex(s => s.taskName !== (last && last.taskName)) ;
+    const pick = idx >= 0 ? q.splice(idx, 1)[0] : q.splice(0, 1)[0];
+    interleaved.push(pick);
+    last = pick;
+  }
+
+  // Assign times to task blocks (fill gaps after fixed blocks)
+  const toMins = t => { const [h,m] = t.split(':').map(Number); return h*60+m; };
+  const toStr = m => { const hh = Math.floor(m/60)%24; const mm = m%60; return String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0'); };
+
+  const fixedBlocks = blocks.map(b => ({ start: toMins(b.time), end: toMins(b.time)+b.dur, ...b }));
+  fixedBlocks.sort((a, b) => a.start - b.start);
+
+  const sleepStart = toMins(sleep);
+  let cursor = toMins(wake) + 15;
+
+  const finalBlocks = [...fixedBlocks];
+  let sessionIdx = 0;
+
+  for (let cur = cursor; cur < sleepStart && sessionIdx < interleaved.length; ) {
+    // Check if this slot is free
+    const conflict = fixedBlocks.find(b => b.start < cur + 60 && b.end > cur);
+    if (conflict) { cur = conflict.end + buffer; continue; }
+    const s = interleaved[sessionIdx++];
+    finalBlocks.push({ start: cur, end: cur + 60, time: toStr(cur), dur: 60, type:'task', name: s.name, priority: s.priority, taskName: s.taskName });
+    cur += 60 + buffer;
+  }
+
+  // Add free buffer blocks
+  if (buffer > 0) {
+    const sorted = [...finalBlocks].sort((a, b) => a.start - b.start);
+    for (let i = 0; i < sorted.length - 1; i++) {
+      const gap = sorted[i+1].start - sorted[i].end;
+      if (gap >= buffer && gap > 0) {
+        finalBlocks.push({ start: sorted[i].end, end: sorted[i].end + Math.min(gap, buffer), time: toStr(sorted[i].end), dur: Math.min(gap, buffer), type:'free', name:'バッファ / 休憩', priority:null });
+      }
     }
   }
 
-  // タイマーアニメーション
-  let seconds = 18 * 60 + 42;
-  const total = 25 * 60;
-  const circle = document.querySelector('.pomo-ring circle.progress');
-  const timeEl = document.querySelector('.pomo-time');
-  const circumference = 440;
+  finalBlocks.push({ start: sleepStart, end: sleepStart + (toMins(wake) + 24*60 - sleepStart), time: sleep, dur: toMins(wake) + 24*60 - sleepStart, type:'rest', name:'睡眠', priority:null });
 
-  setInterval(() => {
-    if (seconds > 0) seconds--;
-    const ratio = seconds / total;
-    circle.style.strokeDashoffset = circumference * (1 - ratio);
-    const m = Math.floor(seconds / 60).toString().padStart(2,'0');
-    const s = (seconds % 60).toString().padStart(2,'0');
-    timeEl.textContent = `${m}:${s}`;
-  }, 1000);
+  schedule = finalBlocks.sort((a, b) => a.start - b.start);
+  renderSchedule();
+  renderMissions();
+}
+
+// ════════════════════════════════════════
+//  RENDER SCHEDULE
+// ════════════════════════════════════════
+function renderSchedule() {
+  const tl = document.getElementById('timeline');
+  const toStr = m => { const hh = Math.floor(m/60)%24; const mm = m%60; return String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0'); };
+  const durStr = m => m < 60 ? m+'分' : (m%60===0 ? m/60+'h' : Math.floor(m/60)+'h '+m%60+'分');
+  const priorityLabel = p => p ? { S:'🔥 S RANK', A:'⚡ A RANK', B:'B RANK' }[p] : '';
+
+  tl.innerHTML = schedule.map((b, i) => {
+    const isTask = b.type === 'task';
+    const dotClass = b.done ? 'done' : (b.active ? 'active' : '');
+    const cardClass = [b.type, b.done?'done':'', b.active?'active-now':''].filter(Boolean).join(' ');
+    const endStr = toStr(b.end);
+    return `
+      <div class="time-block" id="block_${i}">
+        <div class="time-label">${b.time}</div>
+        <div class="time-dot ${dotClass}" id="dot_${i}"></div>
+        <div class="block-card ${cardClass}" id="card_${i}">
+          <div class="block-header">
+            <div class="block-name">${b.name}</div>
+            <div class="block-tag tag-${b.type}">${b.type.toUpperCase()}</div>
+          </div>
+          <div class="block-duration">${b.time} – ${endStr} &nbsp;·&nbsp; ${durStr(b.dur)}${b.priority?' &nbsp;'+priorityLabel(b.priority):''}</div>
+          ${isTask && !b.done ? `<button class="start-btn" onclick="startSession(${i})">▶ START SESSION</button>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderMissions() {
+  const grid = document.getElementById('missionGrid');
+  const taskGroups = {};
+  tasks.forEach(t => { taskGroups[t.name] = t; });
+  const totalSessions = s => schedule.filter(b => b.type === 'task' && b.taskName === s).length;
+  const doneSessions = s => schedule.filter(b => b.type === 'task' && b.taskName === s && b.done).length;
+
+  grid.innerHTML = Object.values(taskGroups).map(t => {
+    const total = totalSessions(t.name);
+    const done = doneSessions(t.name);
+    const pct = total ? Math.round(done/total*100) : 0;
+    const pClass = { S:'priority-s', A:'priority-a', B:'priority-b' }[t.priority];
+    const rankLabel = { S:'S RANK', A:'A RANK', B:'B RANK' }[t.priority];
+    const isDone = done === total && total > 0;
+    return `
+      <div class="mission-card ${isDone?'done':''}">
+        ${isDone ? '<div class="complete-badge">✅</div>' : ''}
+        <div class="mission-priority ${pClass}">${rankLabel}</div>
+        <div class="mission-name">${t.name}</div>
+        <div class="mission-meta">
+          <span>⏱ ${t.duration < 60 ? t.duration+'分' : t.duration/60+'h'} 予定</span>
+          <span>${t.deadline ? '📅 締切: '+t.deadline.slice(5) : '締切なし'}</span>
+        </div>
+        <div class="mission-progress"><div class="mission-progress-fill" style="width:${pct}%${isDone?';background:var(--green)':''}"></div></div>
+        <div style="font-size:11px;color:var(--text2);font-family:'Rajdhani',sans-serif;margin-top:5px;letter-spacing:1px;">${done} / ${total} セッション完了</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ════════════════════════════════════════
+//  TAB SWITCH
+// ════════════════════════════════════════
+function switchTab(tab, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const sp = document.getElementById('schedulePanel');
+  const mp = document.getElementById('missionPanel');
+  if (tab === 'schedule') { sp.classList.remove('hidden'); mp.classList.remove('visible'); }
+  else { sp.classList.add('hidden'); mp.classList.add('visible'); }
+}
+
+// ════════════════════════════════════════
+//  POMODORO
+// ════════════════════════════════════════
+let activeBlockIdx = null;
+
+function startSession(blockIdx) {
+  const block = schedule[blockIdx];
+  activeBlockIdx = blockIdx;
+  pomoCurrentTask = block.name;
+  document.getElementById('pomoTaskName').textContent = block.name;
+  resetPomo();
+  document.getElementById('pomoPanel').classList.add('open');
+}
+
+function closePomo() {
+  document.getElementById('pomoPanel').classList.remove('open');
+  if (pomoInterval) { clearInterval(pomoInterval); pomoInterval = null; }
+  pomoRunning = false;
+  document.getElementById('pomoPlayBtn').textContent = '▶ START';
+}
+
+function togglePomo() {
+  if (pomoRunning) {
+    clearInterval(pomoInterval); pomoInterval = null;
+    pomoRunning = false;
+    document.getElementById('pomoPlayBtn').textContent = '▶ RESUME';
+  } else {
+    pomoRunning = true;
+    document.getElementById('pomoPlayBtn').textContent = '⏸ PAUSE';
+    pomoInterval = setInterval(tickPomo, 1000);
+  }
+}
+
+function resetPomo() {
+  clearInterval(pomoInterval); pomoInterval = null;
+  pomoRunning = false;
+  pomoSeconds = FOCUS_SECS;
+  pomoMode = 'focus';
+  pomoSet = 1;
+  pomoSetsDone = 0;
+  document.getElementById('pomoPlayBtn').textContent = '▶ START';
+  updatePomoUI();
+}
+
+function tickPomo() {
+  if (pomoSeconds > 0) {
+    pomoSeconds--;
+    updatePomoUI();
+  } else {
+    // Mode switch
+    if (pomoMode === 'focus') {
+      pomoSetsDone++;
+      updateDot(pomoSetsDone - 1, true);
+      if (pomoSetsDone >= TOTAL_SETS) {
+        // All sets done
+        clearInterval(pomoInterval); pomoInterval = null; pomoRunning = false;
+        onSessionComplete();
+        return;
+      }
+      pomoMode = 'break';
+      pomoSeconds = BREAK_SECS;
+      pushNotif('☕', '<strong class="y">BREAK TIME</strong>5分間休憩しよう');
+    } else {
+      pomoMode = 'focus';
+      pomoSet = pomoSetsDone + 1;
+      pomoSeconds = FOCUS_SECS;
+      pushNotif('⚡', '<strong class="g">FOCUS</strong>次のセットを始めよう');
+    }
+    updatePomoUI();
+  }
+}
+
+function updatePomoUI() {
+  const total = pomoMode === 'focus' ? FOCUS_SECS : BREAK_SECS;
+  const ratio = pomoSeconds / total;
+  const offset = CIRCUMFERENCE * (1 - ratio);
+  const circle = document.getElementById('pomoCircle');
+  circle.style.strokeDashoffset = offset;
+  circle.className = 'prog' + (pomoMode === 'break' ? ' break' : '');
+
+  const m = Math.floor(pomoSeconds / 60).toString().padStart(2, '0');
+  const s = (pomoSeconds % 60).toString().padStart(2, '0');
+  document.getElementById('pomoTime').textContent = `${m}:${s}`;
+  document.getElementById('pomoSet').textContent = pomoSet;
+
+  const modeEl = document.getElementById('pomoMode');
+  modeEl.textContent = pomoMode === 'focus' ? 'FOCUS' : 'BREAK';
+  modeEl.className = 'pomo-mode ' + (pomoMode === 'focus' ? 'focus' : 'brk');
+}
+
+function updateDot(idx, filled) {
+  const d = document.getElementById('pdot' + idx);
+  if (d) d.classList.toggle('filled', filled);
+}
+
+function onSessionComplete() {
+  if (activeBlockIdx !== null) {
+    schedule[activeBlockIdx].done = true;
+    renderSchedule();
+    renderMissions();
+    completedTasks.push(schedule[activeBlockIdx].name);
+    renderDoneList();
+  }
+  combo++;
+  xp += combo >= 3 ? 120 : 80;
+  if (xp > 1000) xp = 1000;
+  const total = schedule.filter(b => b.type === 'task').length;
+  const done = schedule.filter(b => b.type === 'task' && b.done).length;
+  progress = total ? Math.round(done / total * 100) : 0;
+  updateHeaderStats();
+
+  pushNotif('⚔️', `<strong class="g">MISSION COMPLETE</strong>${schedule[activeBlockIdx]?.name || ''}`);
+  if (combo >= 2) {
+    setTimeout(() => pushNotif('🔥', `<strong class="y">COMBO ×${combo}</strong>XP ボーナス獲得！`, true), 500);
+  }
+
+  document.getElementById('pomoPlayBtn').textContent = '▶ START';
+  pomoRunning = false;
+  // Reset dots for next use
+  for (let i = 0; i < 4; i++) updateDot(i, false);
+  pomoSetsDone = 0; pomoSet = 1; pomoSeconds = FOCUS_SECS; pomoMode = 'focus';
+  updatePomoUI();
+}
+
+function updateHeaderStats() {
+  document.getElementById('progressBar').style.width = progress + '%';
+  document.getElementById('progressText').textContent = progress + '%';
+  document.getElementById('xpVal').textContent = xp;
+  document.getElementById('xpDisp').textContent = xp;
+  document.getElementById('xpBar').style.width = (xp / 10) + '%';
+  const cb = document.getElementById('comboBadge');
+  if (combo >= 2) {
+    cb.style.display = 'block';
+    document.getElementById('comboCount').textContent = combo;
+  }
+}
+
+function renderDoneList() {
+  document.getElementById('doneList').innerHTML = completedTasks.slice(-5).map(n =>
+    `<div class="done-item">✓ ${n}</div>`
+  ).join('');
+}
+
+// ════════════════════════════════════════
+//  NOTIFICATIONS
+// ════════════════════════════════════════
+function pushNotif(icon, html, isCombo = false) {
+  const stack = document.getElementById('notifStack');
+  const div = document.createElement('div');
+  div.className = 'notif' + (isCombo ? ' combo' : '');
+  div.innerHTML = `<div class="notif-icon">${icon}</div><div class="notif-text">${html}</div>`;
+  stack.appendChild(div);
+  setTimeout(() => {
+    div.classList.add('out');
+    setTimeout(() => div.remove(), 300);
+  }, 3000);
+}
+
+// ════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════
+// Demo: show notification on load
+setTimeout(() => pushNotif('⚡', '<strong class="g">WELCOME BACK</strong>今日もやっていこう'), 500);
 </script>
 </body>
 </html>
