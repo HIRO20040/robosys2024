@@ -628,16 +628,39 @@ function restoreLifeForm(){
 }
 
 // ══════════════════════════════════════
-//  TASK INPUT (event delegation)
+//  TASK INPUT
 // ══════════════════════════════════════
+
+// re-renderの前に現在のDOM上のinput値をtasks配列に同期する
+function syncTasksFromDOM(){
+  document.querySelectorAll('#taskList .task-card').forEach(card=>{
+    const id = parseInt(card.dataset.id);
+    const t = tasks.find(x=>x.id===id); if(!t) return;
+    const nameEl = card.querySelector('.tc-name');
+    if(nameEl) t.name = nameEl.value;
+    const durEl = card.querySelector('[data-field="duration"]');
+    if(durEl) t.duration = parseInt(durEl.value);
+    const dlEl = card.querySelector('[data-field="deadline"]');
+    if(dlEl) t.deadline = dlEl.value;
+  });
+}
+
 function addTask(){
+  syncTasksFromDOM();
   tasks.push({id:Date.now(),name:'',priority:'A',duration:60,deadline:''});
   saveTasks(); renderTasks();
   setTimeout(()=>{ const ins=document.querySelectorAll('.tc-name'); if(ins.length) ins[ins.length-1].focus(); },50);
 }
 
-function delTask(id){ tasks=tasks.filter(t=>t.id!==id); saveTasks(); renderTasks(); }
-function setPri(id,p){ const t=tasks.find(x=>x.id===id); if(t){t.priority=p;saveTasks();renderTasks();} }
+function delTask(id){
+  syncTasksFromDOM();
+  tasks=tasks.filter(t=>t.id!==id); saveTasks(); renderTasks();
+}
+
+function setPri(id,p){
+  syncTasksFromDOM();
+  const t=tasks.find(x=>x.id===id); if(t){t.priority=p;saveTasks();renderTasks();}
+}
 
 function renderTasks(){
   const el=document.getElementById('taskList');
@@ -645,42 +668,39 @@ function renderTasks(){
     <div class="task-card" data-id="${t.id}">
       <div class="tc-left">
         <div class="tc-row">
-          <input class="tc-name" placeholder="タスク名を入力..." data-field="name" data-id="${t.id}" value="${esc(t.name)}">
+          <input class="tc-name" placeholder="タスク名を入力..."
+            data-field="name" data-id="${t.id}" value="${esc(t.name)}"
+            oninput="taskFieldInput(${t.id},'name',this.value)"
+            onchange="taskFieldInput(${t.id},'name',this.value)">
         </div>
         <div class="tc-row">
           <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;">優先度:</span>
-          <button class="pbadge ps${t.priority==='S'?' on':''}" data-pri="S" data-id="${t.id}">S</button>
-          <button class="pbadge pa${t.priority==='A'?' on':''}" data-pri="A" data-id="${t.id}">A</button>
-          <button class="pbadge pb${t.priority==='B'?' on':''}" data-pri="B" data-id="${t.id}">B</button>
+          <button class="pbadge ps${t.priority==='S'?' on':''}" onclick="setPri(${t.id},'S')">S</button>
+          <button class="pbadge pa${t.priority==='A'?' on':''}" onclick="setPri(${t.id},'A')">A</button>
+          <button class="pbadge pb${t.priority==='B'?' on':''}" onclick="setPri(${t.id},'B')">B</button>
           <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;margin-left:6px;">時間:</span>
-          <select class="tc-sel" data-field="duration" data-id="${t.id}">
+          <select class="tc-sel" data-field="duration" data-id="${t.id}"
+            onchange="taskFieldInput(${t.id},'duration',this.value)">
             ${[30,60,90,120,180].map(v=>`<option value="${v}"${t.duration===v?' selected':''}>${v<60?v+'分':v/60+'h'}</option>`).join('')}
           </select>
           <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;margin-left:6px;">締切:</span>
-          <input class="tc-sel" type="date" data-field="deadline" data-id="${t.id}" value="${t.deadline}" style="width:128px;">
+          <input class="tc-sel" type="date" data-field="deadline" data-id="${t.id}"
+            value="${t.deadline}" style="width:128px;"
+            onchange="taskFieldInput(${t.id},'deadline',this.value)">
         </div>
       </div>
-      <button class="tc-del" data-del="${t.id}">✕</button>
+      <button class="tc-del" onclick="delTask(${t.id})">✕</button>
     </div>
   `).join('');
 }
 
-document.getElementById('taskList').addEventListener('input',e=>{
-  const id=parseInt(e.target.dataset.id), field=e.target.dataset.field;
-  if(!id||!field) return;
+function taskFieldInput(id, field, value){
   const t=tasks.find(x=>x.id===id); if(!t) return;
-  if(field==='name') t.name=e.target.value;
-  else if(field==='duration') t.duration=parseInt(e.target.value);
-  else if(field==='deadline') t.deadline=e.target.value;
+  if(field==='name') t.name=value;
+  else if(field==='duration') t.duration=parseInt(value);
+  else if(field==='deadline') t.deadline=value;
   saveTasks();
-});
-
-document.getElementById('taskList').addEventListener('click',e=>{
-  const delId=e.target.dataset.del;
-  if(delId){delTask(parseInt(delId));return;}
-  const pri=e.target.dataset.pri, id=e.target.dataset.id;
-  if(pri&&id) setPri(parseInt(id),pri);
-});
+}
 
 // ══════════════════════════════════════
 //  TASK MANAGER TAB
