@@ -360,7 +360,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
       </div>
     </div>
   </div>
-  <div class="ffooter"><button class="btn btn-primary" onclick="goS2()">NEXT →</button></div>
+  <div class="ffooter"><button class="btn btn-primary" onclick="saveLife();goS2()">NEXT →</button></div>
 </div>
 
 <!-- SCREEN 2: タスク入力 -->
@@ -494,18 +494,17 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
     <div class="task-mgr" id="tmPanel">
       <div class="tm-hdr">
         <div class="sec-title" style="margin:0">— TASK MANAGER —</div>
-        <button class="btn btn-primary" onclick="openAddTask()" style="padding:7px 16px;font-size:10px;">＋ ADD TASK</button>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-gold" onclick="regenSchedule()" style="padding:7px 14px;font-size:10px;">🔄 今日のスケジュールを再生成</button>
+          <button class="btn btn-primary" onclick="openAddTask()" style="padding:7px 14px;font-size:10px;">＋ ADD TASK</button>
+        </div>
       </div>
+      <div style="font-size:11px;color:var(--text2);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-bottom:14px;">タスクを追加・編集・削除後、「今日のスケジュールを再生成」で反映されます。</div>
       <div class="tm-list" id="tmList"></div>
     </div>
     <div class="hist-panel" id="histPanel">
       <div id="streakBanner"></div>
-      <div class="hist-toggle">
-        <button class="hist-tog-btn active" id="hBtnCal" onclick="setHistView('cal')">📅 CALENDAR</button>
-        <button class="hist-tog-btn" id="hBtnList" onclick="setHistView('list')">📋 LIST</button>
-      </div>
-      <div id="histCalView"></div>
-      <div id="histListView" style="display:none"></div>
+      <div id="histListView"></div>
     </div>
     <div class="pomo-panel" id="pomoPanel">
       <div class="pomo-inner">
@@ -773,9 +772,20 @@ function delTaskFromMgr(id){
 function openApiModal(){
   const filled=tasks.filter(t=>t.name.trim());
   if(!filled.length){pushN('⚠️','<b class="y">WAIT</b>タスクを1つ以上入力してください');return;}
-  // save life settings
   saveLife();
   document.getElementById('apiModal').classList.remove('hidden');
+}
+
+function regenSchedule(){
+  const hasDone = schedule.some(b=>b.done);
+  if(hasDone && !confirm('完了済みセッションがリセットされます。再生成しますか？')) return;
+  xp=0; combo=0;
+  restoreLifeForm();
+  buildScheduleLocal();
+  saveSchedule();
+  renderAll();
+  pushN('🔄','<b class="g">REGENERATED</b>スケジュールを再生成しました');
+  switchTab('sch', document.getElementById('tabSch'));
 }
 
 function startGenerate(useApi){
@@ -1071,8 +1081,6 @@ function onDE(){ dragIdx=null; document.querySelectorAll('.bcard').forEach(c=>c.
 // ══════════════════════════════════════
 //  HISTORY
 // ══════════════════════════════════════
-let histView='cal';
-let calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
 
 function saveDay(dateStr, sch, dayXp){
   const done=sch.filter(b=>b.type==='task'&&!b.isRepeat&&b.done);
@@ -1088,17 +1096,8 @@ function saveDay(dateStr, sch, dayXp){
   localStorage.setItem(SK.history,JSON.stringify(history));
 }
 
-function setHistView(v){
-  histView=v;
-  document.getElementById('hBtnCal').classList.toggle('active',v==='cal');
-  document.getElementById('hBtnList').classList.toggle('active',v==='list');
-  document.getElementById('histCalView').style.display=v==='cal'?'':'none';
-  document.getElementById('histListView').style.display=v==='list'?'':'none';
-}
-
 function renderHistoryTab(){
   renderStreak();
-  renderCalendar();
   renderHistList();
 }
 
@@ -1117,42 +1116,6 @@ function renderStreak(){
   el.innerHTML=`<div class="streak-banner"><div class="streak-num">${streak}</div><div><div class="streak-lbl">🔥 DAY STREAK</div><div style="font-size:12px;color:var(--text2);font-family:'Rajdhani',sans-serif;">${streak}日連続50%以上達成！</div></div></div>`;
 }
 
-function renderCalendar(){
-  const el=document.getElementById('histCalView');
-  const firstDay=new Date(calYear,calMonth,1).getDay();
-  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
-  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const dows=['日','月','火','水','木','金','土'];
-  let html=`<div class="cal-wrap">
-    <div class="cal-hdr">
-      <button class="cal-nav" onclick="calNav(-1)">← PREV</button>
-      <div class="cal-month">${calYear} · ${months[calMonth]}</div>
-      <button class="cal-nav" onclick="calNav(1)">NEXT →</button>
-    </div>
-    <div class="cal-grid">
-      ${dows.map(d=>`<div class="cal-dow">${d}</div>`).join('')}
-      ${Array(firstDay).fill('<div class="cal-day empty"></div>').join('')}`;
-  const td=today();
-  for(let d=1;d<=daysInMonth;d++){
-    const key=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const h=history[key];
-    const isToday=key===td;
-    const dotCls=h?h.pct>=80?'dot-s':h.pct>=50?'dot-m':'dot-l':'dot-none';
-    html+=`<div class="cal-day${isToday?' today':''}${h?' has-data':''}" onclick="${h?`showDayDetail('${key}')`:''}" title="${h?h.done+'/'+h.total+' tasks':''}">
-      <div class="cal-day-num">${d}</div>
-      ${h||isToday?`<div class="cal-day-dot ${dotCls}"></div>`:''}
-    </div>`;
-  }
-  html+='</div></div>';
-  el.innerHTML=html;
-}
-
-function calNav(dir){
-  calMonth+=dir;
-  if(calMonth<0){calMonth=11;calYear--;}
-  if(calMonth>11){calMonth=0;calYear++;}
-  renderCalendar();
-}
 
 function renderHistList(){
   const el=document.getElementById('histListView');
@@ -1221,6 +1184,10 @@ function saveLife(){
   localStorage.setItem(SK.life,JSON.stringify(life));
 }
 function getLife(){
+  // localStorage から読む（スクリーン切り替え後もフォーム値に依存しない）
+  const saved = load(SK.life, null);
+  if(saved) return saved;
+  // fallback: フォームから読む
   return{wake:v('wakeTime'),sleep:v('sleepTime'),bfTime:v('bfTime'),bfDur:parseInt(v('bfDur')),luTime:v('luTime'),luDur:parseInt(v('luDur')),diTime:v('diTime'),diDur:parseInt(v('diDur')),exTime:v('exTime'),exDur:parseInt(v('exDur')),baTime:v('baTime'),baDur:parseInt(v('baDur')),buffer:parseInt(v('bufTime')),hasEx:document.getElementById('exTog').classList.contains('on')};
 }
 
