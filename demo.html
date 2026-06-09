@@ -375,6 +375,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
   </div>
   <div class="fbody">
     <div class="ftitle">— STEP 2 : 今日のミッションを登録 —</div>
+    <div style="font-size:12px;color:var(--text2);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-bottom:18px;line-height:1.7;">「目安時間」はスケジュール上のセッション数に変換されます。<br>例: 2h → 「タスク名 Part 1」「タスク名 Part 2」の2コマ（各1h）として配置されます。</div>
     <div class="task-list" id="taskList"></div>
     <button class="add-btn" onclick="addTask()">＋ ミッションを追加</button>
   </div>
@@ -472,7 +473,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
     </div>
     <div class="hd-right">
       <div class="today-date" id="todayDateHd"></div>
-      <div class="xp-info">LV.12 ⬡ <span id="xpH">0</span> XP</div>
+      <div class="xp-info"><span id="lvDisp">LV.1</span> ⬡ <span id="totalXpDisp">0</span> XP</div>
       <div class="avatar">⚡</div>
     </div>
   </div>
@@ -556,6 +557,7 @@ const SK = {
   todayDate: 'dq_today',
   todaySchedule: 'dq_schedule',
   todayXp: 'dq_xp',
+  totalXp: 'dq_total_xp',
 };
 
 // ══════════════════════════════════════
@@ -565,6 +567,9 @@ let tasks = load(SK.tasks, []);
 let schedule = [];
 let history = load(SK.history, {});  // { "2026-06-08": { tasks:[...], xp, pct, streak } }
 let combo = 0, xp = 0, progress = 0;
+let totalXp = load(SK.totalXp, 0);
+function calcLevel(txp){ return Math.floor(txp / 500) + 1; }
+function xpToNextLevel(txp){ return 500 - (txp % 500); }
 let apiKey = '';
 let activeDate = today();
 
@@ -984,6 +989,10 @@ function updateStats(){
   document.getElementById('xpD').textContent=xp;
   document.getElementById('xpFill').style.width=(xp/10)+'%';
   if(combo>=2){document.getElementById('comboEl').style.display='block';document.getElementById('comboN').textContent=combo;}
+  // level display
+  const lv=calcLevel(totalXp);
+  document.getElementById('lvDisp').textContent=`LV.${lv}`;
+  document.getElementById('totalXpDisp').textContent=totalXp;
 }
 
 // ══════════════════════════════════════
@@ -1051,7 +1060,11 @@ function saveCompletion(save){
     schedule[idx].note=document.getElementById('compNote').value.trim();
   }
   schedule[idx].done=true;
-  combo++; xp=Math.min(xp+(combo>=3?120:80),1000);
+  const gained = combo>=3?120:80;
+  combo++; xp=Math.min(xp+gained,1000);
+  const prevLv=calcLevel(totalXp);
+  totalXp+=gained; localStorage.setItem(SK.totalXp, totalXp);
+  if(calcLevel(totalXp)>prevLv) setTimeout(()=>pushN('⬆️',`<b class="y">LEVEL UP!</b>LV.${calcLevel(totalXp)} に上がった！`,true),800);
   saveSchedule(); renderSchedule(); renderMissions(); updateStats();
   document.getElementById('doneList').innerHTML=schedule.filter(b=>b.done).slice(-5).map(b=>`<div class="done-item">✓ ${esc(b.name)}</div>`).join('');
   pushN('⚔️',`<b class="g">MISSION COMPLETE</b>${esc(schedule[idx].name)}`);
