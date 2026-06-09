@@ -575,7 +575,8 @@ let activeDate = today();
 
 // pomodoro
 let pomoRunning=false,pomoTimer=null,pomoSec=1500,pomoMode='focus',pomoSet=1,pomoDone=0,activeIdx=null;
-const FOCUS=1500,BREAK=300,SETS=2,C=408;
+let SETS=2; // タスク時間に応じて動的に変化
+const FOCUS=1500,BREAK=300,C=408;
 let pendingCompletion = null; // block being completed
 
 // drag
@@ -966,7 +967,7 @@ function renderSchedule(){
         </div>
         <div class="bdur">${b.time} – ${toS(b.end)} · ${durStr(b.dur)}${b.priority?' · '+pLabel(b.priority):''}</div>
         ${b.type==='task'&&!b.done?'<div class="drag-hint">↕ ドラッグで移動</div>':''}
-        ${b.type==='task'&&!b.done?`<button class="start-btn" onclick="startSession(${i})">▶ START SESSION</button>`:''}
+        ${b.type==='task'&&!b.done?(i===activeIdx?`<button class="start-btn" style="color:var(--green);border-color:var(--green);cursor:default;" disabled>⏱ 実行中...</button>`:`<button class="start-btn" onclick="startSession(${i})">▶ START SESSION</button>`):''}
         ${b.done&&b.amount?`<div style="font-size:11px;color:var(--green);margin-top:4px;font-family:'Rajdhani',sans-serif;letter-spacing:1px;">✓ ${esc(b.amount)}</div>`:''}
       </div>
     </div>`;
@@ -1032,11 +1033,15 @@ function switchTab(t,el){
 // ══════════════════════════════════════
 function startSession(idx){
   activeIdx=idx;
-  document.getElementById('pomoTask').textContent=schedule[idx].name;
+  const block=schedule[idx];
+  // タスク時間に応じてセット数を計算（30分=1セット、60分=2セット）
+  SETS=Math.max(1, Math.ceil((block.dur||60)/30));
+  document.getElementById('pomoTask').textContent=block.name;
   resetPomo();
   document.getElementById('pomoPanel').classList.add('open');
+  renderSchedule(); // ボタン表示を「実行中」に更新
 }
-function closePomo(){ document.getElementById('pomoPanel').classList.remove('open'); if(pomoTimer){clearInterval(pomoTimer);pomoTimer=null;} pomoRunning=false; document.getElementById('pomoPlay').textContent='▶ START'; }
+function closePomo(){ document.getElementById('pomoPanel').classList.remove('open'); if(pomoTimer){clearInterval(pomoTimer);pomoTimer=null;} pomoRunning=false; document.getElementById('pomoPlay').textContent='▶ START'; activeIdx=null; renderSchedule(); }
 function togglePomo(){ if(pomoRunning){clearInterval(pomoTimer);pomoTimer=null;pomoRunning=false;document.getElementById('pomoPlay').textContent='▶ RESUME';}else{pomoRunning=true;document.getElementById('pomoPlay').textContent='⏸ PAUSE';pomoTimer=setInterval(tickPomo,1000);} }
 function resetPomo(){ clearInterval(pomoTimer);pomoTimer=null;pomoRunning=false;pomoSec=FOCUS;pomoMode='focus';pomoSet=1;pomoDone=0; document.getElementById('pomoPlay').textContent='▶ START'; for(let i=0;i<4;i++) dot(i,false); updatePomoUI(); }
 function tickPomo(){
@@ -1089,7 +1094,7 @@ function saveCompletion(save){
   if(combo>=2) setTimeout(()=>pushN('🔥',`<b class="y">COMBO ×${combo}</b>XP ボーナス獲得！`,true),500);
   pomoRunning=false; document.getElementById('pomoPlay').textContent='▶ START';
   for(let i=0;i<4;i++) dot(i,false); pomoDone=0;pomoSet=1;pomoSec=FOCUS;pomoMode='focus'; updatePomoUI();
-  pendingCompletion=null;
+  activeIdx=null; pendingCompletion=null;
 }
 
 // ══════════════════════════════════════
