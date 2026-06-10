@@ -557,11 +557,8 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
           <div class="pomo-time" id="pomoTime">25:00</div>
           <div class="pomo-mode-lbl f" id="pomoModeLbl">FOCUS</div>
         </div>
-        <div class="pomo-sets">SET <b id="pomoSetN">1</b> / 2</div>
-        <div class="pdots">
-          <div class="pdot" id="pd0"></div><div class="pdot" id="pd1"></div>
-          <div class="pdot" id="pd2"></div><div class="pdot" id="pd3"></div>
-        </div>
+        <div class="pomo-sets">SET <b id="pomoSetN">1</b> / <span id="pomoSetTotal">2</span></div>
+        <div class="pdots" id="pdots"></div>
         <div class="pomo-ctrl">
           <button class="pbtn pri" id="pomoPlay" onclick="togglePomo()">▶ START</button>
           <button class="pbtn" onclick="resetPomo()">↺ RESET</button>
@@ -1366,7 +1363,11 @@ function startSession(idx){
 }
 function closePomo(){ document.getElementById('pomoPanel').classList.remove('open'); if(pomoTimer){clearInterval(pomoTimer);pomoTimer=null;} pomoRunning=false; document.getElementById('pomoPlay').textContent='▶ START'; activeIdx=null; renderScheduleGrid(); }
 function togglePomo(){ if(pomoRunning){clearInterval(pomoTimer);pomoTimer=null;pomoRunning=false;document.getElementById('pomoPlay').textContent='▶ RESUME';}else{pomoRunning=true;document.getElementById('pomoPlay').textContent='⏸ PAUSE';pomoTimer=setInterval(tickPomo,1000);} }
-function resetPomo(){ clearInterval(pomoTimer);pomoTimer=null;pomoRunning=false;pomoSec=FOCUS;pomoMode='focus';pomoSet=1;pomoDone=0; document.getElementById('pomoPlay').textContent='▶ START'; for(let i=0;i<4;i++) dot(i,false); updatePomoUI(); }
+function resetPomo(){ clearInterval(pomoTimer);pomoTimer=null;pomoRunning=false;pomoSec=FOCUS;pomoMode='focus';pomoSet=1;pomoDone=0; document.getElementById('pomoPlay').textContent='▶ START'; renderPdots(); updatePomoUI(); }
+function renderPdots(){
+  document.getElementById('pdots').innerHTML=Array.from({length:SETS},(_,i)=>`<div class="pdot" id="pd${i}"></div>`).join('');
+  document.getElementById('pomoSetTotal').textContent=SETS;
+}
 function tickPomo(){
   if(pomoSec>0){pomoSec--;updatePomoUI();return;}
   if(pomoMode==='focus'){
@@ -1416,7 +1417,7 @@ function saveCompletion(save){
   pushN('⚔️',`<b class="g">MISSION COMPLETE</b>${esc(schedule[idx].name)}`);
   if(combo>=2) setTimeout(()=>pushN('🔥',`<b class="y">COMBO ×${combo}</b>XP ボーナス獲得！`,true),500);
   pomoRunning=false; document.getElementById('pomoPlay').textContent='▶ START';
-  for(let i=0;i<4;i++) dot(i,false); pomoDone=0;pomoSet=1;pomoSec=FOCUS;pomoMode='focus'; updatePomoUI();
+  pomoDone=0;pomoSet=1;pomoSec=FOCUS;pomoMode='focus'; renderPdots(); updatePomoUI();
   activeIdx=null; pendingCompletion=null;
 }
 
