@@ -157,6 +157,10 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .gblock.fixed-other{background:rgba(168,85,247,.88);border:1px solid #a855f7;color:#fff;}
 .gblock.done-block{opacity:.38;}
 .gblock-inner{padding:4px 8px;height:100%;display:flex;flex-direction:column;gap:2px;overflow:hidden;}
+.gblock-inner>*{flex-shrink:0;}
+.gblock-row{display:flex;align-items:center;gap:8px;min-width:0;}
+.gblock-row .gblock-name{flex:1;min-width:0;}
+.gblock-row .gblock-btn{margin-top:0;flex-shrink:0;}
 .gblock-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .gblock-time{font-family:'Rajdhani',sans-serif;font-size:10px;color:var(--text2);letter-spacing:1px;white-space:nowrap;}
 .gblock.fixed-school .gblock-time,.gblock.fixed-work .gblock-time,.gblock.fixed-other .gblock-time{color:rgba(255,255,255,.75);}
@@ -1125,19 +1129,27 @@ function renderScheduleGrid(){
     const top = (b.start - gridMin) * PPM;
     const h = Math.max(28, b.dur * PPM);
     const cls = getBlockClass(b);
-    const showTime = h >= 36;
     const isRunning = i === activeIdx;
     const isTask = b.type === 'task' && !b.isFixed;
-    const showBtn = isTask && !b.done && h >= 44;
+    const showBtn = isTask && !b.done;
+    const compact = h < 60; // 低いブロックは横並びレイアウト
+    const showTime = !compact || h >= 36;
 
-    let inner = `<div class="gblock-name">${esc(b.name)}</div>`;
-    if(showTime) inner += `<div class="gblock-time">${b.time} – ${toS(b.end)}</div>`;
-    if(showBtn){
-      if(isRunning) inner += `<button class="gblock-btn running" disabled>⏱ 実行中</button>`;
-      else inner += `<button class="gblock-btn" onclick="startSession(${i})">▶ START</button>`;
-    }
-    if(b.done && b.amount && h>=44){
-      inner += `<div style="font-size:10px;color:var(--green);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-top:2px;">✓ ${esc(b.amount)}</div>`;
+    const btnHTML = !showBtn ? '' :
+      isRunning ? `<button class="gblock-btn running" disabled>⏱ 実行中</button>`
+                : `<button class="gblock-btn" onclick="startSession(${i})">▶ START</button>`;
+
+    let inner;
+    if(compact){
+      inner = `<div class="gblock-row"><div class="gblock-name">${esc(b.name)}</div>${btnHTML}</div>`;
+      if(showTime) inner += `<div class="gblock-time">${b.time} – ${toS(b.end)}</div>`;
+    } else {
+      inner = `<div class="gblock-name">${esc(b.name)}</div>`;
+      inner += `<div class="gblock-time">${b.time} – ${toS(b.end)}</div>`;
+      inner += btnHTML;
+      if(b.done && b.amount){
+        inner += `<div style="font-size:10px;color:var(--green);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-top:2px;">✓ ${esc(b.amount)}</div>`;
+      }
     }
 
     const drag = isTask ? `data-idx="${i}" onmousedown="gridDragStart(event,${i})"` : '';
@@ -1195,6 +1207,7 @@ function startNowLineTimer(){
 // ══════════════════════════════════════
 function gridDragStart(e, idx){
   if(e.button !== 0) return;
+  if(e.target.closest('.gblock-btn')) return; // ボタン上ではドラッグを開始しない
   const block = schedule[idx];
   if(!block || block.type !== 'task' || block.isFixed) return;
 
