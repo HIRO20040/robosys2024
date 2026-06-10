@@ -135,6 +135,9 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .grid-line{position:absolute;left:0;right:0;pointer-events:none;}
 .grid-line.solid{border-top:1px solid var(--border);}
 .grid-line.dashed{border-top:1px dashed rgba(30,48,96,.5);}
+.grid-legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);letter-spacing:1px;}
+.grid-legend span{display:flex;align-items:center;gap:5px;}
+.grid-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;}
 .grid-now{position:absolute;left:-6px;right:0;display:flex;align-items:center;pointer-events:none;z-index:40;}
 .grid-now-dot{width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);flex-shrink:0;}
 .grid-now-line{flex:1;border-top:2px solid var(--red);opacity:.8;}
@@ -492,6 +495,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
     <div class="hd-right">
       <div class="today-date" id="todayDateHd"></div>
       <div class="xp-info"><span id="lvDisp">LV.1</span> ⬡ <span id="totalXpDisp">0</span> XP</div>
+      <button class="btn btn-ghost" onclick="reopenSetup()" style="padding:5px 12px;font-size:9px;" title="生活リズム・固定予定・タスクを再設定">⚙ 設定</button>
       <div class="avatar">⚡</div>
     </div>
   </div>
@@ -503,7 +507,16 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
   </div>
   <div class="app-main">
     <div class="sch-panel" id="schPanel">
-      <div class="sec-title">— TODAY'S SCHEDULE — <span style="font-size:10px;color:var(--text2);letter-spacing:1px;">タスクブロックはドラッグで移動可能</span></div>
+      <div class="sec-title">— TODAY'S SCHEDULE <span style="color:var(--gold);">v2</span> — <span style="font-size:10px;color:var(--text2);letter-spacing:1px;">タスクブロックはドラッグで移動可能（30分刻み）</span></div>
+      <div class="grid-legend">
+        <span><i style="background:var(--accent)"></i>タスク</span>
+        <span><i style="background:#4a9eff"></i>🎓 学校</span>
+        <span><i style="background:#ff6b35"></i>💼 バイト</span>
+        <span><i style="background:#a855f7"></i>📌 その他</span>
+        <span><i style="background:var(--gold)"></i>食事</span>
+        <span><i style="background:#ff9500"></i>繰り返し</span>
+        <span><i style="background:var(--red)"></i>━ 現在時刻</span>
+      </div>
       <div id="gridContainer"></div>
     </div>
     <div class="mis-panel" id="misPanel">
@@ -650,6 +663,11 @@ let nowLineTimer = null;
 // ══════════════════════════════════════
 function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 function goS1(){ show('s1'); }
+function reopenSetup(){
+  if(!confirm('設定をやり直しますか？\n（タスクは保存されたまま、STEP1から再設定できます）')) return;
+  restoreLifeForm();
+  show('s1');
+}
 function goS2fixed(){ show('s2'); renderFeList(); }
 function goS3(){ show('s3'); renderTasks(); }
 
@@ -1069,12 +1087,12 @@ function renderAll(){
 // ══════════════════════════════════════
 function computeGridMin(){
   if(!schedule.length) return 360;
-  const mn = Math.min(...schedule.map(b=>b.start));
+  const mn = Math.min(...schedule.map(b=>b.start), nowMinutes());
   return Math.max(0, Math.floor((mn - 30) / 60) * 60);
 }
 function computeGridMax(){
   if(!schedule.length) return 1440;
-  const mx = Math.max(...schedule.map(b=>b.end));
+  const mx = Math.max(...schedule.map(b=>b.end), nowMinutes());
   return Math.min(1440, Math.ceil((mx + 30) / 60) * 60);
 }
 
