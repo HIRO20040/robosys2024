@@ -43,7 +43,8 @@ def squad(rng: random.Random, seed_name: str) -> tuple[list[dict], list[dict]]:
 
 def main() -> None:
     rng = random.Random(20260902)
-    clubs = {c["slug"]: c for c in yaml.safe_load((ROOT / "config/clubs.yaml").read_text())["clubs"]}
+    raw = (ROOT / "config/clubs.yaml").read_text(encoding="utf-8")
+    clubs = {c["slug"]: c for c in yaml.safe_load(raw)["clubs"]}
     now = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
 
     standings: dict[str, list[dict]] = {}
