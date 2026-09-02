@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% from "_macros.html" import article_item with context %}
+{% block title %}移籍・内情報道 — {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <h1>移籍・内情報道</h1>
+  <p>セリエA・セリエB全クラブの移籍関連報道を、報道元の一次性で確度分けして並べています。</p>
+</div>
+
+<div class="note">
+  <p><strong>確度の付け方</strong> — 移籍報道は飛ばし記事を含みます。そこで「誰が言っているか（媒体の一次性）」と「何と言っているか（発表・交渉・関心）」の2軸で機械的に判定しています。</p>
+  <p><span class="badge badge-confirmed">確定</span> リーグ/クラブの公式発表、または記事が公式発表を明示。
+     <span class="badge badge-strong">有力</span> 自社の記者を持つイタリア主要紙による、交渉進展以上の報道。
+     <span class="badge badge-rumour">噂</span> まとめ媒体・翻訳媒体による報道、または関心・打診の段階、および断定を避けた表現。</p>
+  <p>判定はあくまで自動処理です。最終的な確認は必ず出典元の原文に当たってください。バッジにマウスを合わせると判定根拠が出ます。</p>
+</div>
+
+<div class="filters" data-confidence-bar>
+  <button type="button" data-confidence-filter="all" aria-pressed="true">すべて</button>
+  <button type="button" data-confidence-filter="confirmed" aria-pressed="false">確定のみ</button>
+  <button type="button" data-confidence-filter="strong" aria-pressed="false">有力のみ</button>
+  <button type="button" data-confidence-filter="rumour" aria-pressed="false">噂のみ</button>
+</div>
+
+{% for league in ['SA', 'SB'] %}
+<section class="section">
+  <div class="section-head"><h2>{{ league_labels[league] }}</h2></div>
+  {% set items = transfers_by_league.get(league, []) %}
+  {% if items %}
+  <ul class="articles" data-filterable-list>
+    {% for article in items %}{{ article_item(article, clubs) }}{% endfor %}
+  </ul>
+  <p class="empty" data-empty-note hidden>この条件に一致する報道はありません。</p>
+  {% else %}
+  <p class="empty">移籍報道がありません。</p>
+  {% endif %}
+</section>
+{% endfor %}
+{% endblock %}

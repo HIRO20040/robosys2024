@@ -1,0 +1,116 @@
+name: seriehub
+
+# セリエA/B 情報サイトのビルドと公開。
+#
+# schedule はデフォルトブランチでしか動かない GitHub の仕様上、
+# このブランチをマージするまで定期実行は始まりません。
+# それまでは workflow_dispatch（Actions タブの Run workflow）で手動実行できます。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'seriehub/**'
+      - '.github/workflows/seriehub.yml'
+  pull_request:
+    paths:
+      - 'seriehub/**'
+  schedule:
+    - cron: '17 */3 * * *'   # 3時間ごと（分をずらして混雑時刻を避ける）
+  workflow_dispatch:
+    inputs:
+      offline:
+        description: 'サンプルデータでビルドする（外部APIを使わない）'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seriehub-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 依存パッケージのインストール
+        run: pip install -r seriehub/requirements.txt
+      - name: テスト
+        run: python -m unittest discover -s tests -v
+        working-directory: seriehub
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      pages: ${{ steps.decide.outputs.pages }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 依存パッケージのインストール
+        run: pip install -r seriehub/requirements.txt
+
+      # 翻訳キャッシュを実行間で持ち回し、同じ見出しを二度翻訳しない
+      - name: 翻訳キャッシュの復元
+        uses: actions/cache@v4
+        with:
+          path: seriehub/data
+          key: seriehub-translations-${{ github.run_id }}
+          restore-keys: |
+            seriehub-translations-
+
+      - name: RSS フィードの死活確認
+        continue-on-error: true    # 落ちているフィードがあってもビルドは続ける
+        run: python build.py --check-feeds
+        working-directory: seriehub
+
+      - name: サイトのビルド
+        working-directory: seriehub
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+          MYMEMORY_EMAIL: ${{ secrets.MYMEMORY_EMAIL }}
+        run: |
+          if [ "${{ inputs.offline }}" = "true" ]; then
+            python build.py --offline --out ../_site
+          else
+            python build.py --out ../_site
+          fi
+
+      - name: 出力の検証
+        run: |
+          test -f _site/index.html
+          test -f _site/static/style.css
+          echo "生成ページ数: $(find _site -name '*.html' | wc -l)"
+
+      - id: decide
+        # Pages への公開は main への push と手動実行のときだけ
+        run: echo "pages=${{ github.event_name != 'pull_request' }}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.decide.outputs.pages == 'true'
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.pages == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

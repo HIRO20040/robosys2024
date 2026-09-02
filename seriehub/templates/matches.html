@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "_macros.html" import match_card with context %}
+{% block title %}試合・スタメン — {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <h1>試合・スタメン</h1>
+  <p>直近の結果と今後の日程。スタメン・ベンチが取得できた試合は各カードから展開できます。</p>
+</div>
+
+{% if not any_matches %}
+<p class="note">試合データが1件も取得できていません。<code>API_FOOTBALL_KEY</code> または <code>FOOTBALL_DATA_TOKEN</code> の設定を確認してください。詳しくは <a href="{{ rel }}sources.html">情報源</a> をご覧ください。</p>
+{% endif %}
+
+{% for league in ['SA', 'SB'] %}
+{% set finished = finished_by_league.get(league, []) %}
+{% set upcoming = upcoming_by_league.get(league, []) %}
+{% if finished or upcoming %}
+<section class="section">
+  <div class="section-head"><h2>{{ league_labels[league] }}</h2></div>
+  {% if finished %}
+  <h3>結果</h3>
+  {% for match in finished %}{{ match_card(match, clubs) }}{% endfor %}
+  {% endif %}
+  {% if upcoming %}
+  <h3 style="margin-top:20px">今後の日程</h3>
+  {% for match in upcoming %}{{ match_card(match, clubs) }}{% endfor %}
+  {% endif %}
+</section>
+{% endif %}
+{% endfor %}
+{% endblock %}

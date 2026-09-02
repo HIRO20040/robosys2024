@@ -1,0 +1,182 @@
+# 情報源の定義。
+#
+# tier は「報道の一次性」を表し、移籍情報の確度判定に直接使われます。
+#   official   … リーグ/クラブの公式発表。これ以上の一次情報は無い。
+#   primary    … 自前の記者を抱え、独自取材で一次情報を出す媒体（イタリア主要紙・通信社）。
+#   aggregator … 他媒体の報道をまとめ直す媒体。速いが伝聞。
+#   translated … 上記を翻訳・要約した日本語媒体。二次以上の伝聞。
+#
+# lang は原文の言語。ja 以外は翻訳パイプラインの対象になります。
+# enabled: false にすると収集対象から外れます（URL が死んだ時の緊急停止用）。
+#
+# 注意: RSS の URL は媒体側の都合で予告なく変わります。
+#       `python3 build.py --check-feeds` で全フィードの死活を確認できます。
+#       落ちているフィードがあってもビルドは止まらず、当該ソースを飛ばして続行します。
+
+sources:
+  # ---------------- official ----------------
+  - id: legaseriea
+    name: Lega Serie A (公式)
+    name_ja: セリエA公式
+    url: https://www.legaseriea.it/it/rss/news.xml
+    site: https://www.legaseriea.it/
+    tier: official
+    lang: it
+    leagues: [SA]
+
+  - id: legab
+    name: Lega Serie B (公式)
+    name_ja: セリエB公式
+    url: https://www.legab.it/rss.xml
+    site: https://www.legab.it/
+    tier: official
+    lang: it
+    leagues: [SB]
+
+  - id: figc
+    name: FIGC (イタリアサッカー連盟)
+    name_ja: FIGC
+    url: https://www.figc.it/it/rss/news/
+    site: https://www.figc.it/
+    tier: official
+    lang: it
+    leagues: [SA, SB]
+
+  # ---------------- primary (イタリア主要紙・通信社) ----------------
+  - id: gazzetta
+    name: La Gazzetta dello Sport
+    name_ja: ガゼッタ・デロ・スポルト
+    url: https://www.gazzetta.it/rss/calcio.xml
+    site: https://www.gazzetta.it/
+    tier: primary
+    lang: it
+    leagues: [SA, SB]
+
+  - id: gazzetta-home
+    name: La Gazzetta dello Sport (ホーム)
+    name_ja: ガゼッタ（総合）
+    url: https://www.gazzetta.it/rss/home.xml
+    site: https://www.gazzetta.it/
+    tier: primary
+    lang: it
+    leagues: [SA, SB]
+
+  - id: corrieredellosport
+    name: Corriere dello Sport
+    name_ja: コリエレ・デロ・スポルト
+    url: https://www.corrieredellosport.it/rss/calcio
+    site: https://www.corrieredellosport.it/
+    tier: primary
+    lang: it
+    leagues: [SA, SB]
+
+  - id: tuttosport
+    name: Tuttosport
+    name_ja: トゥットスポルト
+    url: https://www.tuttosport.com/rss/calcio
+    site: https://www.tuttosport.com/
+    tier: primary
+    lang: it
+    leagues: [SA, SB]
+
+  - id: skysport-it
+    name: Sky Sport Italia
+    name_ja: スカイ・スポーツ・イタリア
+    url: https://xml2.corriereobjects.it/rss/sport.xml
+    site: https://sport.sky.it/
+    tier: primary
+    lang: it
+    leagues: [SA, SB]
+    enabled: false   # 正式な RSS エンドポイント確認待ち
+
+  - id: ansa-calcio
+    name: ANSA Calcio
+    name_ja: ANSA（伊通信社）
+    url: https://www.ansa.it/sito/notizie/sport/calcio/calcio_rss.xml
+    site: https://www.ansa.it/sito/notizie/sport/calcio/
+    tier: primary
+    lang: it
+    leagues: [SA, SB]
+
+  - id: repubblica-sport
+    name: la Repubblica - Sport
+    name_ja: レプッブリカ（スポーツ）
+    url: https://www.repubblica.it/rss/sport/rss2.0.xml
+    site: https://www.repubblica.it/sport/
+    tier: primary
+    lang: it
+    leagues: [SA, SB]
+
+  - id: corriere-sport
+    name: Corriere della Sera - Sport
+    name_ja: コリエレ・デラ・セラ（スポーツ）
+    url: https://xml2.corriereobjects.it/rss/sport.xml
+    site: https://www.corriere.it/sport/
+    tier: primary
+    lang: it
+    leagues: [SA, SB]
+
+  # ---------------- aggregator ----------------
+  - id: tuttomercatoweb
+    name: TuttoMercatoWeb
+    name_ja: トゥット・メルカート・ウェブ
+    url: https://www.tuttomercatoweb.com/rss
+    site: https://www.tuttomercatoweb.com/
+    tier: aggregator
+    lang: it
+    leagues: [SA, SB]
+
+  - id: tuttob
+    name: TuttoB (セリエB専門)
+    name_ja: TuttoB（セリエB専門）
+    url: https://www.tuttob.com/rss
+    site: https://www.tuttob.com/
+    tier: aggregator
+    lang: it
+    leagues: [SB]
+
+  - id: calciomercato
+    name: Calciomercato.com
+    name_ja: カルチョメルカート
+    url: https://www.calciomercato.com/rss
+    site: https://www.calciomercato.com/
+    tier: aggregator
+    lang: it
+    leagues: [SA, SB]
+
+  - id: football-italia
+    name: Football Italia
+    name_ja: フットボール・イタリア（英語）
+    url: https://football-italia.net/feed/
+    site: https://football-italia.net/
+    tier: aggregator
+    lang: en
+    leagues: [SA, SB]
+
+  # ---------------- translated (日本語媒体) ----------------
+  - id: soccerking
+    name: SOCCER KING
+    name_ja: サッカーキング
+    url: https://www.soccer-king.jp/feed
+    site: https://www.soccer-king.jp/
+    tier: translated
+    lang: ja
+    leagues: [SA, SB]
+
+  - id: goal-jp
+    name: GOAL 日本語版
+    name_ja: GOAL（日本語）
+    url: https://www.goal.com/jp/feeds/news
+    site: https://www.goal.com/jp
+    tier: translated
+    lang: ja
+    leagues: [SA, SB]
+
+  - id: qoly
+    name: Qoly
+    name_ja: Qoly
+    url: https://qoly.jp/feed
+    site: https://qoly.jp/
+    tier: translated
+    lang: ja
+    leagues: [SA, SB]

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}情報源と収集方針 — {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <h1>情報源と収集方針</h1>
+  <p>何を、どこから、どう扱っているかを開示します。</p>
+</div>
+
+<section class="section">
+  <div class="section-head"><h2>掲載の方針</h2></div>
+  <div class="note">
+    <p><strong>本文は転載しません。</strong> 掲載するのは見出し・短い要約・公開日時・出典リンクだけです。記事の全文は必ず出典元でお読みください。</p>
+    <p><strong>原文が正です。</strong> 日本語訳はビルド時に生成した補助表示で、原文と必ず並存させています。訳文と原文で意味が食い違う場合は原文を優先してください。</p>
+    <p><strong>翻訳エンジン:</strong> {{ translation_engine }}{% if translation_engine == 'none' %}（未設定のため原文のみ表示しています）{% endif %}</p>
+    <p><strong>データの出典:</strong> 順位表・試合結果・スタメンは下記プロバイダから取得し、各カードに出典を明記しています。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>試合データのプロバイダ</h2></div>
+  <div class="card">
+    {% for row in provider_status %}
+    <div class="source-row">
+      <span class="status-dot {{ 'status-ok' if row.ok else 'status-ng' }}"></span>
+      <span class="name">{{ row.name }}</span>
+      <span class="badge badge-tier">{{ row.leagues }}</span>
+      <span>{{ row.detail }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>ニュースフィードの状態</h2></div>
+  <p class="note">最終収集時点の死活です。RSS の URL は媒体側の都合で変わることがあり、落ちたフィードはビルドを止めずに読み飛ばしています。</p>
+  {% for tier in ['official', 'primary', 'aggregator', 'translated'] %}
+  {% set rows = health_by_tier.get(tier, []) %}
+  {% if rows %}
+  <h3>{{ tier_labels[tier] }}</h3>
+  <div class="card" style="margin-bottom:14px">
+    {% for row in rows %}
+    <div class="source-row">
+      <span class="status-dot {{ 'status-ok' if row.ok else 'status-ng' }}"></span>
+      <span class="name">{{ row.name }}</span>
+      <span>{{ row.entries }}件取得</span>
+      {% if row.error %}<span class="err">{{ row.error }}</span>{% endif %}
+      {% if row.url.startswith('http') %}
+      <a href="{{ row.url }}" target="_blank" rel="noopener nofollow" style="margin-left:auto;font-size:11px">フィード</a>
+      {% else %}
+      <span class="err" style="margin-left:auto">{{ row.url }}</span>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endfor %}
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>一次性の区分</h2></div>
+  <div class="card">
+    <div class="source-row"><span class="badge badge-tier">公式</span><span>リーグおよびクラブの公式発表。これ以上の一次情報はありません。</span></div>
+    <div class="source-row"><span class="badge badge-tier">一次報道</span><span>自社の記者を抱え独自取材を行う媒体（ガゼッタ、コリエレ・デロ・スポルト、トゥットスポルト、ANSA など）。</span></div>
+    <div class="source-row"><span class="badge badge-tier">まとめ</span><span>他媒体の報道を集約する媒体。速報性は高いが伝聞です。</span></div>
+    <div class="source-row"><span class="badge badge-tier">翻訳・二次</span><span>上記を翻訳・要約した日本語媒体。二次以上の伝聞になります。</span></div>
+  </div>
+</section>
+{% endblock %}

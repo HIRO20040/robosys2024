@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from "_macros.html" import article_item, match_card, standings_table with context %}
+{% block title %}{{ club.name_ja }}（{{ club.short_it }}） — {{ site_name }}{% endblock %}
+{% block description %}{{ club.name_ja }}の移籍情報、試合結果、スタメン、関連報道{% endblock %}
+
+{% block content %}
+<div class="club-hero" style="--club: {{ club.primary_color }}">
+  <h1>{{ club.name_ja }}</h1>
+  <p class="it-name">{{ club.name_it }}{% if club.league %} — {{ league_labels[club.league] }}{% endif %}</p>
+  <dl class="facts">
+    {% if club.city %}<div><dt>本拠地</dt><dd>{{ club.city_ja or club.city }}</dd></div>{% endif %}
+    {% if club.stadium %}<div><dt>スタジアム</dt><dd>{{ club.stadium }}</dd></div>{% endif %}
+    {% if club.founded %}<div><dt>創設</dt><dd>{{ club.founded }}年</dd></div>{% endif %}
+    {% if standing %}<div><dt>順位</dt><dd>{{ standing.position }}位 / 勝点{{ standing.points }}</dd></div>{% endif %}
+    {% if club.site %}<div><dt>公式</dt><dd><a href="{{ club.site }}" target="_blank" rel="noopener">サイト</a></dd></div>{% endif %}
+  </dl>
+</div>
+
+<div class="cols split">
+  <div>
+    <section class="section">
+      <div class="section-head"><h2>移籍・内情報道</h2></div>
+      {% if transfers %}
+      <ul class="articles">
+        {% for article in transfers %}{{ article_item(article, clubs, show_clubs=False) }}{% endfor %}
+      </ul>
+      {% else %}
+      <p class="empty">このクラブの移籍報道は現在ありません。</p>
+      {% endif %}
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>試合とスタメン</h2></div>
+      {% if matches %}
+        {% for match in matches %}{{ match_card(match, clubs, open_lineups=loop.first and match.has_lineups) }}{% endfor %}
+      {% else %}
+      <p class="empty">試合データがありません。</p>
+      {% endif %}
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>関連ニュース</h2></div>
+      {% if news %}
+      <ul class="articles">
+        {% for article in news %}{{ article_item(article, clubs, show_clubs=False) }}{% endfor %}
+      </ul>
+      {% else %}
+      <p class="empty">関連記事がありません。</p>
+      {% endif %}
+    </section>
+  </div>
+
+  <aside>
+    {% if club.league and standings.get(club.league) %}
+    <section class="section">
+      <div class="section-head"><h2>{{ league_labels[club.league] }} 順位表</h2></div>
+      {{ standings_table(standings[club.league], clubs, club.league, compact=True) }}
+    </section>
+    {% endif %}
+  </aside>
+</div>
+{% endblock %}

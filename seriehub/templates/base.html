@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ site_name }}{% endblock %}</title>
+<meta name="description" content="{% block description %}セリエA・セリエB全クラブの移籍情報、試合結果、スタメンを、イタリア主要紙と公式発表から集約{% endblock %}">
+<link rel="stylesheet" href="{{ rel }}static/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230a5c36'/><text x='16' y='23' font-size='19' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>S</text></svg>">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="{{ rel }}index.html"><span class="brand-mark"></span>{{ site_name }}</a>
+    <nav class="nav">
+      <a href="{{ rel }}index.html" {% if page == 'home' %}class="active"{% endif %}>ホーム</a>
+      <a href="{{ rel }}serie-a.html" {% if page == 'serie-a' %}class="active"{% endif %}>セリエA</a>
+      <a href="{{ rel }}serie-b.html" {% if page == 'serie-b' %}class="active"{% endif %}>セリエB</a>
+      <a href="{{ rel }}transfers.html" {% if page == 'transfers' %}class="active"{% endif %}>移籍・報道</a>
+      <a href="{{ rel }}matches.html" {% if page == 'matches' %}class="active"{% endif %}>試合・スタメン</a>
+      <a href="{{ rel }}sources.html" {% if page == 'sources' %}class="active"{% endif %}>情報源</a>
+    </nav>
+    <div class="lang-toggle" data-default="it" role="group" aria-label="表示言語">
+      <button type="button" data-lang="it" aria-pressed="true">原文</button>
+      <button type="button" data-lang="ja" aria-pressed="false">日本語</button>
+    </div>
+  </div>
+</header>
+
+{% if demo_mode %}
+<div class="banner"><strong>サンプルデータ表示中</strong> — これは動作確認用の架空のデータです。実際の試合結果・報道ではありません。</div>
+{% endif %}
+
+<main class="wrap">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>{{ site_name }} — セリエA/B 情報アグリゲーター。記事の見出しと要約のみを掲載し、本文は各媒体の原文をご覧ください。すべての見出しは出典元にリンクしています。</p>
+    <p>著作権はそれぞれの媒体に帰属します。順位・試合データの出典は各ページに明示しています。</p>
+    <p>最終更新: {{ built_at | jst }}（日本時間） / 翻訳エンジン: {{ translation_engine }} / <a href="{{ rel }}sources.html">情報源と収集方針</a></p>
+  </div>
+</footer>
+
+<script src="{{ rel }}static/app.js"></script>
+</body>
+</html>

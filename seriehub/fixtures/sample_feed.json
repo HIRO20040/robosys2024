@@ -1,0 +1,112 @@
+{
+ "entries": [
+  {
+   "title": "UFFICIALE: il centrocampista firma con l'Inter fino al 2030",
+   "link": "https://example.invalid/sample/0",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-09-02T09:00:00+00:00",
+   "source_id": "legaseriea",
+   "tier": "official",
+   "lang": "it"
+  },
+  {
+   "title": "Milan, visite mediche fissate per il difensore",
+   "link": "https://example.invalid/sample/1",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-09-02T04:00:00+00:00",
+   "source_id": "gazzetta",
+   "tier": "primary",
+   "lang": "it"
+  },
+  {
+   "title": "Napoli, accordo vicino per il rinnovo del portiere",
+   "link": "https://example.invalid/sample/2",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-09-01T23:00:00+00:00",
+   "source_id": "corrieredellosport",
+   "tier": "primary",
+   "lang": "it"
+  },
+  {
+   "title": "Juventus, sondaggio per l'attaccante del Bologna",
+   "link": "https://example.invalid/sample/3",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-09-01T18:00:00+00:00",
+   "source_id": "tuttomercatoweb",
+   "tier": "aggregator",
+   "lang": "it"
+  },
+  {
+   "title": "Roma-Lazio, le formazioni ufficiali del derby",
+   "link": "https://example.invalid/sample/4",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-09-01T13:00:00+00:00",
+   "source_id": "gazzetta",
+   "tier": "primary",
+   "lang": "it"
+  },
+  {
+   "title": "Palermo, colpo chiuso in difesa: comunicato ufficiale del club",
+   "link": "https://example.invalid/sample/5",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-09-01T08:00:00+00:00",
+   "source_id": "tuttob",
+   "tier": "aggregator",
+   "lang": "it"
+  },
+  {
+   "title": "Sampdoria, secondo quanto riportato sarebbe vicino l'accordo col tecnico",
+   "link": "https://example.invalid/sample/6",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-09-01T03:00:00+00:00",
+   "source_id": "tuttosport",
+   "tier": "primary",
+   "lang": "it"
+  },
+  {
+   "title": "Venezia, addio all'esterno: risoluzione consensuale",
+   "link": "https://example.invalid/sample/7",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-08-31T22:00:00+00:00",
+   "source_id": "calciomercato",
+   "tier": "aggregator",
+   "lang": "it"
+  },
+  {
+   "title": "インテルとナポリの上位対決、注目の一戦",
+   "link": "https://example.invalid/sample/8",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-08-31T17:00:00+00:00",
+   "source_id": "soccerking",
+   "tier": "translated",
+   "lang": "ja"
+  },
+  {
+   "title": "Atalanta target Serie B striker, say reports",
+   "link": "https://example.invalid/sample/9",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-08-31T12:00:00+00:00",
+   "source_id": "football-italia",
+   "tier": "aggregator",
+   "lang": "en"
+  },
+  {
+   "title": "Frosinone, trattativa avanzata per il centrocampista del Modena",
+   "link": "https://example.invalid/sample/10",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-08-31T07:00:00+00:00",
+   "source_id": "tuttob",
+   "tier": "aggregator",
+   "lang": "it"
+  },
+  {
+   "title": "Cremonese, il club annuncia il rinnovo del capitano",
+   "link": "https://example.invalid/sample/11",
+   "summary": "これは動作確認用の架空の記事です。実在の報道ではありません。",
+   "published": "2026-08-31T02:00:00+00:00",
+   "source_id": "legaseriea",
+   "tier": "official",
+   "lang": "it"
+  }
+ ]
+}

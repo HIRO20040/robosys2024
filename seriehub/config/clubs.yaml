@@ -1,0 +1,614 @@
+# クラブのメタデータ辞書。
+#
+# 重要: このファイルは「順位表・所属リーグの正」ではありません。
+# 各シーズンの所属クラブは build 時に API / 順位表から取得し、ここは
+# 日本語表記・スタジアム・カラーなどの表示用メタデータを引くための辞書です。
+# 昇降格でリーグが入れ替わっても、この辞書を直す必要はありません。
+# 辞書に無いクラブが現れた場合はイタリア語表記のまま自動で表示されます。
+#
+# aliases: API / RSS 記事中の表記ゆれを slug に寄せるための別名。
+#          小文字化・記号除去してから照合されます。
+
+clubs:
+  # ---------------- 2025-26 Serie A ----------------
+  - slug: atalanta
+    name_it: Atalanta BC
+    short_it: Atalanta
+    name_ja: アタランタ
+    aliases: [Atalanta, Atalanta Bergamasca, Dea, アタランタ]
+    city: Bergamo
+    city_ja: ベルガモ
+    stadium: Gewiss Stadium
+    founded: 1907
+    colors: ["#1D71B8", "#000000"]
+    site: https://www.atalanta.it/
+
+  - slug: bologna
+    name_it: Bologna FC 1909
+    short_it: Bologna
+    name_ja: ボローニャ
+    aliases: [Bologna, Bologna FC, Rossoblu, ボローニャ]
+    city: Bologna
+    city_ja: ボローニャ
+    stadium: Stadio Renato Dall'Ara
+    founded: 1909
+    colors: ["#A21C24", "#1A2F5A"]
+    site: https://www.bolognafc.it/
+
+  - slug: cagliari
+    name_it: Cagliari Calcio
+    short_it: Cagliari
+    name_ja: カリアリ
+    aliases: [Cagliari, カリアリ]
+    city: Cagliari
+    city_ja: カリアリ
+    stadium: Unipol Domus
+    founded: 1920
+    colors: ["#B01029", "#002B5C"]
+    site: https://www.cagliaricalcio.com/
+
+  - slug: como
+    name_it: Como 1907
+    short_it: Como
+    name_ja: コモ
+    aliases: [Como, Como 1907, コモ]
+    city: Como
+    city_ja: コモ
+    stadium: Stadio Giuseppe Sinigaglia
+    founded: 1907
+    colors: ["#005CA9", "#FFFFFF"]
+    site: https://www.comofootball.com/
+
+  - slug: cremonese
+    name_it: US Cremonese
+    short_it: Cremonese
+    name_ja: クレモネーゼ
+    aliases: [Cremonese, US Cremonese, Grigiorossi, クレモネーゼ]
+    city: Cremona
+    city_ja: クレモナ
+    stadium: Stadio Giovanni Zini
+    founded: 1903
+    colors: ["#A6192E", "#7A7A7A"]
+    site: https://www.uscremonese.it/
+
+  - slug: fiorentina
+    name_it: ACF Fiorentina
+    short_it: Fiorentina
+    name_ja: フィオレンティーナ
+    aliases: [Fiorentina, ACF Fiorentina, Viola, フィオレンティーナ]
+    city: Firenze
+    city_ja: フィレンツェ
+    stadium: Stadio Artemio Franchi
+    founded: 1926
+    colors: ["#59307F", "#FFFFFF"]
+    site: https://www.acffiorentina.com/
+
+  - slug: genoa
+    name_it: Genoa CFC
+    short_it: Genoa
+    name_ja: ジェノア
+    aliases: [Genoa, Genoa CFC, Grifone, ジェノア]
+    city: Genova
+    city_ja: ジェノヴァ
+    stadium: Stadio Luigi Ferraris
+    founded: 1893
+    colors: ["#B4172E", "#12315C"]
+    site: https://www.genoacfc.it/
+
+  - slug: hellas-verona
+    name_it: Hellas Verona FC
+    short_it: Verona
+    name_ja: ヴェローナ
+    aliases: [Hellas Verona, Verona, Hellas, ヴェローナ, ベローナ]
+    city: Verona
+    city_ja: ヴェローナ
+    stadium: Stadio Marcantonio Bentegodi
+    founded: 1903
+    colors: ["#F5C518", "#003399"]
+    site: https://www.hellasverona.it/
+
+  - slug: inter
+    name_it: FC Internazionale Milano
+    short_it: Inter
+    name_ja: インテル
+    aliases: [Inter, Internazionale, Inter Milan, Nerazzurri, インテル, インテル・ミラノ]
+    city: Milano
+    city_ja: ミラノ
+    stadium: Stadio Giuseppe Meazza (San Siro)
+    founded: 1908
+    colors: ["#0068A8", "#000000"]
+    site: https://www.inter.it/
+
+  - slug: juventus
+    name_it: Juventus FC
+    short_it: Juventus
+    name_ja: ユヴェントス
+    aliases: [Juventus, Juve, Vecchia Signora, Bianconeri, ユヴェントス, ユベントス]
+    city: Torino
+    city_ja: トリノ
+    stadium: Allianz Stadium
+    founded: 1897
+    colors: ["#1A1A1A", "#FFFFFF"]
+    site: https://www.juventus.com/
+
+  - slug: lazio
+    name_it: SS Lazio
+    short_it: Lazio
+    name_ja: ラツィオ
+    aliases: [Lazio, SS Lazio, Biancocelesti, ラツィオ]
+    city: Roma
+    city_ja: ローマ
+    stadium: Stadio Olimpico
+    founded: 1900
+    colors: ["#6BAEDB", "#FFFFFF"]
+    site: https://www.sslazio.it/
+
+  - slug: lecce
+    name_it: US Lecce
+    short_it: Lecce
+    name_ja: レッチェ
+    aliases: [Lecce, US Lecce, レッチェ]
+    city: Lecce
+    city_ja: レッチェ
+    stadium: Stadio Via del Mare
+    founded: 1908
+    colors: ["#F4C300", "#C8102E"]
+    site: https://www.uslecce.it/
+
+  - slug: milan
+    name_it: AC Milan
+    short_it: Milan
+    name_ja: ミラン
+    aliases: [Milan, AC Milan, Rossoneri, Diavolo, ミラン]
+    city: Milano
+    city_ja: ミラノ
+    stadium: Stadio Giuseppe Meazza (San Siro)
+    founded: 1899
+    colors: ["#FB090B", "#000000"]
+    site: https://www.acmilan.com/
+
+  - slug: napoli
+    name_it: SSC Napoli
+    short_it: Napoli
+    name_ja: ナポリ
+    aliases: [Napoli, SSC Napoli, Partenopei, Azzurri, ナポリ]
+    city: Napoli
+    city_ja: ナポリ
+    stadium: Stadio Diego Armando Maradona
+    founded: 1926
+    colors: ["#12A0D7", "#FFFFFF"]
+    site: https://www.sscnapoli.it/
+
+  - slug: parma
+    name_it: Parma Calcio 1913
+    short_it: Parma
+    name_ja: パルマ
+    aliases: [Parma, Parma Calcio, Crociati, パルマ]
+    city: Parma
+    city_ja: パルマ
+    stadium: Stadio Ennio Tardini
+    founded: 1913
+    colors: ["#FFD400", "#003D7C"]
+    site: https://www.parmacalcio1913.com/
+
+  - slug: pisa
+    name_it: Pisa Sporting Club
+    short_it: Pisa
+    name_ja: ピサ
+    aliases: [Pisa, Pisa SC, Pisa Sporting Club, ピサ]
+    city: Pisa
+    city_ja: ピサ
+    stadium: Arena Garibaldi
+    founded: 1909
+    colors: ["#12326B", "#000000"]
+    site: https://www.pisasportingclub.com/
+
+  - slug: roma
+    name_it: AS Roma
+    short_it: Roma
+    name_ja: ローマ
+    aliases: [Roma, AS Roma, Giallorossi, Lupi, ローマ]
+    city: Roma
+    city_ja: ローマ
+    stadium: Stadio Olimpico
+    founded: 1927
+    colors: ["#8E1F2F", "#F0BC42"]
+    site: https://www.asroma.com/
+
+  - slug: sassuolo
+    name_it: US Sassuolo Calcio
+    short_it: Sassuolo
+    name_ja: サッスオーロ
+    aliases: [Sassuolo, US Sassuolo, Neroverdi, サッスオーロ]
+    city: Sassuolo
+    city_ja: サッスオーロ
+    stadium: Mapei Stadium
+    founded: 1920
+    colors: ["#00A752", "#000000"]
+    site: https://www.sassuolocalcio.it/
+
+  - slug: torino
+    name_it: Torino FC
+    short_it: Torino
+    name_ja: トリノ
+    aliases: [Torino, Toro, Granata, トリノ]
+    city: Torino
+    city_ja: トリノ
+    stadium: Stadio Olimpico Grande Torino
+    founded: 1906
+    colors: ["#881600", "#FFFFFF"]
+    site: https://www.torinofc.it/
+
+  - slug: udinese
+    name_it: Udinese Calcio
+    short_it: Udinese
+    name_ja: ウディネーゼ
+    aliases: [Udinese, Udinese Calcio, ウディネーゼ]
+    city: Udine
+    city_ja: ウーディネ
+    stadium: Bluenergy Stadium
+    founded: 1896
+    colors: ["#111111", "#FFFFFF"]
+    site: https://www.udinese.it/
+
+  # ---------------- 2025-26 Serie B ----------------
+  - slug: avellino
+    name_it: US Avellino 1912
+    short_it: Avellino
+    name_ja: アヴェッリーノ
+    aliases: [Avellino, US Avellino, アヴェッリーノ]
+    city: Avellino
+    city_ja: アヴェッリーノ
+    stadium: Stadio Partenio-Adriano Lombardi
+    founded: 1912
+    colors: ["#007A33", "#FFFFFF"]
+    site: https://www.usavellino1912.it/
+
+  - slug: bari
+    name_it: SSC Bari
+    short_it: Bari
+    name_ja: バーリ
+    aliases: [Bari, SSC Bari, Galletti, バーリ]
+    city: Bari
+    city_ja: バーリ
+    stadium: Stadio San Nicola
+    founded: 1908
+    colors: ["#C8102E", "#FFFFFF"]
+    site: https://www.sscbari.it/
+
+  - slug: carrarese
+    name_it: Carrarese Calcio 1908
+    short_it: Carrarese
+    name_ja: カッラレーゼ
+    aliases: [Carrarese, Carrarese Calcio, カッラレーゼ]
+    city: Carrara
+    city_ja: カッラーラ
+    stadium: Stadio dei Marmi
+    founded: 1908
+    colors: ["#0057B8", "#FFFFFF"]
+    site: https://www.carraresecalcio1908.it/
+
+  - slug: catanzaro
+    name_it: US Catanzaro 1929
+    short_it: Catanzaro
+    name_ja: カタンザーロ
+    aliases: [Catanzaro, US Catanzaro, カタンザーロ]
+    city: Catanzaro
+    city_ja: カタンザーロ
+    stadium: Stadio Nicola Ceravolo
+    founded: 1929
+    colors: ["#F2C300", "#C8102E"]
+    site: https://www.uscatanzaro.net/
+
+  - slug: cesena
+    name_it: Cesena FC
+    short_it: Cesena
+    name_ja: チェゼーナ
+    aliases: [Cesena, Cesena FC, チェゼーナ]
+    city: Cesena
+    city_ja: チェゼーナ
+    stadium: Stadio Dino Manuzzi
+    founded: 1940
+    colors: ["#1A1A1A", "#FFFFFF"]
+    site: https://www.cesenafc.com/
+
+  - slug: empoli
+    name_it: Empoli FC
+    short_it: Empoli
+    name_ja: エンポリ
+    aliases: [Empoli, Empoli FC, エンポリ]
+    city: Empoli
+    city_ja: エンポリ
+    stadium: Stadio Carlo Castellani
+    founded: 1920
+    colors: ["#005DAA", "#FFFFFF"]
+    site: https://www.empolifc.com/
+
+  - slug: entella
+    name_it: Virtus Entella
+    short_it: Entella
+    name_ja: エンテッラ
+    aliases: [Entella, Virtus Entella, エンテッラ]
+    city: Chiavari
+    city_ja: キアーヴァリ
+    stadium: Stadio Comunale di Chiavari
+    founded: 1914
+    colors: ["#009EE0", "#FFFFFF"]
+    site: https://www.entella.it/
+
+  - slug: frosinone
+    name_it: Frosinone Calcio
+    short_it: Frosinone
+    name_ja: フロジノーネ
+    aliases: [Frosinone, Frosinone Calcio, Ciociari, フロジノーネ]
+    city: Frosinone
+    city_ja: フロジノーネ
+    stadium: Stadio Benito Stirpe
+    founded: 1928
+    colors: ["#FFD100", "#0033A0"]
+    site: https://www.frosinonecalcio.com/
+
+  - slug: juve-stabia
+    name_it: SS Juve Stabia
+    short_it: Juve Stabia
+    name_ja: ユヴェ・スタビア
+    aliases: [Juve Stabia, Juvestabia, Vespe, ユヴェ・スタビア, ユベスタビア]
+    city: Castellammare di Stabia
+    city_ja: カステランマーレ・ディ・スタービア
+    stadium: Stadio Romeo Menti
+    founded: 1907
+    colors: ["#FFD700", "#003399"]
+    site: https://www.sscjuvestabia.it/
+
+  - slug: mantova
+    name_it: Mantova 1911
+    short_it: Mantova
+    name_ja: マントヴァ
+    aliases: [Mantova, Mantova 1911, マントヴァ]
+    city: Mantova
+    city_ja: マントヴァ
+    stadium: Stadio Danilo Martelli
+    founded: 1911
+    colors: ["#E4022D", "#FFFFFF"]
+    site: https://www.mantova1911.com/
+
+  - slug: modena
+    name_it: Modena FC 2018
+    short_it: Modena
+    name_ja: モデナ
+    aliases: [Modena, Modena FC, Canarini, モデナ]
+    city: Modena
+    city_ja: モデナ
+    stadium: Stadio Alberto Braglia
+    founded: 1912
+    colors: ["#FFD700", "#003399"]
+    site: https://www.modenafc.net/
+
+  - slug: monza
+    name_it: AC Monza
+    short_it: Monza
+    name_ja: モンツァ
+    aliases: [Monza, AC Monza, Brianzoli, モンツァ]
+    city: Monza
+    city_ja: モンツァ
+    stadium: Stadio Brianteo (U-Power Stadium)
+    founded: 1912
+    colors: ["#E4022D", "#FFFFFF"]
+    site: https://www.acmonza.com/
+
+  - slug: padova
+    name_it: Calcio Padova
+    short_it: Padova
+    name_ja: パドヴァ
+    aliases: [Padova, Calcio Padova, Biancoscudati, パドヴァ]
+    city: Padova
+    city_ja: パドヴァ
+    stadium: Stadio Euganeo
+    founded: 1910
+    colors: ["#C8102E", "#FFFFFF"]
+    site: https://www.calciopadova.it/
+
+  - slug: palermo
+    name_it: Palermo FC
+    short_it: Palermo
+    name_ja: パレルモ
+    aliases: [Palermo, Palermo FC, Rosanero, パレルモ]
+    city: Palermo
+    city_ja: パレルモ
+    stadium: Stadio Renzo Barbera
+    founded: 1900
+    colors: ["#E93CAC", "#000000"]
+    site: https://www.palermofc.com/
+
+  - slug: pescara
+    name_it: Delfino Pescara 1936
+    short_it: Pescara
+    name_ja: ペスカーラ
+    aliases: [Pescara, Delfino Pescara, ペスカーラ]
+    city: Pescara
+    city_ja: ペスカーラ
+    stadium: Stadio Adriatico
+    founded: 1936
+    colors: ["#0072CE", "#FFFFFF"]
+    site: https://www.pescaracalcio.com/
+
+  - slug: reggiana
+    name_it: AC Reggiana 1919
+    short_it: Reggiana
+    name_ja: レッジャーナ
+    aliases: [Reggiana, AC Reggiana, レッジャーナ]
+    city: Reggio Emilia
+    city_ja: レッジョ・エミリア
+    stadium: Stadio Città del Tricolore
+    founded: 1919
+    colors: ["#7A1420", "#FFFFFF"]
+    site: https://www.acreggiana.it/
+
+  - slug: sampdoria
+    name_it: UC Sampdoria
+    short_it: Sampdoria
+    name_ja: サンプドリア
+    aliases: [Sampdoria, UC Sampdoria, Samp, Blucerchiati, サンプドリア]
+    city: Genova
+    city_ja: ジェノヴァ
+    stadium: Stadio Luigi Ferraris
+    founded: 1946
+    colors: ["#003399", "#FFFFFF"]
+    site: https://www.sampdoria.it/
+
+  - slug: spezia
+    name_it: Spezia Calcio
+    short_it: Spezia
+    name_ja: スペツィア
+    aliases: [Spezia, Spezia Calcio, Aquilotti, スペツィア]
+    city: La Spezia
+    city_ja: ラ・スペツィア
+    stadium: Stadio Alberto Picco
+    founded: 1906
+    colors: ["#1A1A1A", "#FFFFFF"]
+    site: https://www.acspezia.com/
+
+  - slug: sudtirol
+    name_it: FC Südtirol
+    short_it: Südtirol
+    name_ja: ズュートティロール
+    aliases: [Sudtirol, Südtirol, FC Sudtirol, Alto Adige, ズュートティロール]
+    city: Bolzano
+    city_ja: ボルツァーノ
+    stadium: Stadio Druso
+    founded: 1974
+    colors: ["#E4022D", "#FFFFFF"]
+    site: https://www.fc-suedtirol.com/
+
+  - slug: venezia
+    name_it: Venezia FC
+    short_it: Venezia
+    name_ja: ヴェネツィア
+    aliases: [Venezia, Venezia FC, Arancioneroverdi, ヴェネツィア, ベネチア]
+    city: Venezia
+    city_ja: ヴェネツィア
+    stadium: Stadio Pierluigi Penzo
+    founded: 1907
+    colors: ["#FF7900", "#00843D"]
+    site: https://www.veneziafc.it/
+
+  # -------- 近年 A/B を行き来したクラブ（昇降格に備えた予備エントリ） --------
+  - slug: salernitana
+    name_it: US Salernitana 1919
+    short_it: Salernitana
+    name_ja: サレルニターナ
+    aliases: [Salernitana, US Salernitana, Granata Campani, サレルニターナ]
+    city: Salerno
+    city_ja: サレルノ
+    stadium: Stadio Arechi
+    founded: 1919
+    colors: ["#7A1420", "#FFFFFF"]
+    site: https://www.ussalernitana1919.it/
+
+  - slug: brescia
+    name_it: Brescia Calcio
+    short_it: Brescia
+    name_ja: ブレシア
+    aliases: [Brescia, Brescia Calcio, Rondinelle, ブレシア]
+    city: Brescia
+    city_ja: ブレシア
+    stadium: Stadio Mario Rigamonti
+    founded: 1911
+    colors: ["#0F52BA", "#FFFFFF"]
+    site: https://www.bresciacalcio.it/
+
+  - slug: cittadella
+    name_it: AS Cittadella
+    short_it: Cittadella
+    name_ja: チッタデッラ
+    aliases: [Cittadella, AS Cittadella, チッタデッラ]
+    city: Cittadella
+    city_ja: チッタデッラ
+    stadium: Stadio Pier Cesare Tombolato
+    founded: 1973
+    colors: ["#8E1F2F", "#003399"]
+    site: https://www.ascittadella1973.it/
+
+  - slug: cosenza
+    name_it: Cosenza Calcio
+    short_it: Cosenza
+    name_ja: コゼンツァ
+    aliases: [Cosenza, Cosenza Calcio, コゼンツァ]
+    city: Cosenza
+    city_ja: コゼンツァ
+    stadium: Stadio San Vito-Gigi Marulla
+    founded: 1914
+    colors: ["#C8102E", "#0F52BA"]
+    site: https://www.cosenzacalcio.it/
+
+  - slug: ternana
+    name_it: Ternana Calcio
+    short_it: Ternana
+    name_ja: テルナーナ
+    aliases: [Ternana, Ternana Calcio, Fere, テルナーナ]
+    city: Terni
+    city_ja: テルニ
+    stadium: Stadio Libero Liberati
+    founded: 1925
+    colors: ["#00843D", "#FFFFFF"]
+    site: https://www.ternanacalcio.com/
+
+  - slug: ascoli
+    name_it: Ascoli Calcio 1898
+    short_it: Ascoli
+    name_ja: アスコリ
+    aliases: [Ascoli, Ascoli Calcio, Picchio, アスコリ]
+    city: Ascoli Piceno
+    city_ja: アスコリ・ピチェーノ
+    stadium: Stadio Cino e Lillo Del Duca
+    founded: 1898
+    colors: ["#1A1A1A", "#FFFFFF"]
+    site: https://www.ascolicalcio.it/
+
+  - slug: perugia
+    name_it: AC Perugia Calcio
+    short_it: Perugia
+    name_ja: ペルージャ
+    aliases: [Perugia, AC Perugia, Grifo, ペルージャ]
+    city: Perugia
+    city_ja: ペルージャ
+    stadium: Stadio Renato Curi
+    founded: 1905
+    colors: ["#C8102E", "#FFFFFF"]
+    site: https://www.acperugiacalcio.com/
+
+  - slug: benevento
+    name_it: Benevento Calcio
+    short_it: Benevento
+    name_ja: ベネヴェント
+    aliases: [Benevento, Benevento Calcio, Streghe, ベネヴェント]
+    city: Benevento
+    city_ja: ベネヴェント
+    stadium: Stadio Ciro Vigorito
+    founded: 1929
+    colors: ["#F2C300", "#7A1420"]
+    site: https://www.beneventocalcio.club/
+
+  - slug: vicenza
+    name_it: LR Vicenza
+    short_it: Vicenza
+    name_ja: ヴィチェンツァ
+    aliases: [Vicenza, LR Vicenza, Lanerossi, ヴィチェンツァ]
+    city: Vicenza
+    city_ja: ヴィチェンツァ
+    stadium: Stadio Romeo Menti (Vicenza)
+    founded: 1902
+    colors: ["#C8102E", "#FFFFFF"]
+    site: https://www.lrvicenza.com/
+
+  - slug: catania
+    name_it: Catania FC
+    short_it: Catania
+    name_ja: カターニア
+    aliases: [Catania, Catania FC, Rossazzurri, カターニア]
+    city: Catania
+    city_ja: カターニア
+    stadium: Stadio Angelo Massimino
+    founded: 1946
+    colors: ["#C8102E", "#005CA9"]
+    site: https://www.cataniafc.com/

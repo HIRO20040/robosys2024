@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% from "_macros.html" import article_item, match_card, standings_table, club_link with context %}
+{% block title %}{{ site_name }} — セリエA・セリエB 情報まとめ{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <h1>セリエA・セリエB 情報ハブ</h1>
+  <p>イタリア主要紙・公式発表から集めた移籍報道と、全40クラブの試合結果・スタメン。見出しは <strong>原文 / 日本語</strong> を右上で切り替えられます。</p>
+</div>
+
+<div class="cols split">
+  <div>
+    <section class="section">
+      <div class="section-head">
+        <h2>移籍・内情報道</h2>
+        <a href="{{ rel }}transfers.html">すべて見る →</a>
+      </div>
+      <p class="note">
+        報道は「誰が言っているか」で確度を分けています。
+        <span class="badge badge-confirmed">確定</span> は公式発表または公式発表を明示した報道、
+        <span class="badge badge-strong">有力</span> は自社取材を持つ一次媒体、
+        <span class="badge badge-rumour">噂</span> は伝聞・関心段階です。
+      </p>
+      {% if transfers %}
+      <ul class="articles">
+        {% for article in transfers[:12] %}{{ article_item(article, clubs) }}{% endfor %}
+      </ul>
+      {% else %}
+      <p class="empty">移籍報道が取得できていません。<a href="{{ rel }}sources.html">情報源の状態</a>を確認してください。</p>
+      {% endif %}
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>直近の試合</h2>
+        <a href="{{ rel }}matches.html">日程・結果一覧 →</a>
+      </div>
+      {% if recent_matches %}
+        {% for match in recent_matches[:6] %}{{ match_card(match, clubs) }}{% endfor %}
+      {% else %}
+      <p class="empty">試合データが取得できていません。APIキーが未設定の可能性があります。</p>
+      {% endif %}
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>その他のニュース</h2></div>
+      {% if general_news %}
+      <ul class="articles">
+        {% for article in general_news[:10] %}{{ article_item(article, clubs) }}{% endfor %}
+      </ul>
+      {% else %}
+      <p class="empty">記事がありません。</p>
+      {% endif %}
+    </section>
+  </div>
+
+  <aside>
+    {% for league in ['SA', 'SB'] %}
+    {% if standings.get(league) %}
+    <section class="section">
+      <div class="section-head">
+        <h2>{{ league_labels[league] }} 順位</h2>
+        <a href="{{ rel }}{{ 'serie-a' if league == 'SA' else 'serie-b' }}.html">詳細 →</a>
+      </div>
+      {{ standings_table(standings[league][:8], clubs, league, compact=True) }}
+    </section>
+    {% endif %}
+    {% endfor %}
+
+    <section class="section">
+      <div class="section-head"><h2>クラブ一覧</h2></div>
+      {% for league in ['SA', 'SB'] %}
+      {% if league_clubs.get(league) %}
+      <h3>{{ league_labels[league] }}</h3>
+      <div class="club-grid" style="margin-bottom:16px">
+        {% for club in league_clubs[league] %}
+        <a class="club-card" href="{{ rel }}team/{{ club.slug }}.html" style="--club: {{ club.primary_color }}">
+          <span class="ja">{{ club.name_ja }}</span>
+          <span class="it">{{ club.short_it }}</span>
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </section>
+  </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,157 @@
+{# 共通パーツ。原文と訳文は必ず両方を埋め込み、表示切替は CSS/JS に任せる。 #}
+
+{% macro bilingual(original, translated, tag='span') -%}
+{%- if translated and translated != original -%}
+<{{ tag }} class="t-it">{{ original }}</{{ tag }}><{{ tag }} class="t-ja">{{ translated }}</{{ tag }}>
+{%- else -%}
+<{{ tag }}>{{ original }}</{{ tag }}>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro club_chip(club) -%}
+<span class="chip" style="background: {{ club.primary_color }}"></span>
+{%- endmacro %}
+
+{% macro club_link(slug, fallback_name, clubs) -%}
+{%- set club = clubs.get(slug) -%}
+{%- if club -%}
+<a href="{{ rel }}team/{{ club.slug }}.html">{{ club_chip(club) }}{{ club.name_ja }}</a>
+{%- else -%}
+<span>{{ fallback_name }}</span>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro confidence_badge(article) -%}
+{%- if article.transfer_confidence -%}
+<span class="badge badge-{{ article.transfer_confidence }}"
+      title="{{ confidence_labels[article.transfer_confidence] }}: {{ article.reason_text }}">
+  {{ confidence_labels[article.transfer_confidence] }}
+</span>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro article_item(article, clubs, show_clubs=True) %}
+<li class="article" {% if article.transfer_confidence %}data-confidence="{{ article.transfer_confidence }}"{% endif %}>
+  <div class="article-title">
+    <a href="{{ article.url }}" target="_blank" rel="noopener nofollow">
+      {{ bilingual(article.title, article.title_ja) }}
+    </a>
+  </div>
+  {% if article.summary %}
+  <p class="article-summary">{{ bilingual(article.summary, article.summary_ja) }}</p>
+  {% endif %}
+  <div class="article-meta">
+    {{ confidence_badge(article) }}
+    {% if article.transfer_kind %}
+    <span class="badge badge-kind">{{ kind_labels[article.transfer_kind] }}</span>
+    {% endif %}
+    <span class="badge badge-tier">{{ tier_labels[article.tier] }}</span>
+    <span>{{ article.source_name }}</span>
+    {% if article.published %}
+    <span class="sep">·</span><time datetime="{{ article.published.isoformat() }}">{{ article.published | jst }}</time>
+    {% endif %}
+    {% if show_clubs and article.clubs %}
+    <span class="sep">·</span>
+    {% for slug in article.clubs[:3] %}{% if clubs.get(slug) %}<a
+      href="{{ rel }}team/{{ slug }}.html" style="text-decoration:none">{{ clubs[slug].name_ja }}</a>{% if not loop.last %}、{% endif %}{% endif %}{% endfor %}
+    {% endif %}
+    {% if article.lang != 'ja' and not article.title_ja %}
+    <span class="t-ja"><span class="sep">·</span>
+      <a href="https://translate.google.com/translate?sl=auto&amp;tl=ja&amp;u={{ article.url | urlencode }}"
+         target="_blank" rel="noopener nofollow">Google翻訳で開く</a>
+    </span>
+    {% endif %}
+  </div>
+</li>
+{% endmacro %}
+
+{# compact=True は狭いサイドバー用。横スクロールで勝点が隠れないよう列を絞る。 #}
+{% macro standings_table(rows, clubs, league, compact=False) %}
+<div class="table-scroll">
+<table class="standings {{ 'compact' if compact }}">
+  <thead>
+    <tr>
+      <th class="pos"></th><th class="club">クラブ</th>
+      <th title="試合数">試</th>
+      {% if not compact %}
+      <th title="勝">勝</th><th title="分">分</th><th title="敗">敗</th>
+      <th title="得点">得</th><th title="失点">失</th>
+      {% endif %}
+      <th title="得失点差">差</th><th title="勝点">点</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in rows %}
+    <tr class="{{ zone_class(league, row.position, rows | length) }}">
+      <td class="pos">{{ row.position }}</td>
+      <td class="club">{{ club_link(row.club_slug, row.club_name, clubs) }}</td>
+      <td>{{ row.played }}</td>
+      {% if not compact %}
+      <td>{{ row.won }}</td><td>{{ row.drawn }}</td><td>{{ row.lost }}</td>
+      <td>{{ row.goals_for }}</td><td>{{ row.goals_against }}</td>
+      {% endif %}
+      <td>{{ '%+d' | format(row.goal_diff) if row.goal_diff else 0 }}</td>
+      <td class="pts">{{ row.points }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endmacro %}
+
+{% macro lineup_block(lineup, clubs) %}
+<div class="lineup">
+  <h4>{{ clubs[lineup.club_slug].name_ja if clubs.get(lineup.club_slug) else lineup.club_name }}</h4>
+  <p class="formation">
+    {% if lineup.formation %}フォーメーション {{ lineup.formation }}{% endif %}
+    {% if lineup.coach %}{% if lineup.formation %} / {% endif %}監督 {{ lineup.coach }}{% endif %}
+  </p>
+  <div class="label">スターティングメンバー</div>
+  <ol>
+    {% for p in lineup.start %}
+    <li><span class="num">{{ p.number or '' }}</span><span>{{ p.name }}</span><span class="pos">{{ p.position }}</span></li>
+    {% endfor %}
+  </ol>
+  {% if lineup.bench %}
+  <div class="label">ベンチ</div>
+  <ul>
+    {% for p in lineup.bench %}
+    <li><span class="num">{{ p.number or '' }}</span><span>{{ p.name }}</span><span class="pos">{{ p.position }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% macro match_card(match, clubs, open_lineups=False) %}
+<article class="match">
+  <div class="match-head">
+    <div class="match-team home">{{ club_link(match.home_slug, match.home_name, clubs) }}</div>
+    {% if match.status in ('FINISHED', 'LIVE') %}
+    <div class="match-score">{{ match.score_text }}</div>
+    {% elif match.status == 'POSTPONED' %}
+    <div class="match-score pending">延期</div>
+    {% else %}
+    <div class="match-score pending">{{ match.kickoff | jst_time if match.kickoff else 'vs' }}</div>
+    {% endif %}
+    <div class="match-team away">{{ club_link(match.away_slug, match.away_name, clubs) }}</div>
+  </div>
+  <div class="match-meta">
+    <span>{{ league_labels[match.league] }}</span>
+    {% if match.matchday %}<span>第{{ match.matchday }}節</span>{% endif %}
+    {% if match.kickoff %}<span>{{ match.kickoff | jst }}</span>{% endif %}
+    {% if match.venue %}<span>{{ match.venue }}</span>{% endif %}
+    {% if match.status == 'LIVE' %}<span class="badge badge-strong">開催中</span>{% endif %}
+    <span class="sep">出典: {{ match.source }}</span>
+  </div>
+  {% if match.has_lineups or match.away_lineup %}
+  <details {% if open_lineups %}open{% endif %}>
+    <summary>スタメン・ベンチを表示</summary>
+    <div class="lineups">
+      {% if match.home_lineup %}{{ lineup_block(match.home_lineup, clubs) }}{% endif %}
+      {% if match.away_lineup %}{{ lineup_block(match.away_lineup, clubs) }}{% endif %}
+    </div>
+  </details>
+  {% endif %}
+</article>
+{% endmacro %}

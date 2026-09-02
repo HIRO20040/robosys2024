@@ -1,0 +1,53 @@
+# 所属クラブのフォールバック。
+#
+# 通常はビルド時に API の順位表から所属リーグを決めるので、このファイルは使われません。
+# APIキーが無い（ニュースのみのビルド）場合や、シーズン開幕前で順位表が空の場合に
+# のみ参照されます。昇降格があったら fallback_season と一緒に更新してください。
+#
+# サイト側には「順位表が取れていない」旨の注記が出ます。
+
+fallback_season: 2025   # 2025-26 シーズンの構成
+
+SA:
+  - atalanta
+  - bologna
+  - cagliari
+  - como
+  - cremonese
+  - fiorentina
+  - genoa
+  - hellas-verona
+  - inter
+  - juventus
+  - lazio
+  - lecce
+  - milan
+  - napoli
+  - parma
+  - pisa
+  - roma
+  - sassuolo
+  - torino
+  - udinese
+
+SB:
+  - avellino
+  - bari
+  - carrarese
+  - catanzaro
+  - cesena
+  - empoli
+  - entella
+  - frosinone
+  - juve-stabia
+  - mantova
+  - modena
+  - monza
+  - padova
+  - palermo
+  - pescara
+  - reggiana
+  - sampdoria
+  - spezia
+  - sudtirol
+  - venezia

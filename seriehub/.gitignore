@@ -1,0 +1,9 @@
+# ビルド生成物
+site/
+_site/
+
+# 翻訳キャッシュ（CI では actions/cache で持ち回すのでコミットしない）
+data/
+
+__pycache__/
+*.pyc

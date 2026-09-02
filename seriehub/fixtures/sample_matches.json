@@ -1,0 +1,4090 @@
+{
+ "SA": [
+  {
+   "id": "sample-SA-0",
+   "league": "SA",
+   "matchday": 4,
+   "kickoff": "2026-08-30T09:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "fiorentina",
+   "away_slug": "napoli",
+   "home_name": "Fiorentina",
+   "away_name": "Napoli",
+   "home_score": 0,
+   "away_score": 2,
+   "venue": "Stadio Artemio Franchi",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "fiorentina",
+    "club_name": "Fiorentina",
+    "formation": "3-4-2-1",
+    "coach": "Martini",
+    "start": [
+     {
+      "name": "Rizzo",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Giordano",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 13,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 14,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "napoli",
+    "club_name": "Napoli",
+    "formation": "3-4-2-1",
+    "coach": "Ricci",
+    "start": [
+     {
+      "name": "Gallo",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Rizzo",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 13,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 14,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SA-1",
+   "league": "SA",
+   "matchday": 4,
+   "kickoff": "2026-08-30T12:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "como",
+   "away_slug": "bologna",
+   "home_name": "Como",
+   "away_name": "Bologna",
+   "home_score": 3,
+   "away_score": 0,
+   "venue": "Stadio Giuseppe Sinigaglia",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "como",
+    "club_name": "Como",
+    "formation": "4-2-3-1",
+    "coach": "De Luca",
+    "start": [
+     {
+      "name": "Rizzo",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Santoro",
+      "number": 12,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 14,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 15,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 16,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 18,
+      "position": "F",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "bologna",
+    "club_name": "Bologna",
+    "formation": "3-5-2",
+    "coach": "Caruso",
+    "start": [
+     {
+      "name": "Romano",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Colombo",
+      "number": 12,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 13,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 14,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 15,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 16,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 17,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 18,
+      "position": "F",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SA-2",
+   "league": "SA",
+   "matchday": 4,
+   "kickoff": "2026-08-30T15:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "cremonese",
+   "away_slug": "roma",
+   "home_name": "Cremonese",
+   "away_name": "Roma",
+   "home_score": 3,
+   "away_score": 2,
+   "venue": "Stadio Giovanni Zini",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "cremonese",
+    "club_name": "Cremonese",
+    "formation": "3-4-2-1",
+    "coach": "Ricci",
+    "start": [
+     {
+      "name": "Mancini",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Bianchi",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 14,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 15,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 16,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 18,
+      "position": "F",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "roma",
+    "club_name": "Roma",
+    "formation": "4-2-3-1",
+    "coach": "Costa",
+    "start": [
+     {
+      "name": "Romano",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Moretti",
+      "number": 12,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 13,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 17,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 18,
+      "position": "D",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SA-3",
+   "league": "SA",
+   "matchday": 4,
+   "kickoff": "2026-08-30T18:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "genoa",
+   "away_slug": "udinese",
+   "home_name": "Genoa",
+   "away_name": "Udinese",
+   "home_score": 2,
+   "away_score": 2,
+   "venue": "Stadio Luigi Ferraris",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "genoa",
+    "club_name": "Genoa",
+    "formation": "3-5-2",
+    "coach": "De Luca",
+    "start": [
+     {
+      "name": "Conti",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Bruno",
+      "number": 12,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 14,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 16,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 17,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "udinese",
+    "club_name": "Udinese",
+    "formation": "3-5-2",
+    "coach": "Ferrara",
+    "start": [
+     {
+      "name": "Romano",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Ferrari",
+      "number": 12,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 13,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 15,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 16,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 17,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SA-4",
+   "league": "SA",
+   "matchday": 4,
+   "kickoff": "2026-08-30T21:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "milan",
+   "away_slug": "lazio",
+   "home_name": "Milan",
+   "away_name": "Lazio",
+   "home_score": 0,
+   "away_score": 1,
+   "venue": "Stadio Giuseppe Meazza (San Siro)",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "milan",
+    "club_name": "Milan",
+    "formation": "3-5-2",
+    "coach": "Barbieri",
+    "start": [
+     {
+      "name": "Conti",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Gallo",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 13,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 15,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 16,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "lazio",
+    "club_name": "Lazio",
+    "formation": "3-4-2-1",
+    "coach": "Bruno",
+    "start": [
+     {
+      "name": "Marino",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Esposito",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 13,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 14,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 15,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 16,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SA-5",
+   "league": "SA",
+   "matchday": 4,
+   "kickoff": "2026-08-31T00:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "hellas-verona",
+   "away_slug": "pisa",
+   "home_name": "Verona",
+   "away_name": "Pisa",
+   "home_score": 0,
+   "away_score": 1,
+   "venue": "Stadio Marcantonio Bentegodi",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "hellas-verona",
+    "club_name": "Verona",
+    "formation": "4-2-3-1",
+    "coach": "Marino",
+    "start": [
+     {
+      "name": "De Luca",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Santoro",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 13,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 14,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 15,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 16,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 17,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "pisa",
+    "club_name": "Pisa",
+    "formation": "4-2-3-1",
+    "coach": "Marino",
+    "start": [
+     {
+      "name": "De Luca",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Rossi",
+      "number": 12,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 13,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 14,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 16,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 17,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 18,
+      "position": "F",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SA-6",
+   "league": "SA",
+   "matchday": 4,
+   "kickoff": "2026-08-31T03:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "juventus",
+   "away_slug": "sassuolo",
+   "home_name": "Juventus",
+   "away_name": "Sassuolo",
+   "home_score": 0,
+   "away_score": 1,
+   "venue": "Allianz Stadium",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "juventus",
+    "club_name": "Juventus",
+    "formation": "3-5-2",
+    "coach": "Martini",
+    "start": [
+     {
+      "name": "Barbieri",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Martini",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 14,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 15,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 18,
+      "position": "D",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "sassuolo",
+    "club_name": "Sassuolo",
+    "formation": "4-2-3-1",
+    "coach": "Bianchi",
+    "start": [
+     {
+      "name": "Gallo",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Bianchi",
+      "number": 12,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 13,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 14,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 15,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 16,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SA-7",
+   "league": "SA",
+   "matchday": 4,
+   "kickoff": "2026-08-31T06:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "parma",
+   "away_slug": "torino",
+   "home_name": "Parma",
+   "away_name": "Torino",
+   "home_score": 0,
+   "away_score": 0,
+   "venue": "Stadio Ennio Tardini",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "parma",
+    "club_name": "Parma",
+    "formation": "4-2-3-1",
+    "coach": "Caruso",
+    "start": [
+     {
+      "name": "Ricci",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Esposito",
+      "number": 12,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 13,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 14,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 15,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 16,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 17,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "torino",
+    "club_name": "Torino",
+    "formation": "4-2-3-1",
+    "coach": "Colombo",
+    "start": [
+     {
+      "name": "Costa",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Moretti",
+      "number": 12,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 13,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 14,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SA-8",
+   "league": "SA",
+   "matchday": 5,
+   "kickoff": "2026-09-07T09:00:00+00:00",
+   "status": "SCHEDULED",
+   "home_slug": "cagliari",
+   "away_slug": "atalanta",
+   "home_name": "Cagliari",
+   "away_name": "Atalanta",
+   "home_score": null,
+   "away_score": null,
+   "venue": "Unipol Domus",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": null,
+   "away_lineup": null
+  },
+  {
+   "id": "sample-SA-9",
+   "league": "SA",
+   "matchday": 5,
+   "kickoff": "2026-09-07T12:00:00+00:00",
+   "status": "SCHEDULED",
+   "home_slug": "lecce",
+   "away_slug": "inter",
+   "home_name": "Lecce",
+   "away_name": "Inter",
+   "home_score": null,
+   "away_score": null,
+   "venue": "Stadio Via del Mare",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": null,
+   "away_lineup": null
+  }
+ ],
+ "SB": [
+  {
+   "id": "sample-SB-0",
+   "league": "SB",
+   "matchday": 4,
+   "kickoff": "2026-08-30T09:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "reggiana",
+   "away_slug": "palermo",
+   "home_name": "Reggiana",
+   "away_name": "Palermo",
+   "home_score": 0,
+   "away_score": 1,
+   "venue": "Stadio Città del Tricolore",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "reggiana",
+    "club_name": "Reggiana",
+    "formation": "3-4-2-1",
+    "coach": "Martini",
+    "start": [
+     {
+      "name": "Bianchi",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Gallo",
+      "number": 12,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 15,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 17,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "palermo",
+    "club_name": "Palermo",
+    "formation": "4-2-3-1",
+    "coach": "Bruno",
+    "start": [
+     {
+      "name": "Greco",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Galli",
+      "number": 12,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 15,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 17,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 18,
+      "position": "D",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SB-1",
+   "league": "SB",
+   "matchday": 4,
+   "kickoff": "2026-08-30T12:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "pescara",
+   "away_slug": "sudtirol",
+   "home_name": "Pescara",
+   "away_name": "Südtirol",
+   "home_score": 3,
+   "away_score": 1,
+   "venue": "Stadio Adriatico",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "pescara",
+    "club_name": "Pescara",
+    "formation": "3-4-2-1",
+    "coach": "Ferrara",
+    "start": [
+     {
+      "name": "Lombardi",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Fontana",
+      "number": 12,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 13,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 15,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 16,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "sudtirol",
+    "club_name": "Südtirol",
+    "formation": "3-5-2",
+    "coach": "Caruso",
+    "start": [
+     {
+      "name": "Marino",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Caruso",
+      "number": 12,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 14,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SB-2",
+   "league": "SB",
+   "matchday": 4,
+   "kickoff": "2026-08-30T15:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "venezia",
+   "away_slug": "juve-stabia",
+   "home_name": "Venezia",
+   "away_name": "Juve Stabia",
+   "home_score": 3,
+   "away_score": 0,
+   "venue": "Stadio Pierluigi Penzo",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "venezia",
+    "club_name": "Venezia",
+    "formation": "3-5-2",
+    "coach": "De Luca",
+    "start": [
+     {
+      "name": "Marino",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Galli",
+      "number": 12,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 13,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 14,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 15,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 16,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "juve-stabia",
+    "club_name": "Juve Stabia",
+    "formation": "3-4-2-1",
+    "coach": "Moretti",
+    "start": [
+     {
+      "name": "Leone",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Colombo",
+      "number": 12,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 13,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 15,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 18,
+      "position": "D",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SB-3",
+   "league": "SB",
+   "matchday": 4,
+   "kickoff": "2026-08-30T18:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "carrarese",
+   "away_slug": "sampdoria",
+   "home_name": "Carrarese",
+   "away_name": "Sampdoria",
+   "home_score": 3,
+   "away_score": 0,
+   "venue": "Stadio dei Marmi",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "carrarese",
+    "club_name": "Carrarese",
+    "formation": "3-5-2",
+    "coach": "Leone",
+    "start": [
+     {
+      "name": "Bianchi",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Conti",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 14,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 16,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 17,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 18,
+      "position": "F",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "sampdoria",
+    "club_name": "Sampdoria",
+    "formation": "4-3-3",
+    "coach": "Moretti",
+    "start": [
+     {
+      "name": "Rizzo",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Greco",
+      "number": 12,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 13,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 16,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 18,
+      "position": "F",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SB-4",
+   "league": "SB",
+   "matchday": 4,
+   "kickoff": "2026-08-30T21:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "monza",
+   "away_slug": "bari",
+   "home_name": "Monza",
+   "away_name": "Bari",
+   "home_score": 1,
+   "away_score": 2,
+   "venue": "Stadio Brianteo (U-Power Stadium)",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "monza",
+    "club_name": "Monza",
+    "formation": "4-2-3-1",
+    "coach": "Fontana",
+    "start": [
+     {
+      "name": "Colombo",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Ferrari",
+      "number": 12,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 13,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 15,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 16,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "bari",
+    "club_name": "Bari",
+    "formation": "3-4-2-1",
+    "coach": "Rossi",
+    "start": [
+     {
+      "name": "Mancini",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Leone",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 14,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 16,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 17,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 18,
+      "position": "F",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SB-5",
+   "league": "SB",
+   "matchday": 4,
+   "kickoff": "2026-08-31T00:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "entella",
+   "away_slug": "frosinone",
+   "home_name": "Entella",
+   "away_name": "Frosinone",
+   "home_score": 3,
+   "away_score": 0,
+   "venue": "Stadio Comunale di Chiavari",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "entella",
+    "club_name": "Entella",
+    "formation": "3-5-2",
+    "coach": "Conti",
+    "start": [
+     {
+      "name": "Ricci",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Esposito",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Moretti",
+      "number": 12,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 14,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 16,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "frosinone",
+    "club_name": "Frosinone",
+    "formation": "4-2-3-1",
+    "coach": "Caruso",
+    "start": [
+     {
+      "name": "Santoro",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Bruno",
+      "number": 12,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 14,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 15,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SB-6",
+   "league": "SB",
+   "matchday": 4,
+   "kickoff": "2026-08-31T03:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "padova",
+   "away_slug": "empoli",
+   "home_name": "Padova",
+   "away_name": "Empoli",
+   "home_score": 3,
+   "away_score": 2,
+   "venue": "Stadio Euganeo",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "padova",
+    "club_name": "Padova",
+    "formation": "3-4-2-1",
+    "coach": "Gallo",
+    "start": [
+     {
+      "name": "Ricci",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Moretti",
+      "number": 12,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 14,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 15,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 16,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "empoli",
+    "club_name": "Empoli",
+    "formation": "4-2-3-1",
+    "coach": "Rinaldi",
+    "start": [
+     {
+      "name": "Ricci",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Santoro",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Colombo",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Romano",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Lombardi",
+      "number": 12,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 14,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 15,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Giordano",
+      "number": 16,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 18,
+      "position": "F",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SB-7",
+   "league": "SB",
+   "matchday": 4,
+   "kickoff": "2026-08-31T06:00:00+00:00",
+   "status": "FINISHED",
+   "home_slug": "cesena",
+   "away_slug": "spezia",
+   "home_name": "Cesena",
+   "away_name": "Spezia",
+   "home_score": 3,
+   "away_score": 0,
+   "venue": "Stadio Dino Manuzzi",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": {
+    "club_slug": "cesena",
+    "club_name": "Cesena",
+    "formation": "4-2-3-1",
+    "coach": "De Luca",
+    "start": [
+     {
+      "name": "Costa",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Gallo",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Moretti",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Rossi",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Ricci",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Caruso",
+      "number": 12,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Galli",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 14,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 15,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Lombardi",
+      "number": 16,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Conti",
+      "number": 17,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Mariani",
+      "number": 18,
+      "position": "M",
+      "grid": ""
+     }
+    ]
+   },
+   "away_lineup": {
+    "club_slug": "spezia",
+    "club_name": "Spezia",
+    "formation": "3-5-2",
+    "coach": "Fontana",
+    "start": [
+     {
+      "name": "Gallo",
+      "number": 1,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Bianchi",
+      "number": 2,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Rinaldi",
+      "number": 3,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Fontana",
+      "number": 4,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Mancini",
+      "number": 5,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ferrara",
+      "number": 6,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "De Luca",
+      "number": 7,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Caruso",
+      "number": 8,
+      "position": "M",
+      "grid": ""
+     },
+     {
+      "name": "Bruno",
+      "number": 9,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Leone",
+      "number": 10,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Greco",
+      "number": 11,
+      "position": "F",
+      "grid": ""
+     }
+    ],
+    "bench": [
+     {
+      "name": "Lombardi",
+      "number": 12,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Costa",
+      "number": 13,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Ferrari",
+      "number": 14,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Rizzo",
+      "number": 15,
+      "position": "G",
+      "grid": ""
+     },
+     {
+      "name": "Martini",
+      "number": 16,
+      "position": "D",
+      "grid": ""
+     },
+     {
+      "name": "Marino",
+      "number": 17,
+      "position": "F",
+      "grid": ""
+     },
+     {
+      "name": "Barbieri",
+      "number": 18,
+      "position": "G",
+      "grid": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "sample-SB-8",
+   "league": "SB",
+   "matchday": 5,
+   "kickoff": "2026-09-07T09:00:00+00:00",
+   "status": "SCHEDULED",
+   "home_slug": "catanzaro",
+   "away_slug": "avellino",
+   "home_name": "Catanzaro",
+   "away_name": "Avellino",
+   "home_score": null,
+   "away_score": null,
+   "venue": "Stadio Nicola Ceravolo",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": null,
+   "away_lineup": null
+  },
+  {
+   "id": "sample-SB-9",
+   "league": "SB",
+   "matchday": 5,
+   "kickoff": "2026-09-07T12:00:00+00:00",
+   "status": "SCHEDULED",
+   "home_slug": "mantova",
+   "away_slug": "modena",
+   "home_name": "Mantova",
+   "away_name": "Modena",
+   "home_score": null,
+   "away_score": null,
+   "venue": "Stadio Danilo Martelli",
+   "source": "サンプルデータ（架空）",
+   "home_lineup": null,
+   "away_lineup": null
+  }
+ ]
+}

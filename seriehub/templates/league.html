@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% from "_macros.html" import article_item, match_card, standings_table with context %}
+{% block title %}{{ league_labels[league] }} — {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <h1>{{ league_labels[league] }}</h1>
+  <p>{{ season }}-{{ (season + 1) % 100 }}シーズン / 全{{ league_clubs.get(league, []) | length }}クラブ</p>
+</div>
+
+<section class="section">
+  <div class="section-head"><h2>順位表</h2></div>
+  {% if standings.get(league) %}
+    {{ standings_table(standings[league], clubs, league) }}
+    <p class="note" style="margin-top:12px">出典: {{ standings_source.get(league, '不明') }}</p>
+  {% else %}
+    <p class="empty">順位表を取得できていません。APIキーの設定を確認してください。</p>
+  {% endif %}
+  {% if used_fallback %}
+  <p class="note" style="margin-top:12px">
+    順位表が取得できていないため、クラブの顔ぶれは設定ファイルに記録された前回の構成を表示しています。
+    昇降格の反映が遅れている可能性があります。
+  </p>
+  {% endif %}
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>クラブ</h2></div>
+  <div class="club-grid">
+    {% for club in league_clubs.get(league, []) %}
+    <a class="club-card" href="{{ rel }}team/{{ club.slug }}.html" style="--club: {{ club.primary_color }}">
+      <span class="ja">{{ club.name_ja }}</span>
+      <span class="it">{{ club.short_it }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>直近の試合</h2></div>
+  {% if matches %}
+    {% for match in matches[:12] %}{{ match_card(match, clubs) }}{% endfor %}
+  {% else %}
+    <p class="empty">試合データがありません。</p>
+  {% endif %}
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>{{ league_labels[league] }}のニュース</h2></div>
+  {% if articles %}
+  <ul class="articles">
+    {% for article in articles[:25] %}{{ article_item(article, clubs) }}{% endfor %}
+  </ul>
+  {% else %}
+  <p class="empty">記事がありません。</p>
+  {% endif %}
+</section>
+{% endblock %}
